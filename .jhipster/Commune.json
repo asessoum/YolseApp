@@ -1,0 +1,65 @@
+{
+    "name": "Commune",
+    "fields": [
+        {
+            "fieldName": "communeID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nomCommune",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "estActif",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "creeLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creePar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "modifLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modifPar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "province",
+            "otherEntityName": "province",
+            "otherEntityRelationshipName": "communes"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "utilisateurs",
+            "otherEntityName": "utilisateur",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180712214304",
+    "entityTableName": "commune",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

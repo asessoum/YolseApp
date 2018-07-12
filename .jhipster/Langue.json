@@ -1,0 +1,59 @@
+{
+    "name": "Langue",
+    "fields": [
+        {
+            "fieldName": "langueID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "libelle",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "estActif",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "creeLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creePar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "modifLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modifPar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "utilisateurs",
+            "otherEntityName": "utilisateur",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180712214308",
+    "entityTableName": "langue",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

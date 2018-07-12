@@ -1,0 +1,88 @@
+<div>
+    <h2 id="page-heading">
+        <span>Utilisateurs</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-utilisateur-my-suffix" [routerLink]="['/utilisateur-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Utilisateur
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="utilisateurs">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>User ID</span></th>
+            <th><span>Login</span></th>
+            <th><span>Mdp</span></th>
+            <th><span>Nom</span></th>
+            <th><span>Prenom</span></th>
+            <th><span>Naissance</span></th>
+            <th><span>Genre</span></th>
+            <th><span>Tel 1</span></th>
+            <th><span>Tel 2</span></th>
+            <th><span>Email</span></th>
+            <th><span>Est Actif</span></th>
+            <th><span>Cree Le</span></th>
+            <th><span>Cree Par</span></th>
+            <th><span>Modif Le</span></th>
+            <th><span>Modif Par</span></th>
+            <th><span>Profils</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let utilisateur of utilisateurs ;trackBy: trackId">
+                <td><a [routerLink]="['/utilisateur-my-suffix', utilisateur.id, 'view' ]">{{utilisateur.id}}</a></td>
+                <td>{{utilisateur.userID}}</td>
+                <td>{{utilisateur.login}}</td>
+                <td>{{utilisateur.mdp}}</td>
+                <td>{{utilisateur.nom}}</td>
+                <td>{{utilisateur.prenom}}</td>
+                <td>{{utilisateur.naissance | date:'medium'}}</td>
+                <td>{{utilisateur.genre}}</td>
+                <td>{{utilisateur.tel1}}</td>
+                <td>{{utilisateur.tel2}}</td>
+                <td>{{utilisateur.email}}</td>
+                <td>{{utilisateur.estActif}}</td>
+                <td>{{utilisateur.creeLe | date:'medium'}}</td>
+                <td>{{utilisateur.creePar}}</td>
+                <td>{{utilisateur.modifLe | date:'medium'}}</td>
+                <td>{{utilisateur.modifPar}}</td>
+                <td>
+                    <div *ngIf="utilisateur.profilsId">
+                        <a [routerLink]="['../uti-profil-my-suffix', utilisateur.profilsId , 'view' ]" >{{utilisateur.profilsId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/utilisateur-my-suffix', utilisateur.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/utilisateur-my-suffix', utilisateur.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'utilisateur-my-suffix/'+ utilisateur.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

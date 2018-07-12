@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Type Engrais</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-type-engrais-my-suffix" [routerLink]="['/type-engrais-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Type Engrais
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="typeEngrais">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Engrais ID</span></th>
+            <th><span>Libelle</span></th>
+            <th><span>Prix Unitaire</span></th>
+            <th><span>Est Actif</span></th>
+            <th><span>Cree Le</span></th>
+            <th><span>Cree Par</span></th>
+            <th><span>Modif Le</span></th>
+            <th><span>Modif Par</span></th>
+            <th><span>Engrais Clients</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let typeEngrais of typeEngrais ;trackBy: trackId">
+                <td><a [routerLink]="['/type-engrais-my-suffix', typeEngrais.id, 'view' ]">{{typeEngrais.id}}</a></td>
+                <td>{{typeEngrais.engraisID}}</td>
+                <td>{{typeEngrais.libelle}}</td>
+                <td>{{typeEngrais.prixUnitaire}}</td>
+                <td>{{typeEngrais.estActif}}</td>
+                <td>{{typeEngrais.creeLe | date:'medium'}}</td>
+                <td>{{typeEngrais.creePar}}</td>
+                <td>{{typeEngrais.modifLe | date:'medium'}}</td>
+                <td>{{typeEngrais.modifPar}}</td>
+                <td>
+                    <div *ngIf="typeEngrais.engraisClientsId">
+                        <a [routerLink]="['../engrais-client-my-suffix', typeEngrais.engraisClientsId , 'view' ]" >{{typeEngrais.engraisClientsId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/type-engrais-my-suffix', typeEngrais.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/type-engrais-my-suffix', typeEngrais.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'type-engrais-my-suffix/'+ typeEngrais.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

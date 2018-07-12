@@ -1,0 +1,76 @@
+{
+    "name": "EngraisClient",
+    "fields": [
+        {
+            "fieldName": "engCliID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "qEngrais",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pTotEngr",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "estActif",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "creeLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creePar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "modifLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modifPar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityRelationshipName": "engraisClients"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "typeEngrais",
+            "otherEntityName": "typeEngrais",
+            "otherEntityRelationshipName": "engraisClients"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "besoinIntrants",
+            "otherEntityName": "besoinIntrant",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180712214312",
+    "entityTableName": "engrais_client",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

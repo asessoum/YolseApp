@@ -1,0 +1,213 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-besoin-intrant-my-suffix-heading">Create or edit a Besoin Intrant</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!besoinIntrant.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="besoinIntrant.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_besIntID">Bes Int ID</label>
+                    <input type="number" class="form-control" name="besIntID" id="field_besIntID"
+                        [(ngModel)]="besoinIntrant.besIntID" required/>
+                    <div [hidden]="!(editForm.controls.besIntID?.dirty && editForm.controls.besIntID?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.besIntID?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.besIntID?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mAdhesion">M Adhesion</label>
+                    <input type="number" class="form-control" name="mAdhesion" id="field_mAdhesion"
+                        [(ngModel)]="besoinIntrant.mAdhesion" required/>
+                    <div [hidden]="!(editForm.controls.mAdhesion?.dirty && editForm.controls.mAdhesion?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mAdhesion?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mAdhesion?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mAssur">M Assur</label>
+                    <input type="number" class="form-control" name="mAssur" id="field_mAssur"
+                        [(ngModel)]="besoinIntrant.mAssur" required/>
+                    <div [hidden]="!(editForm.controls.mAssur?.dirty && editForm.controls.mAssur?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mAssur?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mAssur?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mGaran">M Garan</label>
+                    <input type="number" class="form-control" name="mGaran" id="field_mGaran"
+                        [(ngModel)]="besoinIntrant.mGaran" required/>
+                    <div [hidden]="!(editForm.controls.mGaran?.dirty && editForm.controls.mGaran?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mGaran?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mGaran?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_stockGar">Stock Gar</label>
+                    <input type="number" class="form-control" name="stockGar" id="field_stockGar"
+                        [(ngModel)]="besoinIntrant.stockGar" required/>
+                    <div [hidden]="!(editForm.controls.stockGar?.dirty && editForm.controls.stockGar?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.stockGar?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.stockGar?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_magasin">Magasin</label>
+                    <input type="text" class="form-control" name="magasin" id="field_magasin"
+                        [(ngModel)]="besoinIntrant.magasin" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.magasin?.dirty && editForm.controls.magasin?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.magasin?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.magasin?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sfd">Sfd</label>
+                    <input type="text" class="form-control" name="sfd" id="field_sfd"
+                        [(ngModel)]="besoinIntrant.sfd" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.sfd?.dirty && editForm.controls.sfd?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.sfd?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.sfd?.errors?.maxlength">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mUniGes">M Uni Ges</label>
+                    <input type="number" class="form-control" name="mUniGes" id="field_mUniGes"
+                        [(ngModel)]="besoinIntrant.mUniGes" required/>
+                    <div [hidden]="!(editForm.controls.mUniGes?.dirty && editForm.controls.mUniGes?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mUniGes?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mUniGes?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mAdmin">M Admin</label>
+                    <input type="number" class="form-control" name="mAdmin" id="field_mAdmin"
+                        [(ngModel)]="besoinIntrant.mAdmin" required/>
+                    <div [hidden]="!(editForm.controls.mAdmin?.dirty && editForm.controls.mAdmin?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mAdmin?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mAdmin?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mExploi">M Exploi</label>
+                    <input type="number" class="form-control" name="mExploi" id="field_mExploi"
+                        [(ngModel)]="besoinIntrant.mExploi" required/>
+                    <div [hidden]="!(editForm.controls.mExploi?.dirty && editForm.controls.mExploi?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mExploi?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mExploi?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_validSup">Valid Sup</label>
+                    <input type="checkbox" class="form-control" name="validSup" id="field_validSup"
+                        [(ngModel)]="besoinIntrant.validSup" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_validRes">Valid Res</label>
+                    <input type="checkbox" class="form-control" name="validRes" id="field_validRes"
+                        [(ngModel)]="besoinIntrant.validRes" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_estActif">Est Actif</label>
+                    <input type="checkbox" class="form-control" name="estActif" id="field_estActif"
+                        [(ngModel)]="besoinIntrant.estActif" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creeLe">Cree Le</label>
+                    <div class="d-flex">
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creePar">Cree Par</label>
+                    <input type="text" class="form-control" name="creePar" id="field_creePar"
+                        [(ngModel)]="besoinIntrant.creePar" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifLe">Modif Le</label>
+                    <div class="d-flex">
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifPar">Modif Par</label>
+                    <input type="text" class="form-control" name="modifPar" id="field_modifPar"
+                        [(ngModel)]="besoinIntrant.modifPar" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

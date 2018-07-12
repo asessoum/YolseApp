@@ -1,0 +1,124 @@
+<div>
+    <h2 id="page-heading">
+        <span>Clients</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-client-my-suffix" [routerLink]="['/client-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Client
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="clients">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clientID"><span>Client ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nom"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="prenom"><span>Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="naissance"><span>Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="genre"><span>Genre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estMarie"><span>Est Marie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numCin"><span>Num Cin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="validCin"><span>Valid Cin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="village"><span>Village</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tel1"><span>Tel 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tel2"><span>Tel 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="orgaProd"><span>Orga Prod</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="photoID"><span>Photo ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tMenage"><span>T Menage</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nomPerAPr"><span>Nom Per A Pr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="prenomPerAPr"><span>Prenom Per A Pr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="telPerAPr"><span>Tel Per A Pr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="superfice"><span>Superfice</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qSemence"><span>Q Semence</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mSimm"><span>M Simm</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="valTotal"><span>Val Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estActif"><span>Est Actif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="suiviChampsId"><span>Suivi Champs</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="engraisClientsId"><span>Engrais Clients</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="utilisateursId"><span>Utilisateurs</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let client of clients ;trackBy: trackId">
+                <td><a [routerLink]="['/client-my-suffix', client.id, 'view' ]">{{client.id}}</a></td>
+                <td>{{client.clientID}}</td>
+                <td>{{client.nom}}</td>
+                <td>{{client.prenom}}</td>
+                <td>{{client.naissance | date:'medium'}}</td>
+                <td>{{client.genre}}</td>
+                <td>{{client.estMarie}}</td>
+                <td>{{client.numCin}}</td>
+                <td>{{client.validCin | date:'medium'}}</td>
+                <td>{{client.village}}</td>
+                <td>{{client.tel1}}</td>
+                <td>{{client.tel2}}</td>
+                <td>{{client.email}}</td>
+                <td>{{client.orgaProd}}</td>
+                <td>{{client.photoID}}</td>
+                <td>{{client.tMenage}}</td>
+                <td>{{client.nomPerAPr}}</td>
+                <td>{{client.prenomPerAPr}}</td>
+                <td>{{client.telPerAPr}}</td>
+                <td>{{client.superfice}}</td>
+                <td>{{client.qSemence}}</td>
+                <td>{{client.mSimm}}</td>
+                <td>{{client.valTotal}}</td>
+                <td>{{client.estActif}}</td>
+                <td>{{client.creeLe | date:'medium'}}</td>
+                <td>{{client.creePar}}</td>
+                <td>{{client.modifLe | date:'medium'}}</td>
+                <td>{{client.modifPar}}</td>
+                <td>
+                    <div *ngIf="client.suiviChampsId">
+                        <a [routerLink]="['../suivi-champs-my-suffix', client.suiviChampsId , 'view' ]" >{{client.suiviChampsId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="client.engraisClientsId">
+                        <a [routerLink]="['../engrais-client-my-suffix', client.engraisClientsId , 'view' ]" >{{client.engraisClientsId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="client.utilisateursId">
+                        <a [routerLink]="['../utilisateur-my-suffix', client.utilisateursId , 'view' ]" >{{client.utilisateursId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/client-my-suffix', client.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/client-my-suffix', client.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'client-my-suffix/'+ client.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

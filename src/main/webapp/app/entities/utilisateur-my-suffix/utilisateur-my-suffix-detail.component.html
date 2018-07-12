@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="utilisateur">
+            <h2><span>Utilisateur</span> {{utilisateur.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>User ID</span></dt>
+                <dd>
+                    <span>{{utilisateur.userID}}</span>
+                </dd>
+                <dt><span>Login</span></dt>
+                <dd>
+                    <span>{{utilisateur.login}}</span>
+                </dd>
+                <dt><span>Mdp</span></dt>
+                <dd>
+                    <span>{{utilisateur.mdp}}</span>
+                </dd>
+                <dt><span>Nom</span></dt>
+                <dd>
+                    <span>{{utilisateur.nom}}</span>
+                </dd>
+                <dt><span>Prenom</span></dt>
+                <dd>
+                    <span>{{utilisateur.prenom}}</span>
+                </dd>
+                <dt><span>Naissance</span></dt>
+                <dd>
+                    <span>{{utilisateur.naissance}}</span>
+                </dd>
+                <dt><span>Genre</span></dt>
+                <dd>
+                    <span>{{utilisateur.genre}}</span>
+                </dd>
+                <dt><span>Tel 1</span></dt>
+                <dd>
+                    <span>{{utilisateur.tel1}}</span>
+                </dd>
+                <dt><span>Tel 2</span></dt>
+                <dd>
+                    <span>{{utilisateur.tel2}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{utilisateur.email}}</span>
+                </dd>
+                <dt><span>Est Actif</span></dt>
+                <dd>
+                    <span>{{utilisateur.estActif}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{utilisateur.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{utilisateur.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{utilisateur.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{utilisateur.modifPar}}</span>
+                </dd>
+                <dt><span>Profils</span></dt>
+                <dd>
+                    <div *ngIf="utilisateur.profilsId">
+                        <a [routerLink]="['/uti-profil-my-suffix', utilisateur.profilsId, 'view']">{{utilisateur.profilsId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/utilisateur-my-suffix', utilisateur.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
