@@ -1,0 +1,236 @@
+entity Region {
+	regionID Integer required maxlength(2)
+	nomRegion String required maxlength(20)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPpar String
+}
+
+entity Province {
+	provinceID Integer required maxlength(2)
+	nomProvince String required maxlength(20)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity Commune {
+	communeID Integer required maxlength(2)
+	nomCommune String required maxlength(20)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity Profil {
+	profilID Integer required maxlength(2)
+	libelle String required maxlength(20)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity TypeEngrais {
+	engraisID Integer required maxlength(2)
+	libelle String required maxlength(20)
+    prixUnitaire Double
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity TypeCulture {
+	engraisID Integer required maxlength(2)
+	libelle String required maxlength(20)
+    prixCession Double
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity Langue {
+	langueID Integer required maxlength(2)
+	libelle String required maxlength(20)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity User {
+	userID Integer required maxlength(6)
+	login String required maxlength(6)
+    mdp String required maxlength(8)
+    nom String required maxlength(20)
+    prenom String required maxlength(20)
+    naissance Instant
+    genre Genre
+    tel1 Integer
+    tel2 Integer
+    email String
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity UtiProfil {
+	utiProID Integer required maxlength(9)
+	userID Integer required maxlength(6)
+	profilID Integer required maxlength(2)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity Client {
+	clientID String required maxlength(13)
+    nom String required maxlength(20)
+    prenom String required maxlength(20)
+    naissance Instant required
+    genre Genre required
+    estMarie Boolean required
+    numCin Integer required maxlength(15)
+    validCin Instant required
+    village String required maxlength(20)
+    tel1 Integer required maxlength(8)
+    tel2 Integer maxlength(8)
+    email String maxlength(50)
+    orgaProd String maxlength(50)
+    photoID String maxlength(200)
+    tMenage Integer maxlength(2)
+    nomPerAPr String maxlength(20)
+    prenomPerAPr String maxlength(20)
+    telPerAPr Integer maxlength(20)
+    superfice Double required maxlength(8)
+    qSemence Double required maxlength(8)
+    mSimm Double required maxlength(9)
+    valTotal Double required maxlength(9)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity EngraisClient {
+	engCliID Integer required maxlength(9)
+    qEngrais Double required maxlength(9)
+    pTotEngr Double required maxlength(9)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity BesoinIntrant {
+	besIntID Integer required maxlength(9)
+    mAdhesion Double required maxlength(9)
+    mAssur Double required maxlength(9)
+    mGaran Double required maxlength(9)
+    stockGar Integer required maxlength(9)
+    magasin String required maxlength(50)
+    sfd String required maxlength(50)
+    mUniGes Double required maxlength(9)
+    mAdmin Double required maxlength(9)
+    mExploi Double required maxlength(9)
+    validSup Boolean
+    validRes Boolean
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity SuiviChamps {
+	suiviID Integer required maxlength(9)
+   	dVisit Instant required
+    emplac String required maxlength(50)
+    obs String maxlength(4000)
+    dosImg String maxlength(200)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+
+enum Genre {
+    HOMME, FEMME
+}
+
+relationship OneToMany {
+	BesoinIntrant{engraisClient} to EngraisClient{besoinIntrants}
+    BesoinIntrant{typeCulture} to TypeCulture{engraisClients}
+}
+
+relationship OneToMany {
+	SuiviChamps{client} to Client{suiviChamps}
+}
+
+relationship OneToMany {
+	User{typeCulture} to TypeCulture{users}
+}
+
+relationship OneToMany {
+	EngraisClient{client} to Client{engraisClients}
+    EngraisClient{typeEngrais} to TypeEngrais{engraisClients}
+}
+
+relationship OneToMany {
+	User{typeCulture} to TypeCulture{users}
+}
+
+relationship OneToMany {
+	User{client} to Client{users}
+}
+
+relationship OneToMany {
+	User{langue} to Langue{users}
+}
+
+relationship OneToMany {
+	UtiProfil{user} to User{profils}
+    UtiProfil{profil} to Profil{users}
+}
+
+relationship OneToMany {
+	User{commune} to Commune{users}
+}
+
+relationship OneToMany {
+	Province{region} to Region{provinces}
+}
+
+relationship OneToMany {
+	Commune{province} to Province{communes}
+}
+
+// Set pagination options
+paginate Client, BesoinIntrant, SuiviChamps, EngraisClient with infinite-scroll
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix
