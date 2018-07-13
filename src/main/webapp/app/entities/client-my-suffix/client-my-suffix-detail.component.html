@@ -1,0 +1,149 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="client">
+            <h2><span>Client</span> {{client.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Client ID</span></dt>
+                <dd>
+                    <span>{{client.clientID}}</span>
+                </dd>
+                <dt><span>Nom</span></dt>
+                <dd>
+                    <span>{{client.nom}}</span>
+                </dd>
+                <dt><span>Prenom</span></dt>
+                <dd>
+                    <span>{{client.prenom}}</span>
+                </dd>
+                <dt><span>Naissance</span></dt>
+                <dd>
+                    <span>{{client.naissance}}</span>
+                </dd>
+                <dt><span>Genre</span></dt>
+                <dd>
+                    <span>{{client.genre}}</span>
+                </dd>
+                <dt><span>Est Marie</span></dt>
+                <dd>
+                    <span>{{client.estMarie}}</span>
+                </dd>
+                <dt><span>Num Cin</span></dt>
+                <dd>
+                    <span>{{client.numCin}}</span>
+                </dd>
+                <dt><span>Valid Cin</span></dt>
+                <dd>
+                    <span>{{client.validCin}}</span>
+                </dd>
+                <dt><span>Village</span></dt>
+                <dd>
+                    <span>{{client.village}}</span>
+                </dd>
+                <dt><span>Tel 1</span></dt>
+                <dd>
+                    <span>{{client.tel1}}</span>
+                </dd>
+                <dt><span>Tel 2</span></dt>
+                <dd>
+                    <span>{{client.tel2}}</span>
+                </dd>
+                <dt><span>Email</span></dt>
+                <dd>
+                    <span>{{client.email}}</span>
+                </dd>
+                <dt><span>Orga Prod</span></dt>
+                <dd>
+                    <span>{{client.orgaProd}}</span>
+                </dd>
+                <dt><span>Photo ID</span></dt>
+                <dd>
+                    <span>{{client.photoID}}</span>
+                </dd>
+                <dt><span>T Menage</span></dt>
+                <dd>
+                    <span>{{client.tMenage}}</span>
+                </dd>
+                <dt><span>Nom Per A Pr</span></dt>
+                <dd>
+                    <span>{{client.nomPerAPr}}</span>
+                </dd>
+                <dt><span>Prenom Per A Pr</span></dt>
+                <dd>
+                    <span>{{client.prenomPerAPr}}</span>
+                </dd>
+                <dt><span>Tel Per A Pr</span></dt>
+                <dd>
+                    <span>{{client.telPerAPr}}</span>
+                </dd>
+                <dt><span>Superfice</span></dt>
+                <dd>
+                    <span>{{client.superfice}}</span>
+                </dd>
+                <dt><span>Q Semence</span></dt>
+                <dd>
+                    <span>{{client.qSemence}}</span>
+                </dd>
+                <dt><span>M Simm</span></dt>
+                <dd>
+                    <span>{{client.mSimm}}</span>
+                </dd>
+                <dt><span>Val Total</span></dt>
+                <dd>
+                    <span>{{client.valTotal}}</span>
+                </dd>
+                <dt><span>Est Actif</span></dt>
+                <dd>
+                    <span>{{client.estActif}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{client.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{client.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{client.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{client.modifPar}}</span>
+                </dd>
+                <dt><span>Suivi Champs</span></dt>
+                <dd>
+                    <div *ngIf="client.suiviChampsId">
+                        <a [routerLink]="['/suivi-champs-my-suffix', client.suiviChampsId, 'view']">{{client.suiviChampsId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Engrais Clients</span></dt>
+                <dd>
+                    <div *ngIf="client.engraisClientsId">
+                        <a [routerLink]="['/engrais-client-my-suffix', client.engraisClientsId, 'view']">{{client.engraisClientsId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Utilisateurs</span></dt>
+                <dd>
+                    <div *ngIf="client.utilisateursId">
+                        <a [routerLink]="['/utilisateur-my-suffix', client.utilisateursId, 'view']">{{client.utilisateursId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/client-my-suffix', client.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

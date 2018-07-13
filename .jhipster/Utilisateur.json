@@ -1,0 +1,134 @@
+{
+    "name": "Utilisateur",
+    "fields": [
+        {
+            "fieldName": "userID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "login",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 6
+        },
+        {
+            "fieldName": "mdp",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 8
+        },
+        {
+            "fieldName": "nom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "prenom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "naissance",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "genre",
+            "fieldType": "Genre",
+            "fieldValues": "HOMME,FEMME",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "tel1",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tel2",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "estActif",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "creeLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creePar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "modifLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modifPar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "typeCulture",
+            "otherEntityName": "typeCulture",
+            "otherEntityRelationshipName": "utilisateurs"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "client",
+            "otherEntityName": "client",
+            "otherEntityRelationshipName": "utilisateurs"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "langue",
+            "otherEntityName": "langue",
+            "otherEntityRelationshipName": "utilisateurs"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "commune",
+            "otherEntityName": "commune",
+            "otherEntityRelationshipName": "utilisateurs"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "profils",
+            "otherEntityName": "utiProfil",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180712214309",
+    "entityTableName": "utilisateur",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

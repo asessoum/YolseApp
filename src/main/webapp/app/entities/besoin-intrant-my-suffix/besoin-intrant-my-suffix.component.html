@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span>Besoin Intrants</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-besoin-intrant-my-suffix" [routerLink]="['/besoin-intrant-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Besoin Intrant
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="besoinIntrants">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="besIntID"><span>Bes Int ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mAdhesion"><span>M Adhesion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mAssur"><span>M Assur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mGaran"><span>M Garan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="stockGar"><span>Stock Gar</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="magasin"><span>Magasin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sfd"><span>Sfd</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mUniGes"><span>M Uni Ges</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mAdmin"><span>M Admin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mExploi"><span>M Exploi</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="validSup"><span>Valid Sup</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="validRes"><span>Valid Res</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estActif"><span>Est Actif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let besoinIntrant of besoinIntrants ;trackBy: trackId">
+                <td><a [routerLink]="['/besoin-intrant-my-suffix', besoinIntrant.id, 'view' ]">{{besoinIntrant.id}}</a></td>
+                <td>{{besoinIntrant.besIntID}}</td>
+                <td>{{besoinIntrant.mAdhesion}}</td>
+                <td>{{besoinIntrant.mAssur}}</td>
+                <td>{{besoinIntrant.mGaran}}</td>
+                <td>{{besoinIntrant.stockGar}}</td>
+                <td>{{besoinIntrant.magasin}}</td>
+                <td>{{besoinIntrant.sfd}}</td>
+                <td>{{besoinIntrant.mUniGes}}</td>
+                <td>{{besoinIntrant.mAdmin}}</td>
+                <td>{{besoinIntrant.mExploi}}</td>
+                <td>{{besoinIntrant.validSup}}</td>
+                <td>{{besoinIntrant.validRes}}</td>
+                <td>{{besoinIntrant.estActif}}</td>
+                <td>{{besoinIntrant.creeLe | date:'medium'}}</td>
+                <td>{{besoinIntrant.creePar}}</td>
+                <td>{{besoinIntrant.modifLe | date:'medium'}}</td>
+                <td>{{besoinIntrant.modifPar}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/besoin-intrant-my-suffix', besoinIntrant.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/besoin-intrant-my-suffix', besoinIntrant.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'besoin-intrant-my-suffix/'+ besoinIntrant.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

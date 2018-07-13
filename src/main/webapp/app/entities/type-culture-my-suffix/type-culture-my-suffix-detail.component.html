@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="typeCulture">
+            <h2><span>Type Culture</span> {{typeCulture.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Engrais ID</span></dt>
+                <dd>
+                    <span>{{typeCulture.engraisID}}</span>
+                </dd>
+                <dt><span>Libelle</span></dt>
+                <dd>
+                    <span>{{typeCulture.libelle}}</span>
+                </dd>
+                <dt><span>Prix Cession</span></dt>
+                <dd>
+                    <span>{{typeCulture.prixCession}}</span>
+                </dd>
+                <dt><span>Est Actif</span></dt>
+                <dd>
+                    <span>{{typeCulture.estActif}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{typeCulture.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{typeCulture.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{typeCulture.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{typeCulture.modifPar}}</span>
+                </dd>
+                <dt><span>Engrais Clients</span></dt>
+                <dd>
+                    <div *ngIf="typeCulture.engraisClientsId">
+                        <a [routerLink]="['/besoin-intrant-my-suffix', typeCulture.engraisClientsId, 'view']">{{typeCulture.engraisClientsId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Utilisateurs</span></dt>
+                <dd>
+                    <div *ngIf="typeCulture.utilisateursId">
+                        <a [routerLink]="['/utilisateur-my-suffix', typeCulture.utilisateursId, 'view']">{{typeCulture.utilisateursId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/type-culture-my-suffix', typeCulture.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

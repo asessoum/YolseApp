@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Engrais Clients</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-engrais-client-my-suffix" [routerLink]="['/engrais-client-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Engrais Client
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="engraisClients">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="engCliID"><span>Eng Cli ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qEngrais"><span>Q Engrais</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pTotEngr"><span>P Tot Engr</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estActif"><span>Est Actif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="besoinIntrantsId"><span>Besoin Intrants</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let engraisClient of engraisClients ;trackBy: trackId">
+                <td><a [routerLink]="['/engrais-client-my-suffix', engraisClient.id, 'view' ]">{{engraisClient.id}}</a></td>
+                <td>{{engraisClient.engCliID}}</td>
+                <td>{{engraisClient.qEngrais}}</td>
+                <td>{{engraisClient.pTotEngr}}</td>
+                <td>{{engraisClient.estActif}}</td>
+                <td>{{engraisClient.creeLe | date:'medium'}}</td>
+                <td>{{engraisClient.creePar}}</td>
+                <td>{{engraisClient.modifLe | date:'medium'}}</td>
+                <td>{{engraisClient.modifPar}}</td>
+                <td>
+                    <div *ngIf="engraisClient.besoinIntrantsId">
+                        <a [routerLink]="['../besoin-intrant-my-suffix', engraisClient.besoinIntrantsId , 'view' ]" >{{engraisClient.besoinIntrantsId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/engrais-client-my-suffix', engraisClient.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/engrais-client-my-suffix', engraisClient.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'engrais-client-my-suffix/'+ engraisClient.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="besoinIntrant">
+            <h2><span>Besoin Intrant</span> {{besoinIntrant.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Bes Int ID</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.besIntID}}</span>
+                </dd>
+                <dt><span>M Adhesion</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.mAdhesion}}</span>
+                </dd>
+                <dt><span>M Assur</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.mAssur}}</span>
+                </dd>
+                <dt><span>M Garan</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.mGaran}}</span>
+                </dd>
+                <dt><span>Stock Gar</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.stockGar}}</span>
+                </dd>
+                <dt><span>Magasin</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.magasin}}</span>
+                </dd>
+                <dt><span>Sfd</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.sfd}}</span>
+                </dd>
+                <dt><span>M Uni Ges</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.mUniGes}}</span>
+                </dd>
+                <dt><span>M Admin</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.mAdmin}}</span>
+                </dd>
+                <dt><span>M Exploi</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.mExploi}}</span>
+                </dd>
+                <dt><span>Valid Sup</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.validSup}}</span>
+                </dd>
+                <dt><span>Valid Res</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.validRes}}</span>
+                </dd>
+                <dt><span>Est Actif</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.estActif}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.modifPar}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/besoin-intrant-my-suffix', besoinIntrant.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

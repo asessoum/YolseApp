@@ -1,0 +1,80 @@
+<div>
+    <h2 id="page-heading">
+        <span>Type Cultures</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-type-culture-my-suffix" [routerLink]="['/type-culture-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Type Culture
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="typeCultures">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Engrais ID</span></th>
+            <th><span>Libelle</span></th>
+            <th><span>Prix Cession</span></th>
+            <th><span>Est Actif</span></th>
+            <th><span>Cree Le</span></th>
+            <th><span>Cree Par</span></th>
+            <th><span>Modif Le</span></th>
+            <th><span>Modif Par</span></th>
+            <th><span>Engrais Clients</span></th>
+            <th><span>Utilisateurs</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let typeCulture of typeCultures ;trackBy: trackId">
+                <td><a [routerLink]="['/type-culture-my-suffix', typeCulture.id, 'view' ]">{{typeCulture.id}}</a></td>
+                <td>{{typeCulture.engraisID}}</td>
+                <td>{{typeCulture.libelle}}</td>
+                <td>{{typeCulture.prixCession}}</td>
+                <td>{{typeCulture.estActif}}</td>
+                <td>{{typeCulture.creeLe | date:'medium'}}</td>
+                <td>{{typeCulture.creePar}}</td>
+                <td>{{typeCulture.modifLe | date:'medium'}}</td>
+                <td>{{typeCulture.modifPar}}</td>
+                <td>
+                    <div *ngIf="typeCulture.engraisClientsId">
+                        <a [routerLink]="['../besoin-intrant-my-suffix', typeCulture.engraisClientsId , 'view' ]" >{{typeCulture.engraisClientsId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="typeCulture.utilisateursId">
+                        <a [routerLink]="['../utilisateur-my-suffix', typeCulture.utilisateursId , 'view' ]" >{{typeCulture.utilisateursId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/type-culture-my-suffix', typeCulture.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/type-culture-my-suffix', typeCulture.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'type-culture-my-suffix/'+ typeCulture.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
