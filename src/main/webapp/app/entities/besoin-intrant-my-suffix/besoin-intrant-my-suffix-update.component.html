@@ -55,6 +55,21 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_prixTotSemence">Prix Tot Semence</label>
+                    <input type="number" class="form-control" name="prixTotSemence" id="field_prixTotSemence"
+                        [(ngModel)]="besoinIntrant.prixTotSemence" required/>
+                    <div [hidden]="!(editForm.controls.prixTotSemence?.dirty && editForm.controls.prixTotSemence?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.prixTotSemence?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.prixTotSemence?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_valeurTot">Valeur Tot</label>
                     <input type="number" class="form-control" name="valeurTot" id="field_valeurTot"
                         [(ngModel)]="besoinIntrant.valeurTot" required/>

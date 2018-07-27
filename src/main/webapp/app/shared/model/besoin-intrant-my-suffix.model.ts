@@ -6,6 +6,7 @@ export interface IBesoinIntrantMySuffix {
     besIntID?: number;
     superficieEsc?: number;
     qSemence?: number;
+    prixTotSemence?: number;
     valeurTot?: number;
     mAdhesion?: number;
     mAssur?: number;
@@ -35,6 +36,7 @@ export class BesoinIntrantMySuffix implements IBesoinIntrantMySuffix {
         public besIntID?: number,
         public superficieEsc?: number,
         public qSemence?: number,
+        public prixTotSemence?: number,
         public valeurTot?: number,
         public mAdhesion?: number,
         public mAssur?: number,

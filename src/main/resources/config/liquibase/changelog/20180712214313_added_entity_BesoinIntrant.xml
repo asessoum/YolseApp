@@ -33,6 +33,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="prix_tot_semence" type="double">
+                <constraints nullable="false" />
+            </column>
+
             <column name="valeur_tot" type="double">
                 <constraints nullable="false" />
             </column>
