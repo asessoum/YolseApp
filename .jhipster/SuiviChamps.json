@@ -71,22 +71,22 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "client",
             "otherEntityName": "client",
-            "otherEntityRelationshipName": "suiviChamps"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "utilisateur",
             "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "suiviChamps"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "commune",
             "otherEntityName": "commune",
-            "otherEntityRelationshipName": "suiviChamps"
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180712214314",

@@ -1,7 +1,6 @@
 import { Moment } from 'moment';
-import { ILangueMySuffix } from 'app/shared/model//langue-my-suffix.model';
-import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
-import { ICommuneMySuffix } from 'app/shared/model//commune-my-suffix.model';
+import { IBesoinIntrantMySuffix } from 'app/shared/model//besoin-intrant-my-suffix.model';
+import { ISuiviChampsMySuffix } from 'app/shared/model//suivi-champs-my-suffix.model';
 
 export const enum Genre {
     HOMME = 'HOMME',
@@ -34,11 +33,11 @@ export interface IClientMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    langues?: ILangueMySuffix[];
-    utilisateurs?: IUtilisateurMySuffix[];
-    communes?: ICommuneMySuffix[];
-    besoinIntrantsId?: number;
-    suiviChampsId?: number;
+    langueId?: number;
+    utilisateurId?: number;
+    communeId?: number;
+    besoinIntrants?: IBesoinIntrantMySuffix[];
+    suiviChamps?: ISuiviChampsMySuffix[];
 }
 
 export class ClientMySuffix implements IClientMySuffix {
@@ -68,11 +67,11 @@ export class ClientMySuffix implements IClientMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public langues?: ILangueMySuffix[],
-        public utilisateurs?: IUtilisateurMySuffix[],
-        public communes?: ICommuneMySuffix[],
-        public besoinIntrantsId?: number,
-        public suiviChampsId?: number
+        public langueId?: number,
+        public utilisateurId?: number,
+        public communeId?: number,
+        public besoinIntrants?: IBesoinIntrantMySuffix[],
+        public suiviChamps?: ISuiviChampsMySuffix[]
     ) {
         this.estMarie = false;
         this.estActif = false;

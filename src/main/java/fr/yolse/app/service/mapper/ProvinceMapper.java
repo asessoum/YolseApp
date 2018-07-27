@@ -8,14 +8,14 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Province and its DTO ProvinceDTO.
  */
-@Mapper(componentModel = "spring", uses = {CommuneMapper.class})
+@Mapper(componentModel = "spring", uses = {RegionMapper.class})
 public interface ProvinceMapper extends EntityMapper<ProvinceDTO, Province> {
 
-    @Mapping(source = "communes.id", target = "communesId")
+    @Mapping(source = "region.id", target = "regionId")
     ProvinceDTO toDto(Province province);
 
-    @Mapping(target = "regions", ignore = true)
-    @Mapping(source = "communesId", target = "communes")
+    @Mapping(source = "regionId", target = "region")
+    @Mapping(target = "communes", ignore = true)
     Province toEntity(ProvinceDTO provinceDTO);
 
     default Province fromId(Long id) {

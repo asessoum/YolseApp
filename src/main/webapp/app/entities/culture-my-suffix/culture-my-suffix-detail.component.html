@@ -37,18 +37,6 @@
                 <dd>
                     <span>{{culture.modifPar}}</span>
                 </dd>
-                <dt><span>Besoins Intrants Esc</span></dt>
-                <dd>
-                    <div *ngIf="culture.besoinsIntrantsEscId">
-                        <a [routerLink]="['/besoin-intrant-my-suffix', culture.besoinsIntrantsEscId, 'view']">{{culture.besoinsIntrantsEscId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Besoins Intrants Gar</span></dt>
-                <dd>
-                    <div *ngIf="culture.besoinsIntrantsGarId">
-                        <a [routerLink]="['/besoin-intrant-my-suffix', culture.besoinsIntrantsGarId, 'view']">{{culture.besoinsIntrantsGarId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

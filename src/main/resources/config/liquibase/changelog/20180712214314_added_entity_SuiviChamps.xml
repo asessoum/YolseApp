@@ -65,6 +65,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="client_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="utilisateur_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="commune_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="suivi_champs" columnName="d_visit" columnDataType="datetime"/>

@@ -29,8 +29,6 @@ public class ProfileDTO implements Serializable {
 
     private String modifPar;
 
-    private Long utilisateursId;
-
     public Long getId() {
         return id;
     }
@@ -95,14 +93,6 @@ public class ProfileDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getUtilisateursId() {
-        return utilisateursId;
-    }
-
-    public void setUtilisateursId(Long utiProfileId) {
-        this.utilisateursId = utiProfileId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -135,7 +125,6 @@ public class ProfileDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", utilisateurs=" + getUtilisateursId() +
             "}";
     }
 }

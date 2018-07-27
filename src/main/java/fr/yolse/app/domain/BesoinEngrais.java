@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,8 +9,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -48,13 +46,13 @@ public class BesoinEngrais implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "besoinEngrais")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<BesoinIntrant> besoinIntrants = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("besoinEngrais")
+    private BesoinIntrant besoinIntrant;
 
-    @OneToMany(mappedBy = "besoinEngrais")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Engrais> engrais = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("besoinEngrais")
+    private Engrais engrais;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -143,53 +141,29 @@ public class BesoinEngrais implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<BesoinIntrant> getBesoinIntrants() {
-        return besoinIntrants;
+    public BesoinIntrant getBesoinIntrant() {
+        return besoinIntrant;
     }
 
-    public BesoinEngrais besoinIntrants(Set<BesoinIntrant> besoinIntrants) {
-        this.besoinIntrants = besoinIntrants;
+    public BesoinEngrais besoinIntrant(BesoinIntrant besoinIntrant) {
+        this.besoinIntrant = besoinIntrant;
         return this;
     }
 
-    public BesoinEngrais addBesoinIntrant(BesoinIntrant besoinIntrant) {
-        this.besoinIntrants.add(besoinIntrant);
-        besoinIntrant.setBesoinEngrais(this);
-        return this;
+    public void setBesoinIntrant(BesoinIntrant besoinIntrant) {
+        this.besoinIntrant = besoinIntrant;
     }
 
-    public BesoinEngrais removeBesoinIntrant(BesoinIntrant besoinIntrant) {
-        this.besoinIntrants.remove(besoinIntrant);
-        besoinIntrant.setBesoinEngrais(null);
-        return this;
-    }
-
-    public void setBesoinIntrants(Set<BesoinIntrant> besoinIntrants) {
-        this.besoinIntrants = besoinIntrants;
-    }
-
-    public Set<Engrais> getEngrais() {
+    public Engrais getEngrais() {
         return engrais;
     }
 
-    public BesoinEngrais engrais(Set<Engrais> engrais) {
+    public BesoinEngrais engrais(Engrais engrais) {
         this.engrais = engrais;
         return this;
     }
 
-    public BesoinEngrais addEngrais(Engrais engrais) {
-        this.engrais.add(engrais);
-        engrais.setBesoinEngrais(this);
-        return this;
-    }
-
-    public BesoinEngrais removeEngrais(Engrais engrais) {
-        this.engrais.remove(engrais);
-        engrais.setBesoinEngrais(null);
-        return this;
-    }
-
-    public void setEngrais(Set<Engrais> engrais) {
+    public void setEngrais(Engrais engrais) {
         this.engrais = engrais;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

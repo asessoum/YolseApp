@@ -8,15 +8,12 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Culture and its DTO CultureDTO.
  */
-@Mapper(componentModel = "spring", uses = {BesoinIntrantMapper.class})
+@Mapper(componentModel = "spring", uses = {})
 public interface CultureMapper extends EntityMapper<CultureDTO, Culture> {
 
-    @Mapping(source = "besoinsIntrantsEsc.id", target = "besoinsIntrantsEscId")
-    @Mapping(source = "besoinsIntrantsGar.id", target = "besoinsIntrantsGarId")
-    CultureDTO toDto(Culture culture);
 
-    @Mapping(source = "besoinsIntrantsEscId", target = "besoinsIntrantsEsc")
-    @Mapping(source = "besoinsIntrantsGarId", target = "besoinsIntrantsGar")
+    @Mapping(target = "besoinsIntrantsEscs", ignore = true)
+    @Mapping(target = "besoinsIntrantsGars", ignore = true)
     Culture toEntity(CultureDTO cultureDTO);
 
     default Culture fromId(Long id) {

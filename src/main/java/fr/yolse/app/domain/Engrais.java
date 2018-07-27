@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -53,9 +55,9 @@ public class Engrais implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @ManyToOne
-    @JsonIgnoreProperties("engrais")
-    private BesoinEngrais besoinEngrais;
+    @OneToMany(mappedBy = "engrais")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BesoinEngrais> besoinEngrais = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -170,16 +172,28 @@ public class Engrais implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public BesoinEngrais getBesoinEngrais() {
+    public Set<BesoinEngrais> getBesoinEngrais() {
         return besoinEngrais;
     }
 
-    public Engrais besoinEngrais(BesoinEngrais besoinEngrais) {
+    public Engrais besoinEngrais(Set<BesoinEngrais> besoinEngrais) {
         this.besoinEngrais = besoinEngrais;
         return this;
     }
 
-    public void setBesoinEngrais(BesoinEngrais besoinEngrais) {
+    public Engrais addBesoinEngrais(BesoinEngrais besoinEngrais) {
+        this.besoinEngrais.add(besoinEngrais);
+        besoinEngrais.setEngrais(this);
+        return this;
+    }
+
+    public Engrais removeBesoinEngrais(BesoinEngrais besoinEngrais) {
+        this.besoinEngrais.remove(besoinEngrais);
+        besoinEngrais.setEngrais(null);
+        return this;
+    }
+
+    public void setBesoinEngrais(Set<BesoinEngrais> besoinEngrais) {
         this.besoinEngrais = besoinEngrais;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

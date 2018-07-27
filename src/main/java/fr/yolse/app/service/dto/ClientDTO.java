@@ -86,9 +86,11 @@ public class ClientDTO implements Serializable {
 
     private String modifPar;
 
-    private Long besoinIntrantsId;
+    private Long langueId;
 
-    private Long suiviChampsId;
+    private Long utilisateurId;
+
+    private Long communeId;
 
     public Long getId() {
         return id;
@@ -290,20 +292,28 @@ public class ClientDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getBesoinIntrantsId() {
-        return besoinIntrantsId;
+    public Long getLangueId() {
+        return langueId;
     }
 
-    public void setBesoinIntrantsId(Long besoinIntrantId) {
-        this.besoinIntrantsId = besoinIntrantId;
+    public void setLangueId(Long langueId) {
+        this.langueId = langueId;
     }
 
-    public Long getSuiviChampsId() {
-        return suiviChampsId;
+    public Long getUtilisateurId() {
+        return utilisateurId;
     }
 
-    public void setSuiviChampsId(Long suiviChampsId) {
-        this.suiviChampsId = suiviChampsId;
+    public void setUtilisateurId(Long utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public Long getCommuneId() {
+        return communeId;
+    }
+
+    public void setCommuneId(Long communeId) {
+        this.communeId = communeId;
     }
 
     @Override
@@ -355,8 +365,9 @@ public class ClientDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", besoinIntrants=" + getBesoinIntrantsId() +
-            ", suiviChamps=" + getSuiviChampsId() +
+            ", langue=" + getLangueId() +
+            ", utilisateur=" + getUtilisateurId() +
+            ", commune=" + getCommuneId() +
             "}";
     }
 }

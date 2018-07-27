@@ -124,46 +124,46 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "langue",
             "otherEntityName": "langue",
-            "otherEntityRelationshipName": "utilisateurs"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "commune",
             "otherEntityName": "commune",
-            "otherEntityRelationshipName": "utilisateurs"
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "responsable",
+            "otherEntityName": "utilisateur",
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "responsable",
-            "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "agents"
-        },
-        {
-            "relationshipType": "many-to-one",
             "relationshipName": "agents",
             "otherEntityName": "utilisateur",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "responsable"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "profiles",
             "otherEntityName": "utiProfile",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "utilisateur"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "clients",
             "otherEntityName": "client",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "utilisateur"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "suiviChamps",
             "otherEntityName": "suiviChamps",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "utilisateur"
         }
     ],
     "changelogDate": "20180712214309",

@@ -101,16 +101,22 @@
                 <dd>
                     <span>{{client.modifPar}}</span>
                 </dd>
-                <dt><span>Besoin Intrants</span></dt>
+                <dt><span>Langue</span></dt>
                 <dd>
-                    <div *ngIf="client.besoinIntrantsId">
-                        <a [routerLink]="['/besoin-intrant-my-suffix', client.besoinIntrantsId, 'view']">{{client.besoinIntrantsId}}</a>
+                    <div *ngIf="client.langueId">
+                        <a [routerLink]="['/langue-my-suffix', client.langueId, 'view']">{{client.langueId}}</a>
                     </div>
                 </dd>
-                <dt><span>Suivi Champs</span></dt>
+                <dt><span>Utilisateur</span></dt>
                 <dd>
-                    <div *ngIf="client.suiviChampsId">
-                        <a [routerLink]="['/suivi-champs-my-suffix', client.suiviChampsId, 'view']">{{client.suiviChampsId}}</a>
+                    <div *ngIf="client.utilisateurId">
+                        <a [routerLink]="['/utilisateur-my-suffix', client.utilisateurId, 'view']">{{client.utilisateurId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Commune</span></dt>
+                <dd>
+                    <div *ngIf="client.communeId">
+                        <a [routerLink]="['/commune-my-suffix', client.communeId, 'view']">{{client.communeId}}</a>
                     </div>
                 </dd>
             </dl>

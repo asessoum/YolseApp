@@ -29,6 +29,18 @@
                 <dd>
                     <span>{{utiProfile.modifPar}}</span>
                 </dd>
+                <dt><span>Utilisateur</span></dt>
+                <dd>
+                    <div *ngIf="utiProfile.utilisateurId">
+                        <a [routerLink]="['/utilisateur-my-suffix', utiProfile.utilisateurId, 'view']">{{utiProfile.utilisateurId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Profile</span></dt>
+                <dd>
+                    <div *ngIf="utiProfile.profileId">
+                        <a [routerLink]="['/profile-my-suffix', utiProfile.profileId, 'view']">{{utiProfile.profileId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

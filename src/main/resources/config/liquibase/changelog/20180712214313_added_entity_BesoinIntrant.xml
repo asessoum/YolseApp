@@ -101,7 +101,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="besoin_engrais_id" type="bigint">
+            <column name="client_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="culture_esc_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="culture_gar_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

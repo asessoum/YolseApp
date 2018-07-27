@@ -39,5 +39,8 @@
     <include file="config/liquibase/changelog/20180727151344_added_entity_constraints_Culture.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180727151347_added_entity_constraints_Profile.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180712214313_added_entity_constraints_BesoinIntrant.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180727151349_added_entity_constraints_UtiProfile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180727151352_added_entity_constraints_BesoinEngrais.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180712214314_added_entity_constraints_SuiviChamps.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

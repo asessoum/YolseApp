@@ -31,16 +31,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "utilisateur",
             "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "profiles"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "profile",
             "otherEntityName": "profile",
-            "otherEntityRelationshipName": "utilisateurs"
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180727151349",

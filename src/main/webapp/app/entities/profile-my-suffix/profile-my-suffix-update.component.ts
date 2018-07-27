@@ -4,12 +4,9 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
 
 import { IProfileMySuffix } from 'app/shared/model/profile-my-suffix.model';
 import { ProfileMySuffixService } from './profile-my-suffix.service';
-import { IUtiProfileMySuffix } from 'app/shared/model/uti-profile-my-suffix.model';
-import { UtiProfileMySuffixService } from 'app/entities/uti-profile-my-suffix';
 
 @Component({
     selector: 'jhi-profile-my-suffix-update',
@@ -18,29 +15,16 @@ import { UtiProfileMySuffixService } from 'app/entities/uti-profile-my-suffix';
 export class ProfileMySuffixUpdateComponent implements OnInit {
     private _profile: IProfileMySuffix;
     isSaving: boolean;
-
-    utiprofiles: IUtiProfileMySuffix[];
     creeLe: string;
     modifLe: string;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private profileService: ProfileMySuffixService,
-        private utiProfileService: UtiProfileMySuffixService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private profileService: ProfileMySuffixService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ profile }) => {
             this.profile = profile;
         });
-        this.utiProfileService.query().subscribe(
-            (res: HttpResponse<IUtiProfileMySuffix[]>) => {
-                this.utiprofiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -69,14 +53,6 @@ export class ProfileMySuffixUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackUtiProfileById(index: number, item: IUtiProfileMySuffix) {
-        return item.id;
     }
     get profile() {
         return this._profile;

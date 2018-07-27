@@ -64,6 +64,20 @@
                         [(ngModel)]="besoinEngrais.modifPar" />
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" for="field_besoinIntrant">Besoin Intrant</label>
+                    <select class="form-control" id="field_besoinIntrant" name="besoinIntrant" [(ngModel)]="besoinEngrais.besoinIntrantId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="besoinIntrantOption.id" *ngFor="let besoinIntrantOption of besoinintrants; trackBy: trackBesoinIntrantById">{{besoinIntrantOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_engrais">Engrais</label>
+                    <select class="form-control" id="field_engrais" name="engrais" [(ngModel)]="besoinEngrais.engraisId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="engraisOption.id" *ngFor="let engraisOption of engrais; trackBy: trackEngraisById">{{engraisOption.id}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

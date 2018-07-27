@@ -40,16 +40,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "utilisateurs",
             "otherEntityName": "utilisateur",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "langue"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "clients",
             "otherEntityName": "client",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "langue"
         }
     ],
     "changelogDate": "20180712214308",

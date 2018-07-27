@@ -49,15 +49,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="utilisateurs_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="clients_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="suivi_champs_id" type="bigint">
+            <column name="province_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

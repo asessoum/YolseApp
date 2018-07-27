@@ -8,13 +8,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Profile and its DTO ProfileDTO.
  */
-@Mapper(componentModel = "spring", uses = {UtiProfileMapper.class})
+@Mapper(componentModel = "spring", uses = {})
 public interface ProfileMapper extends EntityMapper<ProfileDTO, Profile> {
 
-    @Mapping(source = "utilisateurs.id", target = "utilisateursId")
-    ProfileDTO toDto(Profile profile);
 
-    @Mapping(source = "utilisateursId", target = "utilisateurs")
+    @Mapping(target = "utilisateurs", ignore = true)
     Profile toEntity(ProfileDTO profileDTO);
 
     default Profile fromId(Long id) {

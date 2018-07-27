@@ -8,10 +8,12 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
 import { ClientMySuffixService } from './client-my-suffix.service';
-import { IBesoinIntrantMySuffix } from 'app/shared/model/besoin-intrant-my-suffix.model';
-import { BesoinIntrantMySuffixService } from 'app/entities/besoin-intrant-my-suffix';
-import { ISuiviChampsMySuffix } from 'app/shared/model/suivi-champs-my-suffix.model';
-import { SuiviChampsMySuffixService } from 'app/entities/suivi-champs-my-suffix';
+import { ILangueMySuffix } from 'app/shared/model/langue-my-suffix.model';
+import { LangueMySuffixService } from 'app/entities/langue-my-suffix';
+import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
+import { UtilisateurMySuffixService } from 'app/entities/utilisateur-my-suffix';
+import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
+import { CommuneMySuffixService } from 'app/entities/commune-my-suffix';
 
 @Component({
     selector: 'jhi-client-my-suffix-update',
@@ -21,9 +23,11 @@ export class ClientMySuffixUpdateComponent implements OnInit {
     private _client: IClientMySuffix;
     isSaving: boolean;
 
-    besoinintrants: IBesoinIntrantMySuffix[];
+    langues: ILangueMySuffix[];
 
-    suivichamps: ISuiviChampsMySuffix[];
+    utilisateurs: IUtilisateurMySuffix[];
+
+    communes: ICommuneMySuffix[];
     naissance: string;
     dCarteUtil: string;
     creeLe: string;
@@ -32,8 +36,9 @@ export class ClientMySuffixUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private clientService: ClientMySuffixService,
-        private besoinIntrantService: BesoinIntrantMySuffixService,
-        private suiviChampsService: SuiviChampsMySuffixService,
+        private langueService: LangueMySuffixService,
+        private utilisateurService: UtilisateurMySuffixService,
+        private communeService: CommuneMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -42,15 +47,21 @@ export class ClientMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ client }) => {
             this.client = client;
         });
-        this.besoinIntrantService.query().subscribe(
-            (res: HttpResponse<IBesoinIntrantMySuffix[]>) => {
-                this.besoinintrants = res.body;
+        this.langueService.query().subscribe(
+            (res: HttpResponse<ILangueMySuffix[]>) => {
+                this.langues = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.suiviChampsService.query().subscribe(
-            (res: HttpResponse<ISuiviChampsMySuffix[]>) => {
-                this.suivichamps = res.body;
+        this.utilisateurService.query().subscribe(
+            (res: HttpResponse<IUtilisateurMySuffix[]>) => {
+                this.utilisateurs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.communeService.query().subscribe(
+            (res: HttpResponse<ICommuneMySuffix[]>) => {
+                this.communes = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -90,11 +101,15 @@ export class ClientMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackBesoinIntrantById(index: number, item: IBesoinIntrantMySuffix) {
+    trackLangueById(index: number, item: ILangueMySuffix) {
         return item.id;
     }
 
-    trackSuiviChampsById(index: number, item: ISuiviChampsMySuffix) {
+    trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
+        return item.id;
+    }
+
+    trackCommuneById(index: number, item: ICommuneMySuffix) {
         return item.id;
     }
     get client() {

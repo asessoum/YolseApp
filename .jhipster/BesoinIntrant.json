@@ -127,28 +127,28 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "client",
             "otherEntityName": "client",
-            "otherEntityRelationshipName": "besoinIntrants"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "cultureEsc",
-            "otherEntityName": "culture",
-            "otherEntityRelationshipName": "besoinsIntrantsEsc"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "cultureGar",
-            "otherEntityName": "culture",
-            "otherEntityRelationshipName": "besoinsIntrantsGar"
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
+            "relationshipName": "cultureEsc",
+            "otherEntityName": "culture",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cultureGar",
+            "otherEntityName": "culture",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
             "relationshipName": "besoinEngrais",
             "otherEntityName": "besoinEngrais",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "besoinIntrant"
         }
     ],
     "changelogDate": "20180712214313",

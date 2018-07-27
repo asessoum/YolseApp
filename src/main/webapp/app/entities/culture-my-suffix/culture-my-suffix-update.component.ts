@@ -4,12 +4,9 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
 
 import { ICultureMySuffix } from 'app/shared/model/culture-my-suffix.model';
 import { CultureMySuffixService } from './culture-my-suffix.service';
-import { IBesoinIntrantMySuffix } from 'app/shared/model/besoin-intrant-my-suffix.model';
-import { BesoinIntrantMySuffixService } from 'app/entities/besoin-intrant-my-suffix';
 
 @Component({
     selector: 'jhi-culture-my-suffix-update',
@@ -18,29 +15,16 @@ import { BesoinIntrantMySuffixService } from 'app/entities/besoin-intrant-my-suf
 export class CultureMySuffixUpdateComponent implements OnInit {
     private _culture: ICultureMySuffix;
     isSaving: boolean;
-
-    besoinintrants: IBesoinIntrantMySuffix[];
     creeLe: string;
     modifLe: string;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private cultureService: CultureMySuffixService,
-        private besoinIntrantService: BesoinIntrantMySuffixService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private cultureService: CultureMySuffixService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ culture }) => {
             this.culture = culture;
         });
-        this.besoinIntrantService.query().subscribe(
-            (res: HttpResponse<IBesoinIntrantMySuffix[]>) => {
-                this.besoinintrants = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -69,14 +53,6 @@ export class CultureMySuffixUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackBesoinIntrantById(index: number, item: IBesoinIntrantMySuffix) {
-        return item.id;
     }
     get culture() {
         return this._culture;

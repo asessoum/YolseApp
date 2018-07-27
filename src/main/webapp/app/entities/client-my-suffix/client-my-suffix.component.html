@@ -39,8 +39,9 @@
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="besoinIntrantsId"><span>Besoin Intrants</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="suiviChampsId"><span>Suivi Champs</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="langueId"><span>Langue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="utilisateurId"><span>Utilisateur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="communeId"><span>Commune</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -72,13 +73,18 @@
                 <td>{{client.modifLe | date:'medium'}}</td>
                 <td>{{client.modifPar}}</td>
                 <td>
-                    <div *ngIf="client.besoinIntrantsId">
-                        <a [routerLink]="['../besoin-intrant-my-suffix', client.besoinIntrantsId , 'view' ]" >{{client.besoinIntrantsId}}</a>
+                    <div *ngIf="client.langueId">
+                        <a [routerLink]="['../langue-my-suffix', client.langueId , 'view' ]" >{{client.langueId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="client.suiviChampsId">
-                        <a [routerLink]="['../suivi-champs-my-suffix', client.suiviChampsId , 'view' ]" >{{client.suiviChampsId}}</a>
+                    <div *ngIf="client.utilisateurId">
+                        <a [routerLink]="['../utilisateur-my-suffix', client.utilisateurId , 'view' ]" >{{client.utilisateurId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="client.communeId">
+                        <a [routerLink]="['../commune-my-suffix', client.communeId , 'view' ]" >{{client.communeId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

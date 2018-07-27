@@ -8,29 +8,23 @@
     -->
     <changeSet id="20180712214309-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="agents_id"
+        <addForeignKeyConstraint baseColumnNames="langue_id"
                                  baseTableName="utilisateur"
-                                 constraintName="fk_utilisateur_agents_id"
+                                 constraintName="fk_utilisateur_langue_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="langue"/>
+
+        <addForeignKeyConstraint baseColumnNames="commune_id"
+                                 baseTableName="utilisateur"
+                                 constraintName="fk_utilisateur_commune_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="commune"/>
+
+        <addForeignKeyConstraint baseColumnNames="responsable_id"
+                                 baseTableName="utilisateur"
+                                 constraintName="fk_utilisateur_responsable_id"
                                  referencedColumnNames="id"
                                  referencedTableName="utilisateur"/>
-
-        <addForeignKeyConstraint baseColumnNames="profiles_id"
-                                 baseTableName="utilisateur"
-                                 constraintName="fk_utilisateur_profiles_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="uti_profile"/>
-
-        <addForeignKeyConstraint baseColumnNames="clients_id"
-                                 baseTableName="utilisateur"
-                                 constraintName="fk_utilisateur_clients_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="client"/>
-
-        <addForeignKeyConstraint baseColumnNames="suivi_champs_id"
-                                 baseTableName="utilisateur"
-                                 constraintName="fk_utilisateur_suivi_champs_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="suivi_champs"/>
 
     </changeSet>
 </databaseChangeLog>

@@ -18,7 +18,7 @@ entity Province {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     Province{region} to Region{provinces}
 }
 
@@ -32,7 +32,7 @@ entity Commune {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     Commune{province} to Province{communes}
 }
 
@@ -111,7 +111,7 @@ entity Utilisateur {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     Utilisateur{langue} to Langue{utilisateurs}
     Utilisateur{commune} to Commune{utilisateurs}
     Utilisateur{responsable} to Utilisateur{agents}
@@ -126,7 +126,7 @@ entity UtiProfile {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     UtiProfile{utilisateur} to Utilisateur{profiles}
     UtiProfile{profile} to Profile{utilisateurs}
 }
@@ -158,7 +158,7 @@ entity Client {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     Client{langue} to Langue{clients}
     Client{utilisateur} to Utilisateur{clients}
     Client{commune} to Commune{clients}
@@ -187,7 +187,7 @@ entity BesoinIntrant {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     BesoinIntrant{client} to Client{besoinIntrants}
     BesoinIntrant{cultureEsc} to Culture{besoinsIntrantsEsc}
     BesoinIntrant{cultureGar} to Culture{besoinsIntrantsGar}
@@ -202,7 +202,7 @@ entity BesoinEngrais {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
     BesoinEngrais{besoinIntrant} to BesoinIntrant{besoinEngrais}
     BesoinEngrais{engrais} to Engrais{besoinEngrais}
 }
@@ -221,7 +221,7 @@ entity SuiviChamps {
     modifPar String
 }
 
-relationship OneToMany {
+relationship ManyToOne {
 	SuiviChamps{client} to Client{suiviChamps}
     SuiviChamps{utilisateur} to Utilisateur{suiviChamps}
     SuiviChamps{commune} to Commune{suiviChamps}

@@ -23,8 +23,6 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Besoins Intrants Esc</span></th>
-            <th><span>Besoins Intrants Gar</span></th>
             <th></th>
             </tr>
             </thead>
@@ -39,16 +37,6 @@
                 <td>{{culture.creePar}}</td>
                 <td>{{culture.modifLe | date:'medium'}}</td>
                 <td>{{culture.modifPar}}</td>
-                <td>
-                    <div *ngIf="culture.besoinsIntrantsEscId">
-                        <a [routerLink]="['../besoin-intrant-my-suffix', culture.besoinsIntrantsEscId , 'view' ]" >{{culture.besoinsIntrantsEscId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="culture.besoinsIntrantsGarId">
-                        <a [routerLink]="['../besoin-intrant-my-suffix', culture.besoinsIntrantsGarId , 'view' ]" >{{culture.besoinsIntrantsGarId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

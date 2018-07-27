@@ -4,9 +4,16 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { ISuiviChampsMySuffix } from 'app/shared/model/suivi-champs-my-suffix.model';
 import { SuiviChampsMySuffixService } from './suivi-champs-my-suffix.service';
+import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
+import { ClientMySuffixService } from 'app/entities/client-my-suffix';
+import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
+import { UtilisateurMySuffixService } from 'app/entities/utilisateur-my-suffix';
+import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
+import { CommuneMySuffixService } from 'app/entities/commune-my-suffix';
 
 @Component({
     selector: 'jhi-suivi-champs-my-suffix-update',
@@ -15,17 +22,48 @@ import { SuiviChampsMySuffixService } from './suivi-champs-my-suffix.service';
 export class SuiviChampsMySuffixUpdateComponent implements OnInit {
     private _suiviChamps: ISuiviChampsMySuffix;
     isSaving: boolean;
+
+    clients: IClientMySuffix[];
+
+    utilisateurs: IUtilisateurMySuffix[];
+
+    communes: ICommuneMySuffix[];
     dVisit: string;
     creeLe: string;
     modifLe: string;
 
-    constructor(private suiviChampsService: SuiviChampsMySuffixService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private suiviChampsService: SuiviChampsMySuffixService,
+        private clientService: ClientMySuffixService,
+        private utilisateurService: UtilisateurMySuffixService,
+        private communeService: CommuneMySuffixService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ suiviChamps }) => {
             this.suiviChamps = suiviChamps;
         });
+        this.clientService.query().subscribe(
+            (res: HttpResponse<IClientMySuffix[]>) => {
+                this.clients = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.utilisateurService.query().subscribe(
+            (res: HttpResponse<IUtilisateurMySuffix[]>) => {
+                this.utilisateurs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.communeService.query().subscribe(
+            (res: HttpResponse<ICommuneMySuffix[]>) => {
+                this.communes = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -55,6 +93,22 @@ export class SuiviChampsMySuffixUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackClientById(index: number, item: IClientMySuffix) {
+        return item.id;
+    }
+
+    trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
+        return item.id;
+    }
+
+    trackCommuneById(index: number, item: ICommuneMySuffix) {
+        return item.id;
     }
     get suiviChamps() {
         return this._suiviChamps;

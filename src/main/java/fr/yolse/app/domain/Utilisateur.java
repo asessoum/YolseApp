@@ -105,33 +105,33 @@ public class Utilisateur implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "utilisateurs")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Langue> langues = new HashSet<>();
-
-    @OneToMany(mappedBy = "utilisateurs")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Commune> communes = new HashSet<>();
-
-    @OneToMany(mappedBy = "agents")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Utilisateur> responsables = new HashSet<>();
-
     @ManyToOne
-    @JsonIgnoreProperties("responsables")
-    private Utilisateur agents;
+    @JsonIgnoreProperties("utilisateurs")
+    private Langue langue;
 
     @ManyToOne
     @JsonIgnoreProperties("utilisateurs")
-    private UtiProfile profiles;
+    private Commune commune;
 
     @ManyToOne
-    @JsonIgnoreProperties("utilisateurs")
-    private Client clients;
+    @JsonIgnoreProperties("agents")
+    private Utilisateur responsable;
 
-    @ManyToOne
-    @JsonIgnoreProperties("utilisateurs")
-    private SuiviChamps suiviChamps;
+    @OneToMany(mappedBy = "responsable")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Utilisateur> agents = new HashSet<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UtiProfile> profiles = new HashSet<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Client> clients = new HashSet<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<SuiviChamps> suiviChamps = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -389,130 +389,142 @@ public class Utilisateur implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<Langue> getLangues() {
-        return langues;
+    public Langue getLangue() {
+        return langue;
     }
 
-    public Utilisateur langues(Set<Langue> langues) {
-        this.langues = langues;
+    public Utilisateur langue(Langue langue) {
+        this.langue = langue;
         return this;
     }
 
-    public Utilisateur addLangue(Langue langue) {
-        this.langues.add(langue);
-        langue.setUtilisateurs(this);
+    public void setLangue(Langue langue) {
+        this.langue = langue;
+    }
+
+    public Commune getCommune() {
+        return commune;
+    }
+
+    public Utilisateur commune(Commune commune) {
+        this.commune = commune;
         return this;
     }
 
-    public Utilisateur removeLangue(Langue langue) {
-        this.langues.remove(langue);
-        langue.setUtilisateurs(null);
+    public void setCommune(Commune commune) {
+        this.commune = commune;
+    }
+
+    public Utilisateur getResponsable() {
+        return responsable;
+    }
+
+    public Utilisateur responsable(Utilisateur utilisateur) {
+        this.responsable = utilisateur;
         return this;
     }
 
-    public void setLangues(Set<Langue> langues) {
-        this.langues = langues;
+    public void setResponsable(Utilisateur utilisateur) {
+        this.responsable = utilisateur;
     }
 
-    public Set<Commune> getCommunes() {
-        return communes;
-    }
-
-    public Utilisateur communes(Set<Commune> communes) {
-        this.communes = communes;
-        return this;
-    }
-
-    public Utilisateur addCommune(Commune commune) {
-        this.communes.add(commune);
-        commune.setUtilisateurs(this);
-        return this;
-    }
-
-    public Utilisateur removeCommune(Commune commune) {
-        this.communes.remove(commune);
-        commune.setUtilisateurs(null);
-        return this;
-    }
-
-    public void setCommunes(Set<Commune> communes) {
-        this.communes = communes;
-    }
-
-    public Set<Utilisateur> getResponsables() {
-        return responsables;
-    }
-
-    public Utilisateur responsables(Set<Utilisateur> utilisateurs) {
-        this.responsables = utilisateurs;
-        return this;
-    }
-
-    public Utilisateur addResponsable(Utilisateur utilisateur) {
-        this.responsables.add(utilisateur);
-        utilisateur.setAgents(this);
-        return this;
-    }
-
-    public Utilisateur removeResponsable(Utilisateur utilisateur) {
-        this.responsables.remove(utilisateur);
-        utilisateur.setAgents(null);
-        return this;
-    }
-
-    public void setResponsables(Set<Utilisateur> utilisateurs) {
-        this.responsables = utilisateurs;
-    }
-
-    public Utilisateur getAgents() {
+    public Set<Utilisateur> getAgents() {
         return agents;
     }
 
-    public Utilisateur agents(Utilisateur utilisateur) {
-        this.agents = utilisateur;
+    public Utilisateur agents(Set<Utilisateur> utilisateurs) {
+        this.agents = utilisateurs;
         return this;
     }
 
-    public void setAgents(Utilisateur utilisateur) {
-        this.agents = utilisateur;
+    public Utilisateur addAgents(Utilisateur utilisateur) {
+        this.agents.add(utilisateur);
+        utilisateur.setResponsable(this);
+        return this;
     }
 
-    public UtiProfile getProfiles() {
+    public Utilisateur removeAgents(Utilisateur utilisateur) {
+        this.agents.remove(utilisateur);
+        utilisateur.setResponsable(null);
+        return this;
+    }
+
+    public void setAgents(Set<Utilisateur> utilisateurs) {
+        this.agents = utilisateurs;
+    }
+
+    public Set<UtiProfile> getProfiles() {
         return profiles;
     }
 
-    public Utilisateur profiles(UtiProfile utiProfile) {
-        this.profiles = utiProfile;
+    public Utilisateur profiles(Set<UtiProfile> utiProfiles) {
+        this.profiles = utiProfiles;
         return this;
     }
 
-    public void setProfiles(UtiProfile utiProfile) {
-        this.profiles = utiProfile;
+    public Utilisateur addProfiles(UtiProfile utiProfile) {
+        this.profiles.add(utiProfile);
+        utiProfile.setUtilisateur(this);
+        return this;
     }
 
-    public Client getClients() {
+    public Utilisateur removeProfiles(UtiProfile utiProfile) {
+        this.profiles.remove(utiProfile);
+        utiProfile.setUtilisateur(null);
+        return this;
+    }
+
+    public void setProfiles(Set<UtiProfile> utiProfiles) {
+        this.profiles = utiProfiles;
+    }
+
+    public Set<Client> getClients() {
         return clients;
     }
 
-    public Utilisateur clients(Client client) {
-        this.clients = client;
+    public Utilisateur clients(Set<Client> clients) {
+        this.clients = clients;
         return this;
     }
 
-    public void setClients(Client client) {
-        this.clients = client;
+    public Utilisateur addClients(Client client) {
+        this.clients.add(client);
+        client.setUtilisateur(this);
+        return this;
     }
 
-    public SuiviChamps getSuiviChamps() {
+    public Utilisateur removeClients(Client client) {
+        this.clients.remove(client);
+        client.setUtilisateur(null);
+        return this;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
+    public Set<SuiviChamps> getSuiviChamps() {
         return suiviChamps;
     }
 
-    public Utilisateur suiviChamps(SuiviChamps suiviChamps) {
+    public Utilisateur suiviChamps(Set<SuiviChamps> suiviChamps) {
         this.suiviChamps = suiviChamps;
         return this;
     }
 
-    public void setSuiviChamps(SuiviChamps suiviChamps) {
+    public Utilisateur addSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps.add(suiviChamps);
+        suiviChamps.setUtilisateur(this);
+        return this;
+    }
+
+    public Utilisateur removeSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps.remove(suiviChamps);
+        suiviChamps.setUtilisateur(null);
+        return this;
+    }
+
+    public void setSuiviChamps(Set<SuiviChamps> suiviChamps) {
         this.suiviChamps = suiviChamps;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

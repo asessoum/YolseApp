@@ -44,16 +44,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "besoinsIntrantsEsc",
             "otherEntityName": "besoinIntrant",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "cultureEsc"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "besoinsIntrantsGar",
             "otherEntityName": "besoinIntrant",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "cultureGar"
         }
     ],
     "changelogDate": "20180727151344",

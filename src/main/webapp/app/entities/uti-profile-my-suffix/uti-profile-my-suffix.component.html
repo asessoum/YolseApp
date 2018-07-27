@@ -21,6 +21,8 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
+            <th><span>Utilisateur</span></th>
+            <th><span>Profile</span></th>
             <th></th>
             </tr>
             </thead>
@@ -33,6 +35,16 @@
                 <td>{{utiProfile.creePar}}</td>
                 <td>{{utiProfile.modifLe | date:'medium'}}</td>
                 <td>{{utiProfile.modifPar}}</td>
+                <td>
+                    <div *ngIf="utiProfile.utilisateurId">
+                        <a [routerLink]="['../utilisateur-my-suffix', utiProfile.utilisateurId , 'view' ]" >{{utiProfile.utilisateurId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="utiProfile.profileId">
+                        <a [routerLink]="['../profile-my-suffix', utiProfile.profileId , 'view' ]" >{{utiProfile.profileId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

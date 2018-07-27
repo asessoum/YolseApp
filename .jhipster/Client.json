@@ -177,34 +177,34 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "langue",
             "otherEntityName": "langue",
-            "otherEntityRelationshipName": "clients"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "utilisateur",
             "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "clients"
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "commune",
+            "otherEntityName": "commune",
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "commune",
-            "otherEntityName": "commune",
-            "otherEntityRelationshipName": "clients"
-        },
-        {
-            "relationshipType": "many-to-one",
             "relationshipName": "besoinIntrants",
             "otherEntityName": "besoinIntrant",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "client"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "suiviChamps",
             "otherEntityName": "suiviChamps",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "client"
         }
     ],
     "changelogDate": "20180712214311",

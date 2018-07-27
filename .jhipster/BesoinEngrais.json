@@ -34,16 +34,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "besoinIntrant",
             "otherEntityName": "besoinIntrant",
-            "otherEntityRelationshipName": "besoinEngrais"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "engrais",
             "otherEntityName": "engrais",
-            "otherEntityRelationshipName": "besoinEngrais"
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180727151352",

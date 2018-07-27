@@ -67,7 +67,11 @@ public class BesoinIntrantDTO implements Serializable {
 
     private String modifPar;
 
-    private Long besoinEngraisId;
+    private Long clientId;
+
+    private Long cultureEscId;
+
+    private Long cultureGarId;
 
     public Long getId() {
         return id;
@@ -237,12 +241,28 @@ public class BesoinIntrantDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getBesoinEngraisId() {
-        return besoinEngraisId;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setBesoinEngraisId(Long besoinEngraisId) {
-        this.besoinEngraisId = besoinEngraisId;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public Long getCultureEscId() {
+        return cultureEscId;
+    }
+
+    public void setCultureEscId(Long cultureId) {
+        this.cultureEscId = cultureId;
+    }
+
+    public Long getCultureGarId() {
+        return cultureGarId;
+    }
+
+    public void setCultureGarId(Long cultureId) {
+        this.cultureGarId = cultureId;
     }
 
     @Override
@@ -290,7 +310,9 @@ public class BesoinIntrantDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", besoinEngrais=" + getBesoinEngraisId() +
+            ", client=" + getClientId() +
+            ", cultureEsc=" + getCultureEscId() +
+            ", cultureGar=" + getCultureGarId() +
             "}";
     }
 }

@@ -74,20 +74,6 @@
                         [(ngModel)]="culture.modifPar" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_besoinsIntrantsEsc">Besoins Intrants Esc</label>
-                    <select class="form-control" id="field_besoinsIntrantsEsc" name="besoinsIntrantsEsc" [(ngModel)]="culture.besoinsIntrantsEscId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="besoinIntrantOption.id" *ngFor="let besoinIntrantOption of besoinintrants; trackBy: trackBesoinIntrantById">{{besoinIntrantOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_besoinsIntrantsGar">Besoins Intrants Gar</label>
-                    <select class="form-control" id="field_besoinsIntrantsGar" name="besoinsIntrantsGar" [(ngModel)]="culture.besoinsIntrantsGarId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="besoinIntrantOption.id" *ngFor="let besoinIntrantOption of besoinintrants; trackBy: trackBesoinIntrantById">{{besoinIntrantOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

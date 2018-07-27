@@ -29,7 +29,7 @@ public class ProvinceDTO implements Serializable {
 
     private String modifPar;
 
-    private Long communesId;
+    private Long regionId;
 
     public Long getId() {
         return id;
@@ -95,12 +95,12 @@ public class ProvinceDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getCommunesId() {
-        return communesId;
+    public Long getRegionId() {
+        return regionId;
     }
 
-    public void setCommunesId(Long communeId) {
-        this.communesId = communeId;
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
     }
 
     @Override
@@ -135,7 +135,7 @@ public class ProvinceDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", communes=" + getCommunesId() +
+            ", region=" + getRegionId() +
             "}";
     }
 }

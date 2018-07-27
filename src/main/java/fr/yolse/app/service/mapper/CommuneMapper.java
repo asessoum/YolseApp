@@ -8,18 +8,16 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Commune and its DTO CommuneDTO.
  */
-@Mapper(componentModel = "spring", uses = {UtilisateurMapper.class, ClientMapper.class, SuiviChampsMapper.class})
+@Mapper(componentModel = "spring", uses = {ProvinceMapper.class})
 public interface CommuneMapper extends EntityMapper<CommuneDTO, Commune> {
 
-    @Mapping(source = "utilisateurs.id", target = "utilisateursId")
-    @Mapping(source = "clients.id", target = "clientsId")
-    @Mapping(source = "suiviChamps.id", target = "suiviChampsId")
+    @Mapping(source = "province.id", target = "provinceId")
     CommuneDTO toDto(Commune commune);
 
-    @Mapping(target = "provinces", ignore = true)
-    @Mapping(source = "utilisateursId", target = "utilisateurs")
-    @Mapping(source = "clientsId", target = "clients")
-    @Mapping(source = "suiviChampsId", target = "suiviChamps")
+    @Mapping(source = "provinceId", target = "province")
+    @Mapping(target = "utilisateurs", ignore = true)
+    @Mapping(target = "clients", ignore = true)
+    @Mapping(target = "suiviChamps", ignore = true)
     Commune toEntity(CommuneDTO communeDTO);
 
     default Commune fromId(Long id) {

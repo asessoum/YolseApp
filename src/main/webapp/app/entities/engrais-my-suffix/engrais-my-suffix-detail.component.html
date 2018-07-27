@@ -37,12 +37,6 @@
                 <dd>
                     <span>{{engrais.modifPar}}</span>
                 </dd>
-                <dt><span>Besoin Engrais</span></dt>
-                <dd>
-                    <div *ngIf="engrais.besoinEngraisId">
-                        <a [routerLink]="['/besoin-engrais-my-suffix', engrais.besoinEngraisId, 'view']">{{engrais.besoinEngraisId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

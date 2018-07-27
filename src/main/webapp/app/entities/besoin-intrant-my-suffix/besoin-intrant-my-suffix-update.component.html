@@ -245,10 +245,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_besoinEngrais">Besoin Engrais</label>
-                    <select class="form-control" id="field_besoinEngrais" name="besoinEngrais" [(ngModel)]="besoinIntrant.besoinEngraisId" >
+                    <label class="form-control-label" for="field_client">Client</label>
+                    <select class="form-control" id="field_client" name="client" [(ngModel)]="besoinIntrant.clientId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="besoinEngraisOption.id" *ngFor="let besoinEngraisOption of besoinengrais; trackBy: trackBesoinEngraisById">{{besoinEngraisOption.id}}</option>
+                        <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cultureEsc">Culture Esc</label>
+                    <select class="form-control" id="field_cultureEsc" name="cultureEsc" [(ngModel)]="besoinIntrant.cultureEscId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cultureOption.id" *ngFor="let cultureOption of cultures; trackBy: trackCultureById">{{cultureOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_cultureGar">Culture Gar</label>
+                    <select class="form-control" id="field_cultureGar" name="cultureGar" [(ngModel)]="besoinIntrant.cultureGarId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cultureOption.id" *ngFor="let cultureOption of cultures; trackBy: trackCultureById">{{cultureOption.id}}</option>
                     </select>
                 </div>
             </div>

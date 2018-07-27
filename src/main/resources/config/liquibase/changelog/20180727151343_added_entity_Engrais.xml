@@ -53,10 +53,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="besoin_engrais_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="engrais" columnName="cree_le" columnDataType="datetime"/>

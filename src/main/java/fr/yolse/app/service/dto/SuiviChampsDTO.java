@@ -41,6 +41,12 @@ public class SuiviChampsDTO implements Serializable {
 
     private String modifPar;
 
+    private Long clientId;
+
+    private Long utilisateurId;
+
+    private Long communeId;
+
     public Long getId() {
         return id;
     }
@@ -137,6 +143,30 @@ public class SuiviChampsDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public Long getUtilisateurId() {
+        return utilisateurId;
+    }
+
+    public void setUtilisateurId(Long utilisateurId) {
+        this.utilisateurId = utilisateurId;
+    }
+
+    public Long getCommuneId() {
+        return communeId;
+    }
+
+    public void setCommuneId(Long communeId) {
+        this.communeId = communeId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -173,6 +203,9 @@ public class SuiviChampsDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
+            ", client=" + getClientId() +
+            ", utilisateur=" + getUtilisateurId() +
+            ", commune=" + getCommuneId() +
             "}";
     }
 }

@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -53,13 +55,13 @@ public class Culture implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @ManyToOne
-    @JsonIgnoreProperties("cultureEscs")
-    private BesoinIntrant besoinsIntrantsEsc;
+    @OneToMany(mappedBy = "cultureEsc")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BesoinIntrant> besoinsIntrantsEscs = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("cultureGars")
-    private BesoinIntrant besoinsIntrantsGar;
+    @OneToMany(mappedBy = "cultureGar")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BesoinIntrant> besoinsIntrantsGars = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -174,30 +176,54 @@ public class Culture implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public BesoinIntrant getBesoinsIntrantsEsc() {
-        return besoinsIntrantsEsc;
+    public Set<BesoinIntrant> getBesoinsIntrantsEscs() {
+        return besoinsIntrantsEscs;
     }
 
-    public Culture besoinsIntrantsEsc(BesoinIntrant besoinIntrant) {
-        this.besoinsIntrantsEsc = besoinIntrant;
+    public Culture besoinsIntrantsEscs(Set<BesoinIntrant> besoinIntrants) {
+        this.besoinsIntrantsEscs = besoinIntrants;
         return this;
     }
 
-    public void setBesoinsIntrantsEsc(BesoinIntrant besoinIntrant) {
-        this.besoinsIntrantsEsc = besoinIntrant;
-    }
-
-    public BesoinIntrant getBesoinsIntrantsGar() {
-        return besoinsIntrantsGar;
-    }
-
-    public Culture besoinsIntrantsGar(BesoinIntrant besoinIntrant) {
-        this.besoinsIntrantsGar = besoinIntrant;
+    public Culture addBesoinsIntrantsEsc(BesoinIntrant besoinIntrant) {
+        this.besoinsIntrantsEscs.add(besoinIntrant);
+        besoinIntrant.setCultureEsc(this);
         return this;
     }
 
-    public void setBesoinsIntrantsGar(BesoinIntrant besoinIntrant) {
-        this.besoinsIntrantsGar = besoinIntrant;
+    public Culture removeBesoinsIntrantsEsc(BesoinIntrant besoinIntrant) {
+        this.besoinsIntrantsEscs.remove(besoinIntrant);
+        besoinIntrant.setCultureEsc(null);
+        return this;
+    }
+
+    public void setBesoinsIntrantsEscs(Set<BesoinIntrant> besoinIntrants) {
+        this.besoinsIntrantsEscs = besoinIntrants;
+    }
+
+    public Set<BesoinIntrant> getBesoinsIntrantsGars() {
+        return besoinsIntrantsGars;
+    }
+
+    public Culture besoinsIntrantsGars(Set<BesoinIntrant> besoinIntrants) {
+        this.besoinsIntrantsGars = besoinIntrants;
+        return this;
+    }
+
+    public Culture addBesoinsIntrantsGar(BesoinIntrant besoinIntrant) {
+        this.besoinsIntrantsGars.add(besoinIntrant);
+        besoinIntrant.setCultureGar(this);
+        return this;
+    }
+
+    public Culture removeBesoinsIntrantsGar(BesoinIntrant besoinIntrant) {
+        this.besoinsIntrantsGars.remove(besoinIntrant);
+        besoinIntrant.setCultureGar(null);
+        return this;
+    }
+
+    public void setBesoinsIntrantsGars(Set<BesoinIntrant> besoinIntrants) {
+        this.besoinsIntrantsGars = besoinIntrants;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

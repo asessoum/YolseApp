@@ -31,8 +31,6 @@ public class EngraisDTO implements Serializable {
 
     private String modifPar;
 
-    private Long besoinEngraisId;
-
     public Long getId() {
         return id;
     }
@@ -105,14 +103,6 @@ public class EngraisDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getBesoinEngraisId() {
-        return besoinEngraisId;
-    }
-
-    public void setBesoinEngraisId(Long besoinEngraisId) {
-        this.besoinEngraisId = besoinEngraisId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -146,7 +136,6 @@ public class EngraisDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", besoinEngrais=" + getBesoinEngraisId() +
             "}";
     }
 }

@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IUtiProfileMySuffix } from 'app/shared/model//uti-profile-my-suffix.model';
 
 export interface IProfileMySuffix {
     id?: number;
@@ -9,7 +10,7 @@ export interface IProfileMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    utilisateursId?: number;
+    utilisateurs?: IUtiProfileMySuffix[];
 }
 
 export class ProfileMySuffix implements IProfileMySuffix {
@@ -22,7 +23,7 @@ export class ProfileMySuffix implements IProfileMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public utilisateursId?: number
+        public utilisateurs?: IUtiProfileMySuffix[]
     ) {
         this.estActif = false;
     }

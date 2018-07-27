@@ -69,13 +69,6 @@
                         [(ngModel)]="region.modifPpar" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_provinces">Provinces</label>
-                    <select class="form-control" id="field_provinces" name="provinces" [(ngModel)]="region.provincesId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

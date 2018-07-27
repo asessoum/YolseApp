@@ -26,6 +26,9 @@
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clientId"><span>Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="utilisateurId"><span>Utilisateur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="communeId"><span>Commune</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -43,6 +46,21 @@
                 <td>{{suiviChamps.creePar}}</td>
                 <td>{{suiviChamps.modifLe | date:'medium'}}</td>
                 <td>{{suiviChamps.modifPar}}</td>
+                <td>
+                    <div *ngIf="suiviChamps.clientId">
+                        <a [routerLink]="['../client-my-suffix', suiviChamps.clientId , 'view' ]" >{{suiviChamps.clientId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="suiviChamps.utilisateurId">
+                        <a [routerLink]="['../utilisateur-my-suffix', suiviChamps.utilisateurId , 'view' ]" >{{suiviChamps.utilisateurId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="suiviChamps.communeId">
+                        <a [routerLink]="['../commune-my-suffix', suiviChamps.communeId , 'view' ]" >{{suiviChamps.communeId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

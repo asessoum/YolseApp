@@ -83,6 +83,23 @@ public class CacheConfiguration {
             cm.createCache(fr.yolse.app.domain.BesoinEngrais.class.getName() + ".engrais", jcacheConfiguration);
             cm.createCache(fr.yolse.app.domain.SuiviChamps.class.getName() + ".utilisateurs", jcacheConfiguration);
             cm.createCache(fr.yolse.app.domain.SuiviChamps.class.getName() + ".communes", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Region.class.getName() + ".provinces", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Province.class.getName() + ".communes", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Commune.class.getName() + ".utilisateurs", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Commune.class.getName() + ".clients", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Commune.class.getName() + ".suiviChamps", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Engrais.class.getName() + ".besoinEngrais", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Culture.class.getName() + ".besoinsIntrantsEscs", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Culture.class.getName() + ".besoinsIntrantsGars", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Langue.class.getName() + ".utilisateurs", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Langue.class.getName() + ".clients", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Profile.class.getName() + ".utilisateurs", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Utilisateur.class.getName() + ".agents", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Utilisateur.class.getName() + ".profiles", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Utilisateur.class.getName() + ".suiviChamps", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Client.class.getName() + ".besoinIntrants", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.Client.class.getName() + ".suiviChamps", jcacheConfiguration);
+            cm.createCache(fr.yolse.app.domain.BesoinIntrant.class.getName() + ".besoinEngrais", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

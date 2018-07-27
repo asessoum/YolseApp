@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -50,9 +52,9 @@ public class Region implements Serializable {
     @Column(name = "modif_ppar")
     private String modifPpar;
 
-    @ManyToOne
-    @JsonIgnoreProperties("regions")
-    private Province provinces;
+    @OneToMany(mappedBy = "region")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Province> provinces = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -154,17 +156,29 @@ public class Region implements Serializable {
         this.modifPpar = modifPpar;
     }
 
-    public Province getProvinces() {
+    public Set<Province> getProvinces() {
         return provinces;
     }
 
-    public Region provinces(Province province) {
-        this.provinces = province;
+    public Region provinces(Set<Province> provinces) {
+        this.provinces = provinces;
         return this;
     }
 
-    public void setProvinces(Province province) {
-        this.provinces = province;
+    public Region addProvinces(Province province) {
+        this.provinces.add(province);
+        province.setRegion(this);
+        return this;
+    }
+
+    public Region removeProvinces(Province province) {
+        this.provinces.remove(province);
+        province.setRegion(null);
+        return this;
+    }
+
+    public void setProvinces(Set<Province> provinces) {
+        this.provinces = provinces;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

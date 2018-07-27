@@ -29,10 +29,6 @@ public class LangueDTO implements Serializable {
 
     private String modifPar;
 
-    private Long utilisateursId;
-
-    private Long clientsId;
-
     public Long getId() {
         return id;
     }
@@ -97,22 +93,6 @@ public class LangueDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getUtilisateursId() {
-        return utilisateursId;
-    }
-
-    public void setUtilisateursId(Long utilisateurId) {
-        this.utilisateursId = utilisateurId;
-    }
-
-    public Long getClientsId() {
-        return clientsId;
-    }
-
-    public void setClientsId(Long clientId) {
-        this.clientsId = clientId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -145,8 +125,6 @@ public class LangueDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", utilisateurs=" + getUtilisateursId() +
-            ", clients=" + getClientsId() +
             "}";
     }
 }

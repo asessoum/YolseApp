@@ -31,10 +31,6 @@ public class CultureDTO implements Serializable {
 
     private String modifPar;
 
-    private Long besoinsIntrantsEscId;
-
-    private Long besoinsIntrantsGarId;
-
     public Long getId() {
         return id;
     }
@@ -107,22 +103,6 @@ public class CultureDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getBesoinsIntrantsEscId() {
-        return besoinsIntrantsEscId;
-    }
-
-    public void setBesoinsIntrantsEscId(Long besoinIntrantId) {
-        this.besoinsIntrantsEscId = besoinIntrantId;
-    }
-
-    public Long getBesoinsIntrantsGarId() {
-        return besoinsIntrantsGarId;
-    }
-
-    public void setBesoinsIntrantsGarId(Long besoinIntrantId) {
-        this.besoinsIntrantsGarId = besoinIntrantId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -156,8 +136,6 @@ public class CultureDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", besoinsIntrantsEsc=" + getBesoinsIntrantsEscId() +
-            ", besoinsIntrantsGar=" + getBesoinsIntrantsGarId() +
             "}";
     }
 }

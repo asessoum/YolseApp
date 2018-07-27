@@ -104,21 +104,21 @@ public class BesoinIntrant implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "besoinIntrants")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Client> clients = new HashSet<>();
-
-    @OneToMany(mappedBy = "besoinsIntrantsEsc")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Culture> cultureEscs = new HashSet<>();
-
-    @OneToMany(mappedBy = "besoinsIntrantsGar")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Culture> cultureGars = new HashSet<>();
-
     @ManyToOne
     @JsonIgnoreProperties("besoinIntrants")
-    private BesoinEngrais besoinEngrais;
+    private Client client;
+
+    @ManyToOne
+    @JsonIgnoreProperties("besoinsIntrantsEscs")
+    private Culture cultureEsc;
+
+    @ManyToOne
+    @JsonIgnoreProperties("besoinsIntrantsGars")
+    private Culture cultureGar;
+
+    @OneToMany(mappedBy = "besoinIntrant")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BesoinEngrais> besoinEngrais = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -389,91 +389,67 @@ public class BesoinIntrant implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<Client> getClients() {
-        return clients;
+    public Client getClient() {
+        return client;
     }
 
-    public BesoinIntrant clients(Set<Client> clients) {
-        this.clients = clients;
+    public BesoinIntrant client(Client client) {
+        this.client = client;
         return this;
     }
 
-    public BesoinIntrant addClient(Client client) {
-        this.clients.add(client);
-        client.setBesoinIntrants(this);
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Culture getCultureEsc() {
+        return cultureEsc;
+    }
+
+    public BesoinIntrant cultureEsc(Culture culture) {
+        this.cultureEsc = culture;
         return this;
     }
 
-    public BesoinIntrant removeClient(Client client) {
-        this.clients.remove(client);
-        client.setBesoinIntrants(null);
+    public void setCultureEsc(Culture culture) {
+        this.cultureEsc = culture;
+    }
+
+    public Culture getCultureGar() {
+        return cultureGar;
+    }
+
+    public BesoinIntrant cultureGar(Culture culture) {
+        this.cultureGar = culture;
         return this;
     }
 
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
+    public void setCultureGar(Culture culture) {
+        this.cultureGar = culture;
     }
 
-    public Set<Culture> getCultureEscs() {
-        return cultureEscs;
-    }
-
-    public BesoinIntrant cultureEscs(Set<Culture> cultures) {
-        this.cultureEscs = cultures;
-        return this;
-    }
-
-    public BesoinIntrant addCultureEsc(Culture culture) {
-        this.cultureEscs.add(culture);
-        culture.setBesoinsIntrantsEsc(this);
-        return this;
-    }
-
-    public BesoinIntrant removeCultureEsc(Culture culture) {
-        this.cultureEscs.remove(culture);
-        culture.setBesoinsIntrantsEsc(null);
-        return this;
-    }
-
-    public void setCultureEscs(Set<Culture> cultures) {
-        this.cultureEscs = cultures;
-    }
-
-    public Set<Culture> getCultureGars() {
-        return cultureGars;
-    }
-
-    public BesoinIntrant cultureGars(Set<Culture> cultures) {
-        this.cultureGars = cultures;
-        return this;
-    }
-
-    public BesoinIntrant addCultureGar(Culture culture) {
-        this.cultureGars.add(culture);
-        culture.setBesoinsIntrantsGar(this);
-        return this;
-    }
-
-    public BesoinIntrant removeCultureGar(Culture culture) {
-        this.cultureGars.remove(culture);
-        culture.setBesoinsIntrantsGar(null);
-        return this;
-    }
-
-    public void setCultureGars(Set<Culture> cultures) {
-        this.cultureGars = cultures;
-    }
-
-    public BesoinEngrais getBesoinEngrais() {
+    public Set<BesoinEngrais> getBesoinEngrais() {
         return besoinEngrais;
     }
 
-    public BesoinIntrant besoinEngrais(BesoinEngrais besoinEngrais) {
+    public BesoinIntrant besoinEngrais(Set<BesoinEngrais> besoinEngrais) {
         this.besoinEngrais = besoinEngrais;
         return this;
     }
 
-    public void setBesoinEngrais(BesoinEngrais besoinEngrais) {
+    public BesoinIntrant addBesoinEngrais(BesoinEngrais besoinEngrais) {
+        this.besoinEngrais.add(besoinEngrais);
+        besoinEngrais.setBesoinIntrant(this);
+        return this;
+    }
+
+    public BesoinIntrant removeBesoinEngrais(BesoinEngrais besoinEngrais) {
+        this.besoinEngrais.remove(besoinEngrais);
+        besoinEngrais.setBesoinIntrant(null);
+        return this;
+    }
+
+    public void setBesoinEngrais(Set<BesoinEngrais> besoinEngrais) {
         this.besoinEngrais = besoinEngrais;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

@@ -22,7 +22,6 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Ppar</span></th>
-            <th><span>Provinces</span></th>
             <th></th>
             </tr>
             </thead>
@@ -36,11 +35,6 @@
                 <td>{{region.creePar}}</td>
                 <td>{{region.modifLe | date:'medium'}}</td>
                 <td>{{region.modifPpar}}</td>
-                <td>
-                    <div *ngIf="region.provincesId">
-                        <a [routerLink]="['../province-my-suffix', region.provincesId , 'view' ]" >{{region.provincesId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

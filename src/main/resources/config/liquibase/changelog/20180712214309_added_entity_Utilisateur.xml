@@ -97,19 +97,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="agents_id" type="bigint">
+            <column name="langue_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
-            <column name="profiles_id" type="bigint">
+            <column name="commune_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
-            <column name="clients_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="suivi_champs_id" type="bigint">
+            <column name="responsable_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

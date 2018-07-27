@@ -1,7 +1,4 @@
 import { Moment } from 'moment';
-import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
-import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
-import { ICommuneMySuffix } from 'app/shared/model//commune-my-suffix.model';
 
 export interface ISuiviChampsMySuffix {
     id?: number;
@@ -16,9 +13,9 @@ export interface ISuiviChampsMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    clients?: IClientMySuffix[];
-    utilisateurs?: IUtilisateurMySuffix[];
-    communes?: ICommuneMySuffix[];
+    clientId?: number;
+    utilisateurId?: number;
+    communeId?: number;
 }
 
 export class SuiviChampsMySuffix implements ISuiviChampsMySuffix {
@@ -35,9 +32,9 @@ export class SuiviChampsMySuffix implements ISuiviChampsMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public clients?: IClientMySuffix[],
-        public utilisateurs?: IUtilisateurMySuffix[],
-        public communes?: ICommuneMySuffix[]
+        public clientId?: number,
+        public utilisateurId?: number,
+        public communeId?: number
     ) {
         this.estActif = false;
     }

@@ -129,25 +129,25 @@ public class Client implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "clients")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Langue> langues = new HashSet<>();
-
-    @OneToMany(mappedBy = "clients")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Utilisateur> utilisateurs = new HashSet<>();
-
-    @OneToMany(mappedBy = "clients")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Commune> communes = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("clients")
+    private Langue langue;
 
     @ManyToOne
     @JsonIgnoreProperties("clients")
-    private BesoinIntrant besoinIntrants;
+    private Utilisateur utilisateur;
 
     @ManyToOne
     @JsonIgnoreProperties("clients")
-    private SuiviChamps suiviChamps;
+    private Commune commune;
+
+    @OneToMany(mappedBy = "client")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BesoinIntrant> besoinIntrants = new HashSet<>();
+
+    @OneToMany(mappedBy = "client")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<SuiviChamps> suiviChamps = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -470,104 +470,92 @@ public class Client implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<Langue> getLangues() {
-        return langues;
+    public Langue getLangue() {
+        return langue;
     }
 
-    public Client langues(Set<Langue> langues) {
-        this.langues = langues;
+    public Client langue(Langue langue) {
+        this.langue = langue;
         return this;
     }
 
-    public Client addLangue(Langue langue) {
-        this.langues.add(langue);
-        langue.setClients(this);
+    public void setLangue(Langue langue) {
+        this.langue = langue;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public Client utilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
         return this;
     }
 
-    public Client removeLangue(Langue langue) {
-        this.langues.remove(langue);
-        langue.setClients(null);
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Commune getCommune() {
+        return commune;
+    }
+
+    public Client commune(Commune commune) {
+        this.commune = commune;
         return this;
     }
 
-    public void setLangues(Set<Langue> langues) {
-        this.langues = langues;
+    public void setCommune(Commune commune) {
+        this.commune = commune;
     }
 
-    public Set<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public Client utilisateurs(Set<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-        return this;
-    }
-
-    public Client addUtilisateur(Utilisateur utilisateur) {
-        this.utilisateurs.add(utilisateur);
-        utilisateur.setClients(this);
-        return this;
-    }
-
-    public Client removeUtilisateur(Utilisateur utilisateur) {
-        this.utilisateurs.remove(utilisateur);
-        utilisateur.setClients(null);
-        return this;
-    }
-
-    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-    }
-
-    public Set<Commune> getCommunes() {
-        return communes;
-    }
-
-    public Client communes(Set<Commune> communes) {
-        this.communes = communes;
-        return this;
-    }
-
-    public Client addCommune(Commune commune) {
-        this.communes.add(commune);
-        commune.setClients(this);
-        return this;
-    }
-
-    public Client removeCommune(Commune commune) {
-        this.communes.remove(commune);
-        commune.setClients(null);
-        return this;
-    }
-
-    public void setCommunes(Set<Commune> communes) {
-        this.communes = communes;
-    }
-
-    public BesoinIntrant getBesoinIntrants() {
+    public Set<BesoinIntrant> getBesoinIntrants() {
         return besoinIntrants;
     }
 
-    public Client besoinIntrants(BesoinIntrant besoinIntrant) {
-        this.besoinIntrants = besoinIntrant;
+    public Client besoinIntrants(Set<BesoinIntrant> besoinIntrants) {
+        this.besoinIntrants = besoinIntrants;
         return this;
     }
 
-    public void setBesoinIntrants(BesoinIntrant besoinIntrant) {
-        this.besoinIntrants = besoinIntrant;
+    public Client addBesoinIntrants(BesoinIntrant besoinIntrant) {
+        this.besoinIntrants.add(besoinIntrant);
+        besoinIntrant.setClient(this);
+        return this;
     }
 
-    public SuiviChamps getSuiviChamps() {
+    public Client removeBesoinIntrants(BesoinIntrant besoinIntrant) {
+        this.besoinIntrants.remove(besoinIntrant);
+        besoinIntrant.setClient(null);
+        return this;
+    }
+
+    public void setBesoinIntrants(Set<BesoinIntrant> besoinIntrants) {
+        this.besoinIntrants = besoinIntrants;
+    }
+
+    public Set<SuiviChamps> getSuiviChamps() {
         return suiviChamps;
     }
 
-    public Client suiviChamps(SuiviChamps suiviChamps) {
+    public Client suiviChamps(Set<SuiviChamps> suiviChamps) {
         this.suiviChamps = suiviChamps;
         return this;
     }
 
-    public void setSuiviChamps(SuiviChamps suiviChamps) {
+    public Client addSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps.add(suiviChamps);
+        suiviChamps.setClient(this);
+        return this;
+    }
+
+    public Client removeSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps.remove(suiviChamps);
+        suiviChamps.setClient(null);
+        return this;
+    }
+
+    public void setSuiviChamps(Set<SuiviChamps> suiviChamps) {
         this.suiviChamps = suiviChamps;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

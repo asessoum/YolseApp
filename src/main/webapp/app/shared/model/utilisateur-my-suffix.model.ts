@@ -1,7 +1,8 @@
 import { Moment } from 'moment';
-import { ILangueMySuffix } from 'app/shared/model//langue-my-suffix.model';
-import { ICommuneMySuffix } from 'app/shared/model//commune-my-suffix.model';
 import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
+import { IUtiProfileMySuffix } from 'app/shared/model//uti-profile-my-suffix.model';
+import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
+import { ISuiviChampsMySuffix } from 'app/shared/model//suivi-champs-my-suffix.model';
 
 export const enum Genre {
     HOMME = 'HOMME',
@@ -29,13 +30,13 @@ export interface IUtilisateurMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    langues?: ILangueMySuffix[];
-    communes?: ICommuneMySuffix[];
-    responsables?: IUtilisateurMySuffix[];
-    agentsId?: number;
-    profilesId?: number;
-    clientsId?: number;
-    suiviChampsId?: number;
+    langueId?: number;
+    communeId?: number;
+    responsableId?: number;
+    agents?: IUtilisateurMySuffix[];
+    profiles?: IUtiProfileMySuffix[];
+    clients?: IClientMySuffix[];
+    suiviChamps?: ISuiviChampsMySuffix[];
 }
 
 export class UtilisateurMySuffix implements IUtilisateurMySuffix {
@@ -60,13 +61,13 @@ export class UtilisateurMySuffix implements IUtilisateurMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public langues?: ILangueMySuffix[],
-        public communes?: ICommuneMySuffix[],
-        public responsables?: IUtilisateurMySuffix[],
-        public agentsId?: number,
-        public profilesId?: number,
-        public clientsId?: number,
-        public suiviChampsId?: number
+        public langueId?: number,
+        public communeId?: number,
+        public responsableId?: number,
+        public agents?: IUtilisateurMySuffix[],
+        public profiles?: IUtiProfileMySuffix[],
+        public clients?: IClientMySuffix[],
+        public suiviChamps?: ISuiviChampsMySuffix[]
     ) {
         this.estActif = false;
     }

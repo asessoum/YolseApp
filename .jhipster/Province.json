@@ -40,16 +40,16 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "region",
             "otherEntityName": "region",
-            "otherEntityRelationshipName": "provinces"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "communes",
             "otherEntityName": "commune",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "province"
         }
     ],
     "changelogDate": "20180712214303",

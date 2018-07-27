@@ -85,10 +85,22 @@
                 <dd>
                     <span>{{besoinIntrant.modifPar}}</span>
                 </dd>
-                <dt><span>Besoin Engrais</span></dt>
+                <dt><span>Client</span></dt>
                 <dd>
-                    <div *ngIf="besoinIntrant.besoinEngraisId">
-                        <a [routerLink]="['/besoin-engrais-my-suffix', besoinIntrant.besoinEngraisId, 'view']">{{besoinIntrant.besoinEngraisId}}</a>
+                    <div *ngIf="besoinIntrant.clientId">
+                        <a [routerLink]="['/client-my-suffix', besoinIntrant.clientId, 'view']">{{besoinIntrant.clientId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Culture Esc</span></dt>
+                <dd>
+                    <div *ngIf="besoinIntrant.cultureEscId">
+                        <a [routerLink]="['/culture-my-suffix', besoinIntrant.cultureEscId, 'view']">{{besoinIntrant.cultureEscId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Culture Gar</span></dt>
+                <dd>
+                    <div *ngIf="besoinIntrant.cultureGarId">
+                        <a [routerLink]="['/culture-my-suffix', besoinIntrant.cultureGarId, 'view']">{{besoinIntrant.cultureGarId}}</a>
                     </div>
                 </dd>
             </dl>
