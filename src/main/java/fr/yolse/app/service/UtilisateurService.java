@@ -2,7 +2,9 @@ package fr.yolse.app.service;
 
 import fr.yolse.app.service.dto.UtilisateurDTO;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 /**
@@ -21,9 +23,10 @@ public interface UtilisateurService {
     /**
      * Get all the utilisateurs.
      *
+     * @param pageable the pagination information
      * @return the list of entities
      */
-    List<UtilisateurDTO> findAll();
+    Page<UtilisateurDTO> findAll(Pageable pageable);
 
 
     /**

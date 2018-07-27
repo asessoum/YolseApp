@@ -1,4 +1,7 @@
 import { Moment } from 'moment';
+import { ILangueMySuffix } from 'app/shared/model//langue-my-suffix.model';
+import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
+import { ICommuneMySuffix } from 'app/shared/model//commune-my-suffix.model';
 
 export const enum Genre {
     HOMME = 'HOMME',
@@ -13,30 +16,29 @@ export interface IClientMySuffix {
     naissance?: Moment;
     genre?: Genre;
     estMarie?: boolean;
-    numCin?: number;
-    validCin?: Moment;
+    numCarteCli?: string;
+    dCarteUtil?: Moment;
     village?: string;
-    tel1?: number;
-    tel2?: number;
+    tel?: string;
     email?: string;
-    orgaProd?: string;
+    groupe?: string;
     photoID?: string;
-    tMenage?: number;
-    nomPerAPr?: string;
-    prenomPerAPr?: string;
-    telPerAPr?: number;
-    superfice?: number;
-    qSemence?: number;
-    mSimm?: number;
-    valTotal?: number;
+    tailleMenage?: number;
+    superficiePos?: number;
+    nomPAP?: string;
+    prenomPAP?: string;
+    telPAP?: string;
+    lienPAP?: string;
     estActif?: boolean;
     creeLe?: Moment;
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
+    langues?: ILangueMySuffix[];
+    utilisateurs?: IUtilisateurMySuffix[];
+    communes?: ICommuneMySuffix[];
+    besoinIntrantsId?: number;
     suiviChampsId?: number;
-    engraisClientsId?: number;
-    utilisateursId?: number;
 }
 
 export class ClientMySuffix implements IClientMySuffix {
@@ -48,30 +50,29 @@ export class ClientMySuffix implements IClientMySuffix {
         public naissance?: Moment,
         public genre?: Genre,
         public estMarie?: boolean,
-        public numCin?: number,
-        public validCin?: Moment,
+        public numCarteCli?: string,
+        public dCarteUtil?: Moment,
         public village?: string,
-        public tel1?: number,
-        public tel2?: number,
+        public tel?: string,
         public email?: string,
-        public orgaProd?: string,
+        public groupe?: string,
         public photoID?: string,
-        public tMenage?: number,
-        public nomPerAPr?: string,
-        public prenomPerAPr?: string,
-        public telPerAPr?: number,
-        public superfice?: number,
-        public qSemence?: number,
-        public mSimm?: number,
-        public valTotal?: number,
+        public tailleMenage?: number,
+        public superficiePos?: number,
+        public nomPAP?: string,
+        public prenomPAP?: string,
+        public telPAP?: string,
+        public lienPAP?: string,
         public estActif?: boolean,
         public creeLe?: Moment,
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public suiviChampsId?: number,
-        public engraisClientsId?: number,
-        public utilisateursId?: number
+        public langues?: ILangueMySuffix[],
+        public utilisateurs?: IUtilisateurMySuffix[],
+        public communes?: ICommuneMySuffix[],
+        public besoinIntrantsId?: number,
+        public suiviChampsId?: number
     ) {
         this.estMarie = false;
         this.estActif = false;

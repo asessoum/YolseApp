@@ -13,6 +13,8 @@ public interface SuiviChampsMapper extends EntityMapper<SuiviChampsDTO, SuiviCha
 
 
     @Mapping(target = "clients", ignore = true)
+    @Mapping(target = "utilisateurs", ignore = true)
+    @Mapping(target = "communes", ignore = true)
     SuiviChamps toEntity(SuiviChampsDTO suiviChampsDTO);
 
     default SuiviChamps fromId(Long id) {

@@ -53,8 +53,11 @@ public class SuiviChampsResourceIntTest {
     private static final String DEFAULT_EMPLAC = "AAAAAAAAAA";
     private static final String UPDATED_EMPLAC = "BBBBBBBBBB";
 
-    private static final String DEFAULT_OBS = "AAAAAAAAAA";
-    private static final String UPDATED_OBS = "BBBBBBBBBB";
+    private static final String DEFAULT_OBS_AGENT = "AAAAAAAAAA";
+    private static final String UPDATED_OBS_AGENT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_OBS_RES = "AAAAAAAAAA";
+    private static final String UPDATED_OBS_RES = "BBBBBBBBBB";
 
     private static final String DEFAULT_DOS_IMG = "AAAAAAAAAA";
     private static final String UPDATED_DOS_IMG = "BBBBBBBBBB";
@@ -123,7 +126,8 @@ public class SuiviChampsResourceIntTest {
             .suiviID(DEFAULT_SUIVI_ID)
             .dVisit(DEFAULT_D_VISIT)
             .emplac(DEFAULT_EMPLAC)
-            .obs(DEFAULT_OBS)
+            .obsAgent(DEFAULT_OBS_AGENT)
+            .obsRes(DEFAULT_OBS_RES)
             .dosImg(DEFAULT_DOS_IMG)
             .estActif(DEFAULT_EST_ACTIF)
             .creeLe(DEFAULT_CREE_LE)
@@ -157,7 +161,8 @@ public class SuiviChampsResourceIntTest {
         assertThat(testSuiviChamps.getSuiviID()).isEqualTo(DEFAULT_SUIVI_ID);
         assertThat(testSuiviChamps.getdVisit()).isEqualTo(DEFAULT_D_VISIT);
         assertThat(testSuiviChamps.getEmplac()).isEqualTo(DEFAULT_EMPLAC);
-        assertThat(testSuiviChamps.getObs()).isEqualTo(DEFAULT_OBS);
+        assertThat(testSuiviChamps.getObsAgent()).isEqualTo(DEFAULT_OBS_AGENT);
+        assertThat(testSuiviChamps.getObsRes()).isEqualTo(DEFAULT_OBS_RES);
         assertThat(testSuiviChamps.getDosImg()).isEqualTo(DEFAULT_DOS_IMG);
         assertThat(testSuiviChamps.isEstActif()).isEqualTo(DEFAULT_EST_ACTIF);
         assertThat(testSuiviChamps.getCreeLe()).isEqualTo(DEFAULT_CREE_LE);
@@ -257,7 +262,8 @@ public class SuiviChampsResourceIntTest {
             .andExpect(jsonPath("$.[*].suiviID").value(hasItem(DEFAULT_SUIVI_ID)))
             .andExpect(jsonPath("$.[*].dVisit").value(hasItem(DEFAULT_D_VISIT.toString())))
             .andExpect(jsonPath("$.[*].emplac").value(hasItem(DEFAULT_EMPLAC.toString())))
-            .andExpect(jsonPath("$.[*].obs").value(hasItem(DEFAULT_OBS.toString())))
+            .andExpect(jsonPath("$.[*].obsAgent").value(hasItem(DEFAULT_OBS_AGENT.toString())))
+            .andExpect(jsonPath("$.[*].obsRes").value(hasItem(DEFAULT_OBS_RES.toString())))
             .andExpect(jsonPath("$.[*].dosImg").value(hasItem(DEFAULT_DOS_IMG.toString())))
             .andExpect(jsonPath("$.[*].estActif").value(hasItem(DEFAULT_EST_ACTIF.booleanValue())))
             .andExpect(jsonPath("$.[*].creeLe").value(hasItem(DEFAULT_CREE_LE.toString())))
@@ -281,7 +287,8 @@ public class SuiviChampsResourceIntTest {
             .andExpect(jsonPath("$.suiviID").value(DEFAULT_SUIVI_ID))
             .andExpect(jsonPath("$.dVisit").value(DEFAULT_D_VISIT.toString()))
             .andExpect(jsonPath("$.emplac").value(DEFAULT_EMPLAC.toString()))
-            .andExpect(jsonPath("$.obs").value(DEFAULT_OBS.toString()))
+            .andExpect(jsonPath("$.obsAgent").value(DEFAULT_OBS_AGENT.toString()))
+            .andExpect(jsonPath("$.obsRes").value(DEFAULT_OBS_RES.toString()))
             .andExpect(jsonPath("$.dosImg").value(DEFAULT_DOS_IMG.toString()))
             .andExpect(jsonPath("$.estActif").value(DEFAULT_EST_ACTIF.booleanValue()))
             .andExpect(jsonPath("$.creeLe").value(DEFAULT_CREE_LE.toString()))
@@ -313,7 +320,8 @@ public class SuiviChampsResourceIntTest {
             .suiviID(UPDATED_SUIVI_ID)
             .dVisit(UPDATED_D_VISIT)
             .emplac(UPDATED_EMPLAC)
-            .obs(UPDATED_OBS)
+            .obsAgent(UPDATED_OBS_AGENT)
+            .obsRes(UPDATED_OBS_RES)
             .dosImg(UPDATED_DOS_IMG)
             .estActif(UPDATED_EST_ACTIF)
             .creeLe(UPDATED_CREE_LE)
@@ -334,7 +342,8 @@ public class SuiviChampsResourceIntTest {
         assertThat(testSuiviChamps.getSuiviID()).isEqualTo(UPDATED_SUIVI_ID);
         assertThat(testSuiviChamps.getdVisit()).isEqualTo(UPDATED_D_VISIT);
         assertThat(testSuiviChamps.getEmplac()).isEqualTo(UPDATED_EMPLAC);
-        assertThat(testSuiviChamps.getObs()).isEqualTo(UPDATED_OBS);
+        assertThat(testSuiviChamps.getObsAgent()).isEqualTo(UPDATED_OBS_AGENT);
+        assertThat(testSuiviChamps.getObsRes()).isEqualTo(UPDATED_OBS_RES);
         assertThat(testSuiviChamps.getDosImg()).isEqualTo(UPDATED_DOS_IMG);
         assertThat(testSuiviChamps.isEstActif()).isEqualTo(UPDATED_EST_ACTIF);
         assertThat(testSuiviChamps.getCreeLe()).isEqualTo(UPDATED_CREE_LE);

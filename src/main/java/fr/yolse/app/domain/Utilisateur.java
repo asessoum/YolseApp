@@ -55,22 +55,40 @@ public class Utilisateur implements Serializable {
     @Column(name = "prenom", length = 20, nullable = false)
     private String prenom;
 
-    @Column(name = "naissance")
-    private Instant naissance;
+    @NotNull
+    @Column(name = "date_naiss", nullable = false)
+    private Instant dateNaiss;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "genre", nullable = false)
     private Genre genre;
 
-    @Column(name = "tel_1")
-    private Integer tel1;
+    @NotNull
+    @Size(max = 10)
+    @Column(name = "tel", length = 10, nullable = false)
+    private String tel;
 
-    @Column(name = "tel_2")
-    private Integer tel2;
-
-    @Column(name = "email")
+    @Size(max = 50)
+    @Column(name = "email", length = 50)
     private String email;
+
+    @NotNull
+    @Size(max = 20)
+    @Column(name = "num_carte_uti", length = 20, nullable = false)
+    private String numCarteUti;
+
+    @Column(name = "nom_pap")
+    private String nomPAP;
+
+    @Column(name = "prenom_pap")
+    private String prenomPAP;
+
+    @Column(name = "tel_pap")
+    private String telPAP;
+
+    @Column(name = "lien_pap")
+    private String lienPAP;
 
     @Column(name = "est_actif")
     private Boolean estActif;
@@ -89,23 +107,31 @@ public class Utilisateur implements Serializable {
 
     @OneToMany(mappedBy = "utilisateurs")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<TypeCulture> typeCultures = new HashSet<>();
-
-    @OneToMany(mappedBy = "utilisateurs")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Client> clients = new HashSet<>();
-
-    @OneToMany(mappedBy = "utilisateurs")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Langue> langues = new HashSet<>();
 
     @OneToMany(mappedBy = "utilisateurs")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Commune> communes = new HashSet<>();
 
+    @OneToMany(mappedBy = "agents")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Utilisateur> responsables = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("responsables")
+    private Utilisateur agents;
+
     @ManyToOne
     @JsonIgnoreProperties("utilisateurs")
-    private UtiProfil profils;
+    private UtiProfile profiles;
+
+    @ManyToOne
+    @JsonIgnoreProperties("utilisateurs")
+    private Client clients;
+
+    @ManyToOne
+    @JsonIgnoreProperties("utilisateurs")
+    private SuiviChamps suiviChamps;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -181,17 +207,17 @@ public class Utilisateur implements Serializable {
         this.prenom = prenom;
     }
 
-    public Instant getNaissance() {
-        return naissance;
+    public Instant getDateNaiss() {
+        return dateNaiss;
     }
 
-    public Utilisateur naissance(Instant naissance) {
-        this.naissance = naissance;
+    public Utilisateur dateNaiss(Instant dateNaiss) {
+        this.dateNaiss = dateNaiss;
         return this;
     }
 
-    public void setNaissance(Instant naissance) {
-        this.naissance = naissance;
+    public void setDateNaiss(Instant dateNaiss) {
+        this.dateNaiss = dateNaiss;
     }
 
     public Genre getGenre() {
@@ -207,30 +233,17 @@ public class Utilisateur implements Serializable {
         this.genre = genre;
     }
 
-    public Integer getTel1() {
-        return tel1;
+    public String getTel() {
+        return tel;
     }
 
-    public Utilisateur tel1(Integer tel1) {
-        this.tel1 = tel1;
+    public Utilisateur tel(String tel) {
+        this.tel = tel;
         return this;
     }
 
-    public void setTel1(Integer tel1) {
-        this.tel1 = tel1;
-    }
-
-    public Integer getTel2() {
-        return tel2;
-    }
-
-    public Utilisateur tel2(Integer tel2) {
-        this.tel2 = tel2;
-        return this;
-    }
-
-    public void setTel2(Integer tel2) {
-        this.tel2 = tel2;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public String getEmail() {
@@ -244,6 +257,71 @@ public class Utilisateur implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNumCarteUti() {
+        return numCarteUti;
+    }
+
+    public Utilisateur numCarteUti(String numCarteUti) {
+        this.numCarteUti = numCarteUti;
+        return this;
+    }
+
+    public void setNumCarteUti(String numCarteUti) {
+        this.numCarteUti = numCarteUti;
+    }
+
+    public String getNomPAP() {
+        return nomPAP;
+    }
+
+    public Utilisateur nomPAP(String nomPAP) {
+        this.nomPAP = nomPAP;
+        return this;
+    }
+
+    public void setNomPAP(String nomPAP) {
+        this.nomPAP = nomPAP;
+    }
+
+    public String getPrenomPAP() {
+        return prenomPAP;
+    }
+
+    public Utilisateur prenomPAP(String prenomPAP) {
+        this.prenomPAP = prenomPAP;
+        return this;
+    }
+
+    public void setPrenomPAP(String prenomPAP) {
+        this.prenomPAP = prenomPAP;
+    }
+
+    public String getTelPAP() {
+        return telPAP;
+    }
+
+    public Utilisateur telPAP(String telPAP) {
+        this.telPAP = telPAP;
+        return this;
+    }
+
+    public void setTelPAP(String telPAP) {
+        this.telPAP = telPAP;
+    }
+
+    public String getLienPAP() {
+        return lienPAP;
+    }
+
+    public Utilisateur lienPAP(String lienPAP) {
+        this.lienPAP = lienPAP;
+        return this;
+    }
+
+    public void setLienPAP(String lienPAP) {
+        this.lienPAP = lienPAP;
     }
 
     public Boolean isEstActif() {
@@ -311,56 +389,6 @@ public class Utilisateur implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<TypeCulture> getTypeCultures() {
-        return typeCultures;
-    }
-
-    public Utilisateur typeCultures(Set<TypeCulture> typeCultures) {
-        this.typeCultures = typeCultures;
-        return this;
-    }
-
-    public Utilisateur addTypeCulture(TypeCulture typeCulture) {
-        this.typeCultures.add(typeCulture);
-        typeCulture.setUtilisateurs(this);
-        return this;
-    }
-
-    public Utilisateur removeTypeCulture(TypeCulture typeCulture) {
-        this.typeCultures.remove(typeCulture);
-        typeCulture.setUtilisateurs(null);
-        return this;
-    }
-
-    public void setTypeCultures(Set<TypeCulture> typeCultures) {
-        this.typeCultures = typeCultures;
-    }
-
-    public Set<Client> getClients() {
-        return clients;
-    }
-
-    public Utilisateur clients(Set<Client> clients) {
-        this.clients = clients;
-        return this;
-    }
-
-    public Utilisateur addClient(Client client) {
-        this.clients.add(client);
-        client.setUtilisateurs(this);
-        return this;
-    }
-
-    public Utilisateur removeClient(Client client) {
-        this.clients.remove(client);
-        client.setUtilisateurs(null);
-        return this;
-    }
-
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
-    }
-
     public Set<Langue> getLangues() {
         return langues;
     }
@@ -411,17 +439,81 @@ public class Utilisateur implements Serializable {
         this.communes = communes;
     }
 
-    public UtiProfil getProfils() {
-        return profils;
+    public Set<Utilisateur> getResponsables() {
+        return responsables;
     }
 
-    public Utilisateur profils(UtiProfil utiProfil) {
-        this.profils = utiProfil;
+    public Utilisateur responsables(Set<Utilisateur> utilisateurs) {
+        this.responsables = utilisateurs;
         return this;
     }
 
-    public void setProfils(UtiProfil utiProfil) {
-        this.profils = utiProfil;
+    public Utilisateur addResponsable(Utilisateur utilisateur) {
+        this.responsables.add(utilisateur);
+        utilisateur.setAgents(this);
+        return this;
+    }
+
+    public Utilisateur removeResponsable(Utilisateur utilisateur) {
+        this.responsables.remove(utilisateur);
+        utilisateur.setAgents(null);
+        return this;
+    }
+
+    public void setResponsables(Set<Utilisateur> utilisateurs) {
+        this.responsables = utilisateurs;
+    }
+
+    public Utilisateur getAgents() {
+        return agents;
+    }
+
+    public Utilisateur agents(Utilisateur utilisateur) {
+        this.agents = utilisateur;
+        return this;
+    }
+
+    public void setAgents(Utilisateur utilisateur) {
+        this.agents = utilisateur;
+    }
+
+    public UtiProfile getProfiles() {
+        return profiles;
+    }
+
+    public Utilisateur profiles(UtiProfile utiProfile) {
+        this.profiles = utiProfile;
+        return this;
+    }
+
+    public void setProfiles(UtiProfile utiProfile) {
+        this.profiles = utiProfile;
+    }
+
+    public Client getClients() {
+        return clients;
+    }
+
+    public Utilisateur clients(Client client) {
+        this.clients = client;
+        return this;
+    }
+
+    public void setClients(Client client) {
+        this.clients = client;
+    }
+
+    public SuiviChamps getSuiviChamps() {
+        return suiviChamps;
+    }
+
+    public Utilisateur suiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps = suiviChamps;
+        return this;
+    }
+
+    public void setSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps = suiviChamps;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -454,11 +546,15 @@ public class Utilisateur implements Serializable {
             ", mdp='" + getMdp() + "'" +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
-            ", naissance='" + getNaissance() + "'" +
+            ", dateNaiss='" + getDateNaiss() + "'" +
             ", genre='" + getGenre() + "'" +
-            ", tel1=" + getTel1() +
-            ", tel2=" + getTel2() +
+            ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
+            ", numCarteUti='" + getNumCarteUti() + "'" +
+            ", nomPAP='" + getNomPAP() + "'" +
+            ", prenomPAP='" + getPrenomPAP() + "'" +
+            ", telPAP='" + getTelPAP() + "'" +
+            ", lienPAP='" + getLienPAP() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +

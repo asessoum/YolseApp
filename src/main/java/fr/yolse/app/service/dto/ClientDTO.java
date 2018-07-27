@@ -35,50 +35,46 @@ public class ClientDTO implements Serializable {
     private Boolean estMarie;
 
     @NotNull
-    private Integer numCin;
+    @Size(max = 20)
+    private String numCarteCli;
 
     @NotNull
-    private Instant validCin;
+    private Instant dCarteUtil;
 
     @NotNull
     @Size(max = 20)
     private String village;
 
     @NotNull
-    private Integer tel1;
-
-    private Integer tel2;
+    @Size(max = 10)
+    private String tel;
 
     @Size(max = 50)
     private String email;
 
     @Size(max = 50)
-    private String orgaProd;
+    private String groupe;
 
     @Size(max = 200)
     private String photoID;
 
-    private Integer tMenage;
+    @NotNull
+    private Integer tailleMenage;
+
+    @NotNull
+    private Double superficiePos;
 
     @Size(max = 20)
-    private String nomPerAPr;
+    private String nomPAP;
 
     @Size(max = 20)
-    private String prenomPerAPr;
+    private String prenomPAP;
 
-    private Integer telPerAPr;
+    @Size(max = 10)
+    private String telPAP;
 
-    @NotNull
-    private Double superfice;
-
-    @NotNull
-    private Double qSemence;
-
-    @NotNull
-    private Double mSimm;
-
-    @NotNull
-    private Double valTotal;
+    @Size(max = 10)
+    private String lienPAP;
 
     private Boolean estActif;
 
@@ -90,11 +86,9 @@ public class ClientDTO implements Serializable {
 
     private String modifPar;
 
+    private Long besoinIntrantsId;
+
     private Long suiviChampsId;
-
-    private Long engraisClientsId;
-
-    private Long utilisateursId;
 
     public Long getId() {
         return id;
@@ -152,20 +146,20 @@ public class ClientDTO implements Serializable {
         this.estMarie = estMarie;
     }
 
-    public Integer getNumCin() {
-        return numCin;
+    public String getNumCarteCli() {
+        return numCarteCli;
     }
 
-    public void setNumCin(Integer numCin) {
-        this.numCin = numCin;
+    public void setNumCarteCli(String numCarteCli) {
+        this.numCarteCli = numCarteCli;
     }
 
-    public Instant getValidCin() {
-        return validCin;
+    public Instant getdCarteUtil() {
+        return dCarteUtil;
     }
 
-    public void setValidCin(Instant validCin) {
-        this.validCin = validCin;
+    public void setdCarteUtil(Instant dCarteUtil) {
+        this.dCarteUtil = dCarteUtil;
     }
 
     public String getVillage() {
@@ -176,20 +170,12 @@ public class ClientDTO implements Serializable {
         this.village = village;
     }
 
-    public Integer getTel1() {
-        return tel1;
+    public String getTel() {
+        return tel;
     }
 
-    public void setTel1(Integer tel1) {
-        this.tel1 = tel1;
-    }
-
-    public Integer getTel2() {
-        return tel2;
-    }
-
-    public void setTel2(Integer tel2) {
-        this.tel2 = tel2;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public String getEmail() {
@@ -200,12 +186,12 @@ public class ClientDTO implements Serializable {
         this.email = email;
     }
 
-    public String getOrgaProd() {
-        return orgaProd;
+    public String getGroupe() {
+        return groupe;
     }
 
-    public void setOrgaProd(String orgaProd) {
-        this.orgaProd = orgaProd;
+    public void setGroupe(String groupe) {
+        this.groupe = groupe;
     }
 
     public String getPhotoID() {
@@ -216,68 +202,52 @@ public class ClientDTO implements Serializable {
         this.photoID = photoID;
     }
 
-    public Integer gettMenage() {
-        return tMenage;
+    public Integer getTailleMenage() {
+        return tailleMenage;
     }
 
-    public void settMenage(Integer tMenage) {
-        this.tMenage = tMenage;
+    public void setTailleMenage(Integer tailleMenage) {
+        this.tailleMenage = tailleMenage;
     }
 
-    public String getNomPerAPr() {
-        return nomPerAPr;
+    public Double getSuperficiePos() {
+        return superficiePos;
     }
 
-    public void setNomPerAPr(String nomPerAPr) {
-        this.nomPerAPr = nomPerAPr;
+    public void setSuperficiePos(Double superficiePos) {
+        this.superficiePos = superficiePos;
     }
 
-    public String getPrenomPerAPr() {
-        return prenomPerAPr;
+    public String getNomPAP() {
+        return nomPAP;
     }
 
-    public void setPrenomPerAPr(String prenomPerAPr) {
-        this.prenomPerAPr = prenomPerAPr;
+    public void setNomPAP(String nomPAP) {
+        this.nomPAP = nomPAP;
     }
 
-    public Integer getTelPerAPr() {
-        return telPerAPr;
+    public String getPrenomPAP() {
+        return prenomPAP;
     }
 
-    public void setTelPerAPr(Integer telPerAPr) {
-        this.telPerAPr = telPerAPr;
+    public void setPrenomPAP(String prenomPAP) {
+        this.prenomPAP = prenomPAP;
     }
 
-    public Double getSuperfice() {
-        return superfice;
+    public String getTelPAP() {
+        return telPAP;
     }
 
-    public void setSuperfice(Double superfice) {
-        this.superfice = superfice;
+    public void setTelPAP(String telPAP) {
+        this.telPAP = telPAP;
     }
 
-    public Double getqSemence() {
-        return qSemence;
+    public String getLienPAP() {
+        return lienPAP;
     }
 
-    public void setqSemence(Double qSemence) {
-        this.qSemence = qSemence;
-    }
-
-    public Double getmSimm() {
-        return mSimm;
-    }
-
-    public void setmSimm(Double mSimm) {
-        this.mSimm = mSimm;
-    }
-
-    public Double getValTotal() {
-        return valTotal;
-    }
-
-    public void setValTotal(Double valTotal) {
-        this.valTotal = valTotal;
+    public void setLienPAP(String lienPAP) {
+        this.lienPAP = lienPAP;
     }
 
     public Boolean isEstActif() {
@@ -320,28 +290,20 @@ public class ClientDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
+    public Long getBesoinIntrantsId() {
+        return besoinIntrantsId;
+    }
+
+    public void setBesoinIntrantsId(Long besoinIntrantId) {
+        this.besoinIntrantsId = besoinIntrantId;
+    }
+
     public Long getSuiviChampsId() {
         return suiviChampsId;
     }
 
     public void setSuiviChampsId(Long suiviChampsId) {
         this.suiviChampsId = suiviChampsId;
-    }
-
-    public Long getEngraisClientsId() {
-        return engraisClientsId;
-    }
-
-    public void setEngraisClientsId(Long engraisClientId) {
-        this.engraisClientsId = engraisClientId;
-    }
-
-    public Long getUtilisateursId() {
-        return utilisateursId;
-    }
-
-    public void setUtilisateursId(Long utilisateurId) {
-        this.utilisateursId = utilisateurId;
     }
 
     @Override
@@ -375,30 +337,26 @@ public class ClientDTO implements Serializable {
             ", naissance='" + getNaissance() + "'" +
             ", genre='" + getGenre() + "'" +
             ", estMarie='" + isEstMarie() + "'" +
-            ", numCin=" + getNumCin() +
-            ", validCin='" + getValidCin() + "'" +
+            ", numCarteCli='" + getNumCarteCli() + "'" +
+            ", dCarteUtil='" + getdCarteUtil() + "'" +
             ", village='" + getVillage() + "'" +
-            ", tel1=" + getTel1() +
-            ", tel2=" + getTel2() +
+            ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
-            ", orgaProd='" + getOrgaProd() + "'" +
+            ", groupe='" + getGroupe() + "'" +
             ", photoID='" + getPhotoID() + "'" +
-            ", tMenage=" + gettMenage() +
-            ", nomPerAPr='" + getNomPerAPr() + "'" +
-            ", prenomPerAPr='" + getPrenomPerAPr() + "'" +
-            ", telPerAPr=" + getTelPerAPr() +
-            ", superfice=" + getSuperfice() +
-            ", qSemence=" + getqSemence() +
-            ", mSimm=" + getmSimm() +
-            ", valTotal=" + getValTotal() +
+            ", tailleMenage=" + getTailleMenage() +
+            ", superficiePos=" + getSuperficiePos() +
+            ", nomPAP='" + getNomPAP() + "'" +
+            ", prenomPAP='" + getPrenomPAP() + "'" +
+            ", telPAP='" + getTelPAP() + "'" +
+            ", lienPAP='" + getLienPAP() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
+            ", besoinIntrants=" + getBesoinIntrantsId() +
             ", suiviChamps=" + getSuiviChampsId() +
-            ", engraisClients=" + getEngraisClientsId() +
-            ", utilisateurs=" + getUtilisateursId() +
             "}";
     }
 }

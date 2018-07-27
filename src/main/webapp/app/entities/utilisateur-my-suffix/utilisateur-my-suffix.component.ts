@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
 import { Principal } from 'app/core';
+
+import { ITEMS_PER_PAGE } from 'app/shared';
 import { UtilisateurMySuffixService } from './utilisateur-my-suffix.service';
 
 @Component({
@@ -15,21 +17,53 @@ export class UtilisateurMySuffixComponent implements OnInit, OnDestroy {
     utilisateurs: IUtilisateurMySuffix[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    itemsPerPage: number;
+    links: any;
+    page: any;
+    predicate: any;
+    queryCount: any;
+    reverse: any;
+    totalItems: number;
 
     constructor(
         private utilisateurService: UtilisateurMySuffixService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
+        private parseLinks: JhiParseLinks,
         private principal: Principal
-    ) {}
+    ) {
+        this.utilisateurs = [];
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.page = 0;
+        this.links = {
+            last: 0
+        };
+        this.predicate = 'id';
+        this.reverse = true;
+    }
 
     loadAll() {
-        this.utilisateurService.query().subscribe(
-            (res: HttpResponse<IUtilisateurMySuffix[]>) => {
-                this.utilisateurs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.utilisateurService
+            .query({
+                page: this.page,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            })
+            .subscribe(
+                (res: HttpResponse<IUtilisateurMySuffix[]>) => this.paginateUtilisateurs(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    reset() {
+        this.page = 0;
+        this.utilisateurs = [];
+        this.loadAll();
+    }
+
+    loadPage(page) {
+        this.page = page;
+        this.loadAll();
     }
 
     ngOnInit() {
@@ -49,7 +83,23 @@ export class UtilisateurMySuffixComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInUtilisateurs() {
-        this.eventSubscriber = this.eventManager.subscribe('utilisateurListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('utilisateurListModification', response => this.reset());
+    }
+
+    sort() {
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        if (this.predicate !== 'id') {
+            result.push('id');
+        }
+        return result;
+    }
+
+    private paginateUtilisateurs(data: IUtilisateurMySuffix[], headers: HttpHeaders) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+        for (let i = 0; i < data.length; i++) {
+            this.utilisateurs.push(data[i]);
+        }
     }
 
     private onError(errorMessage: string) {

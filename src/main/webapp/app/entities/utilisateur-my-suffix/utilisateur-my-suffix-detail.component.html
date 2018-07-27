@@ -25,25 +25,41 @@
                 <dd>
                     <span>{{utilisateur.prenom}}</span>
                 </dd>
-                <dt><span>Naissance</span></dt>
+                <dt><span>Date Naiss</span></dt>
                 <dd>
-                    <span>{{utilisateur.naissance}}</span>
+                    <span>{{utilisateur.dateNaiss}}</span>
                 </dd>
                 <dt><span>Genre</span></dt>
                 <dd>
                     <span>{{utilisateur.genre}}</span>
                 </dd>
-                <dt><span>Tel 1</span></dt>
+                <dt><span>Tel</span></dt>
                 <dd>
-                    <span>{{utilisateur.tel1}}</span>
-                </dd>
-                <dt><span>Tel 2</span></dt>
-                <dd>
-                    <span>{{utilisateur.tel2}}</span>
+                    <span>{{utilisateur.tel}}</span>
                 </dd>
                 <dt><span>Email</span></dt>
                 <dd>
                     <span>{{utilisateur.email}}</span>
+                </dd>
+                <dt><span>Num Carte Uti</span></dt>
+                <dd>
+                    <span>{{utilisateur.numCarteUti}}</span>
+                </dd>
+                <dt><span>Nom PAP</span></dt>
+                <dd>
+                    <span>{{utilisateur.nomPAP}}</span>
+                </dd>
+                <dt><span>Prenom PAP</span></dt>
+                <dd>
+                    <span>{{utilisateur.prenomPAP}}</span>
+                </dd>
+                <dt><span>Tel PAP</span></dt>
+                <dd>
+                    <span>{{utilisateur.telPAP}}</span>
+                </dd>
+                <dt><span>Lien PAP</span></dt>
+                <dd>
+                    <span>{{utilisateur.lienPAP}}</span>
                 </dd>
                 <dt><span>Est Actif</span></dt>
                 <dd>
@@ -65,10 +81,28 @@
                 <dd>
                     <span>{{utilisateur.modifPar}}</span>
                 </dd>
-                <dt><span>Profils</span></dt>
+                <dt><span>Agents</span></dt>
                 <dd>
-                    <div *ngIf="utilisateur.profilsId">
-                        <a [routerLink]="['/uti-profil-my-suffix', utilisateur.profilsId, 'view']">{{utilisateur.profilsId}}</a>
+                    <div *ngIf="utilisateur.agentsId">
+                        <a [routerLink]="['/utilisateur-my-suffix', utilisateur.agentsId, 'view']">{{utilisateur.agentsId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Profiles</span></dt>
+                <dd>
+                    <div *ngIf="utilisateur.profilesId">
+                        <a [routerLink]="['/uti-profile-my-suffix', utilisateur.profilesId, 'view']">{{utilisateur.profilesId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Clients</span></dt>
+                <dd>
+                    <div *ngIf="utilisateur.clientsId">
+                        <a [routerLink]="['/client-my-suffix', utilisateur.clientsId, 'view']">{{utilisateur.clientsId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Suivi Champs</span></dt>
+                <dd>
+                    <div *ngIf="utilisateur.suiviChampsId">
+                        <a [routerLink]="['/suivi-champs-my-suffix', utilisateur.suiviChampsId, 'view']">{{utilisateur.suiviChampsId}}</a>
                     </div>
                 </dd>
             </dl>

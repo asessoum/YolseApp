@@ -14,5 +14,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="utilisateur"/>
 
+        <addForeignKeyConstraint baseColumnNames="clients_id"
+                                 baseTableName="commune"
+                                 constraintName="fk_commune_clients_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"/>
+
+        <addForeignKeyConstraint baseColumnNames="suivi_champs_id"
+                                 baseTableName="commune"
+                                 constraintName="fk_commune_suivi_champs_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="suivi_champs"/>
+
     </changeSet>
 </databaseChangeLog>

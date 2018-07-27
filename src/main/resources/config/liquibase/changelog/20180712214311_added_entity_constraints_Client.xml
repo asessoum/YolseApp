@@ -8,23 +8,17 @@
     -->
     <changeSet id="20180712214311-2" author="jhipster">
         
+        <addForeignKeyConstraint baseColumnNames="besoin_intrants_id"
+                                 baseTableName="client"
+                                 constraintName="fk_client_besoin_intrants_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="besoin_intrant"/>
+
         <addForeignKeyConstraint baseColumnNames="suivi_champs_id"
                                  baseTableName="client"
                                  constraintName="fk_client_suivi_champs_id"
                                  referencedColumnNames="id"
                                  referencedTableName="suivi_champs"/>
-
-        <addForeignKeyConstraint baseColumnNames="engrais_clients_id"
-                                 baseTableName="client"
-                                 constraintName="fk_client_engrais_clients_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="engrais_client"/>
-
-        <addForeignKeyConstraint baseColumnNames="utilisateurs_id"
-                                 baseTableName="client"
-                                 constraintName="fk_client_utilisateurs_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="utilisateur"/>
 
     </changeSet>
 </databaseChangeLog>

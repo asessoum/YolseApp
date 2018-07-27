@@ -12,6 +12,8 @@ export interface ICommuneMySuffix {
     modifPar?: string;
     provinces?: IProvinceMySuffix[];
     utilisateursId?: number;
+    clientsId?: number;
+    suiviChampsId?: number;
 }
 
 export class CommuneMySuffix implements ICommuneMySuffix {
@@ -25,7 +27,9 @@ export class CommuneMySuffix implements ICommuneMySuffix {
         public modifLe?: Moment,
         public modifPar?: string,
         public provinces?: IProvinceMySuffix[],
-        public utilisateursId?: number
+        public utilisateursId?: number,
+        public clientsId?: number,
+        public suiviChampsId?: number
     ) {
         this.estActif = false;
     }

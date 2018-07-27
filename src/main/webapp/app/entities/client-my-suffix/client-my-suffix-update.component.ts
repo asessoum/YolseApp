@@ -8,12 +8,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
 import { ClientMySuffixService } from './client-my-suffix.service';
+import { IBesoinIntrantMySuffix } from 'app/shared/model/besoin-intrant-my-suffix.model';
+import { BesoinIntrantMySuffixService } from 'app/entities/besoin-intrant-my-suffix';
 import { ISuiviChampsMySuffix } from 'app/shared/model/suivi-champs-my-suffix.model';
 import { SuiviChampsMySuffixService } from 'app/entities/suivi-champs-my-suffix';
-import { IEngraisClientMySuffix } from 'app/shared/model/engrais-client-my-suffix.model';
-import { EngraisClientMySuffixService } from 'app/entities/engrais-client-my-suffix';
-import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
-import { UtilisateurMySuffixService } from 'app/entities/utilisateur-my-suffix';
 
 @Component({
     selector: 'jhi-client-my-suffix-update',
@@ -23,22 +21,19 @@ export class ClientMySuffixUpdateComponent implements OnInit {
     private _client: IClientMySuffix;
     isSaving: boolean;
 
+    besoinintrants: IBesoinIntrantMySuffix[];
+
     suivichamps: ISuiviChampsMySuffix[];
-
-    engraisclients: IEngraisClientMySuffix[];
-
-    utilisateurs: IUtilisateurMySuffix[];
     naissance: string;
-    validCin: string;
+    dCarteUtil: string;
     creeLe: string;
     modifLe: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private clientService: ClientMySuffixService,
+        private besoinIntrantService: BesoinIntrantMySuffixService,
         private suiviChampsService: SuiviChampsMySuffixService,
-        private engraisClientService: EngraisClientMySuffixService,
-        private utilisateurService: UtilisateurMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -47,21 +42,15 @@ export class ClientMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ client }) => {
             this.client = client;
         });
+        this.besoinIntrantService.query().subscribe(
+            (res: HttpResponse<IBesoinIntrantMySuffix[]>) => {
+                this.besoinintrants = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
         this.suiviChampsService.query().subscribe(
             (res: HttpResponse<ISuiviChampsMySuffix[]>) => {
                 this.suivichamps = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.engraisClientService.query().subscribe(
-            (res: HttpResponse<IEngraisClientMySuffix[]>) => {
-                this.engraisclients = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.utilisateurService.query().subscribe(
-            (res: HttpResponse<IUtilisateurMySuffix[]>) => {
-                this.utilisateurs = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -74,7 +63,7 @@ export class ClientMySuffixUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.client.naissance = moment(this.naissance, DATE_TIME_FORMAT);
-        this.client.validCin = moment(this.validCin, DATE_TIME_FORMAT);
+        this.client.dCarteUtil = moment(this.dCarteUtil, DATE_TIME_FORMAT);
         this.client.creeLe = moment(this.creeLe, DATE_TIME_FORMAT);
         this.client.modifLe = moment(this.modifLe, DATE_TIME_FORMAT);
         if (this.client.id !== undefined) {
@@ -101,15 +90,11 @@ export class ClientMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
+    trackBesoinIntrantById(index: number, item: IBesoinIntrantMySuffix) {
+        return item.id;
+    }
+
     trackSuiviChampsById(index: number, item: ISuiviChampsMySuffix) {
-        return item.id;
-    }
-
-    trackEngraisClientById(index: number, item: IEngraisClientMySuffix) {
-        return item.id;
-    }
-
-    trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
         return item.id;
     }
     get client() {
@@ -119,7 +104,7 @@ export class ClientMySuffixUpdateComponent implements OnInit {
     set client(client: IClientMySuffix) {
         this._client = client;
         this.naissance = moment(client.naissance).format(DATE_TIME_FORMAT);
-        this.validCin = moment(client.validCin).format(DATE_TIME_FORMAT);
+        this.dCarteUtil = moment(client.dCarteUtil).format(DATE_TIME_FORMAT);
         this.creeLe = moment(client.creeLe).format(DATE_TIME_FORMAT);
         this.modifLe = moment(client.modifLe).format(DATE_TIME_FORMAT);
     }

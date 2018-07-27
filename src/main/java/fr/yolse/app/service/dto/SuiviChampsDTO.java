@@ -22,8 +22,11 @@ public class SuiviChampsDTO implements Serializable {
     @Size(max = 50)
     private String emplac;
 
-    @Size(max = 4000)
-    private String obs;
+    @Size(max = 1000)
+    private String obsAgent;
+
+    @Size(max = 2000)
+    private String obsRes;
 
     @Size(max = 200)
     private String dosImg;
@@ -70,12 +73,20 @@ public class SuiviChampsDTO implements Serializable {
         this.emplac = emplac;
     }
 
-    public String getObs() {
-        return obs;
+    public String getObsAgent() {
+        return obsAgent;
     }
 
-    public void setObs(String obs) {
-        this.obs = obs;
+    public void setObsAgent(String obsAgent) {
+        this.obsAgent = obsAgent;
+    }
+
+    public String getObsRes() {
+        return obsRes;
+    }
+
+    public void setObsRes(String obsRes) {
+        this.obsRes = obsRes;
     }
 
     public String getDosImg() {
@@ -154,7 +165,8 @@ public class SuiviChampsDTO implements Serializable {
             ", suiviID=" + getSuiviID() +
             ", dVisit='" + getdVisit() + "'" +
             ", emplac='" + getEmplac() + "'" +
-            ", obs='" + getObs() + "'" +
+            ", obsAgent='" + getObsAgent() + "'" +
+            ", obsRes='" + getObsRes() + "'" +
             ", dosImg='" + getDosImg() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +

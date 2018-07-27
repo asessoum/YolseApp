@@ -45,11 +45,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="num_cin" type="integer">
+            <column name="num_carte_cli" type="varchar(20)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="valid_cin" type="datetime">
+            <column name="d_carte_util" type="datetime">
                 <constraints nullable="false" />
             </column>
 
@@ -57,19 +57,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="tel_1" type="integer">
+            <column name="tel" type="varchar(10)">
                 <constraints nullable="false" />
-            </column>
-
-            <column name="tel_2" type="integer">
-                <constraints nullable="true" />
             </column>
 
             <column name="email" type="varchar(50)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="orga_prod" type="varchar(50)">
+            <column name="groupe" type="varchar(50)">
                 <constraints nullable="true" />
             </column>
 
@@ -77,36 +73,28 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="t_menage" type="integer">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="nom_per_a_pr" type="varchar(20)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="prenom_per_a_pr" type="varchar(20)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="tel_per_a_pr" type="integer">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="superfice" type="double">
+            <column name="taille_menage" type="integer">
                 <constraints nullable="false" />
             </column>
 
-            <column name="q_semence" type="double">
+            <column name="superficie_pos" type="double">
                 <constraints nullable="false" />
             </column>
 
-            <column name="m_simm" type="double">
-                <constraints nullable="false" />
+            <column name="nom_pap" type="varchar(20)">
+                <constraints nullable="true" />
             </column>
 
-            <column name="val_total" type="double">
-                <constraints nullable="false" />
+            <column name="prenom_pap" type="varchar(20)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tel_pap" type="varchar(10)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="lien_pap" type="varchar(10)">
+                <constraints nullable="true" />
             </column>
 
             <column name="est_actif" type="boolean">
@@ -129,22 +117,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="besoin_intrants_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <column name="suivi_champs_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="engrais_clients_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="utilisateurs_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="client" columnName="naissance" columnDataType="datetime"/>
-        <dropDefaultValue tableName="client" columnName="valid_cin" columnDataType="datetime"/>
+        <dropDefaultValue tableName="client" columnName="d_carte_util" columnDataType="datetime"/>
         <dropDefaultValue tableName="client" columnName="cree_le" columnDataType="datetime"/>
         <dropDefaultValue tableName="client" columnName="modif_le" columnDataType="datetime"/>
         

@@ -10,6 +10,8 @@ import { ILangueMySuffix } from 'app/shared/model/langue-my-suffix.model';
 import { LangueMySuffixService } from './langue-my-suffix.service';
 import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
 import { UtilisateurMySuffixService } from 'app/entities/utilisateur-my-suffix';
+import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
+import { ClientMySuffixService } from 'app/entities/client-my-suffix';
 
 @Component({
     selector: 'jhi-langue-my-suffix-update',
@@ -20,6 +22,8 @@ export class LangueMySuffixUpdateComponent implements OnInit {
     isSaving: boolean;
 
     utilisateurs: IUtilisateurMySuffix[];
+
+    clients: IClientMySuffix[];
     creeLe: string;
     modifLe: string;
 
@@ -27,6 +31,7 @@ export class LangueMySuffixUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private langueService: LangueMySuffixService,
         private utilisateurService: UtilisateurMySuffixService,
+        private clientService: ClientMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,6 +43,12 @@ export class LangueMySuffixUpdateComponent implements OnInit {
         this.utilisateurService.query().subscribe(
             (res: HttpResponse<IUtilisateurMySuffix[]>) => {
                 this.utilisateurs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.clientService.query().subscribe(
+            (res: HttpResponse<IClientMySuffix[]>) => {
+                this.clients = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -76,6 +87,10 @@ export class LangueMySuffixUpdateComponent implements OnInit {
     }
 
     trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
+        return item.id;
+    }
+
+    trackClientById(index: number, item: IClientMySuffix) {
         return item.id;
     }
     get langue() {

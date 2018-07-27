@@ -1,15 +1,18 @@
 import { Moment } from 'moment';
-import { IEngraisClientMySuffix } from 'app/shared/model//engrais-client-my-suffix.model';
-import { ITypeCultureMySuffix } from 'app/shared/model//type-culture-my-suffix.model';
+import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
+import { ICultureMySuffix } from 'app/shared/model//culture-my-suffix.model';
 
 export interface IBesoinIntrantMySuffix {
     id?: number;
     besIntID?: number;
+    superficieEsc?: number;
+    qSemence?: number;
+    valeurTot?: number;
     mAdhesion?: number;
     mAssur?: number;
     mGaran?: number;
-    stockGar?: number;
-    magasin?: string;
+    qStockGar?: number;
+    magasinStock?: string;
     sfd?: string;
     mUniGes?: number;
     mAdmin?: number;
@@ -21,19 +24,24 @@ export interface IBesoinIntrantMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    engraisClients?: IEngraisClientMySuffix[];
-    typeCultures?: ITypeCultureMySuffix[];
+    clients?: IClientMySuffix[];
+    cultureEscs?: ICultureMySuffix[];
+    cultureGars?: ICultureMySuffix[];
+    besoinEngraisId?: number;
 }
 
 export class BesoinIntrantMySuffix implements IBesoinIntrantMySuffix {
     constructor(
         public id?: number,
         public besIntID?: number,
+        public superficieEsc?: number,
+        public qSemence?: number,
+        public valeurTot?: number,
         public mAdhesion?: number,
         public mAssur?: number,
         public mGaran?: number,
-        public stockGar?: number,
-        public magasin?: string,
+        public qStockGar?: number,
+        public magasinStock?: string,
         public sfd?: string,
         public mUniGes?: number,
         public mAdmin?: number,
@@ -45,8 +53,10 @@ export class BesoinIntrantMySuffix implements IBesoinIntrantMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public engraisClients?: IEngraisClientMySuffix[],
-        public typeCultures?: ITypeCultureMySuffix[]
+        public clients?: IClientMySuffix[],
+        public cultureEscs?: ICultureMySuffix[],
+        public cultureGars?: ICultureMySuffix[],
+        public besoinEngraisId?: number
     ) {
         this.validSup = false;
         this.validRes = false;

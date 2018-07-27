@@ -76,6 +76,20 @@
                         <option [ngValue]="utilisateurOption.id" *ngFor="let utilisateurOption of utilisateurs; trackBy: trackUtilisateurById">{{utilisateurOption.id}}</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_clients">Clients</label>
+                    <select class="form-control" id="field_clients" name="clients" [(ngModel)]="commune.clientsId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_suiviChamps">Suivi Champs</label>
+                    <select class="form-control" id="field_suiviChamps" name="suiviChamps" [(ngModel)]="commune.suiviChampsId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="suiviChampsOption.id" *ngFor="let suiviChampsOption of suivichamps; trackBy: trackSuiviChampsById">{{suiviChampsOption.id}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

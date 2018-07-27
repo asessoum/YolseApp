@@ -45,8 +45,11 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
-            "fieldName": "naissance",
-            "fieldType": "Instant"
+            "fieldName": "dateNaiss",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "genre",
@@ -57,15 +60,45 @@
             ]
         },
         {
-            "fieldName": "tel1",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "tel2",
-            "fieldType": "Integer"
+            "fieldName": "tel",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 10
         },
         {
             "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "numCarteUti",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "nomPAP",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "prenomPAP",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telPAP",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lienPAP",
             "fieldType": "String"
         },
         {
@@ -92,18 +125,6 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "typeCulture",
-            "otherEntityName": "typeCulture",
-            "otherEntityRelationshipName": "utilisateurs"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "client",
-            "otherEntityName": "client",
-            "otherEntityRelationshipName": "utilisateurs"
-        },
-        {
-            "relationshipType": "one-to-many",
             "relationshipName": "langue",
             "otherEntityName": "langue",
             "otherEntityRelationshipName": "utilisateurs"
@@ -115,16 +136,40 @@
             "otherEntityRelationshipName": "utilisateurs"
         },
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "responsable",
+            "otherEntityName": "utilisateur",
+            "otherEntityRelationshipName": "agents"
+        },
+        {
             "relationshipType": "many-to-one",
-            "relationshipName": "profils",
-            "otherEntityName": "utiProfil",
+            "relationshipName": "agents",
+            "otherEntityName": "utilisateur",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "profiles",
+            "otherEntityName": "utiProfile",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "clients",
+            "otherEntityName": "client",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "suiviChamps",
+            "otherEntityName": "suiviChamps",
             "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180712214309",
     "entityTableName": "utilisateur",
     "dto": "mapstruct",
-    "pagination": "no",
+    "pagination": "infinite-scroll",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

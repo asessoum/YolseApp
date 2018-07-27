@@ -47,6 +47,15 @@ public class BesoinIntrantResourceIntTest {
     private static final Integer DEFAULT_BES_INT_ID = 1;
     private static final Integer UPDATED_BES_INT_ID = 2;
 
+    private static final Double DEFAULT_SUPERFICIE_ESC = 1D;
+    private static final Double UPDATED_SUPERFICIE_ESC = 2D;
+
+    private static final Double DEFAULT_Q_SEMENCE = 1D;
+    private static final Double UPDATED_Q_SEMENCE = 2D;
+
+    private static final Double DEFAULT_VALEUR_TOT = 1D;
+    private static final Double UPDATED_VALEUR_TOT = 2D;
+
     private static final Double DEFAULT_M_ADHESION = 1D;
     private static final Double UPDATED_M_ADHESION = 2D;
 
@@ -56,11 +65,11 @@ public class BesoinIntrantResourceIntTest {
     private static final Double DEFAULT_M_GARAN = 1D;
     private static final Double UPDATED_M_GARAN = 2D;
 
-    private static final Integer DEFAULT_STOCK_GAR = 1;
-    private static final Integer UPDATED_STOCK_GAR = 2;
+    private static final Double DEFAULT_Q_STOCK_GAR = 1D;
+    private static final Double UPDATED_Q_STOCK_GAR = 2D;
 
-    private static final String DEFAULT_MAGASIN = "AAAAAAAAAA";
-    private static final String UPDATED_MAGASIN = "BBBBBBBBBB";
+    private static final String DEFAULT_MAGASIN_STOCK = "AAAAAAAAAA";
+    private static final String UPDATED_MAGASIN_STOCK = "BBBBBBBBBB";
 
     private static final String DEFAULT_SFD = "AAAAAAAAAA";
     private static final String UPDATED_SFD = "BBBBBBBBBB";
@@ -142,11 +151,14 @@ public class BesoinIntrantResourceIntTest {
     public static BesoinIntrant createEntity(EntityManager em) {
         BesoinIntrant besoinIntrant = new BesoinIntrant()
             .besIntID(DEFAULT_BES_INT_ID)
+            .superficieEsc(DEFAULT_SUPERFICIE_ESC)
+            .qSemence(DEFAULT_Q_SEMENCE)
+            .valeurTot(DEFAULT_VALEUR_TOT)
             .mAdhesion(DEFAULT_M_ADHESION)
             .mAssur(DEFAULT_M_ASSUR)
             .mGaran(DEFAULT_M_GARAN)
-            .stockGar(DEFAULT_STOCK_GAR)
-            .magasin(DEFAULT_MAGASIN)
+            .qStockGar(DEFAULT_Q_STOCK_GAR)
+            .magasinStock(DEFAULT_MAGASIN_STOCK)
             .sfd(DEFAULT_SFD)
             .mUniGes(DEFAULT_M_UNI_GES)
             .mAdmin(DEFAULT_M_ADMIN)
@@ -183,11 +195,14 @@ public class BesoinIntrantResourceIntTest {
         assertThat(besoinIntrantList).hasSize(databaseSizeBeforeCreate + 1);
         BesoinIntrant testBesoinIntrant = besoinIntrantList.get(besoinIntrantList.size() - 1);
         assertThat(testBesoinIntrant.getBesIntID()).isEqualTo(DEFAULT_BES_INT_ID);
+        assertThat(testBesoinIntrant.getSuperficieEsc()).isEqualTo(DEFAULT_SUPERFICIE_ESC);
+        assertThat(testBesoinIntrant.getqSemence()).isEqualTo(DEFAULT_Q_SEMENCE);
+        assertThat(testBesoinIntrant.getValeurTot()).isEqualTo(DEFAULT_VALEUR_TOT);
         assertThat(testBesoinIntrant.getmAdhesion()).isEqualTo(DEFAULT_M_ADHESION);
         assertThat(testBesoinIntrant.getmAssur()).isEqualTo(DEFAULT_M_ASSUR);
         assertThat(testBesoinIntrant.getmGaran()).isEqualTo(DEFAULT_M_GARAN);
-        assertThat(testBesoinIntrant.getStockGar()).isEqualTo(DEFAULT_STOCK_GAR);
-        assertThat(testBesoinIntrant.getMagasin()).isEqualTo(DEFAULT_MAGASIN);
+        assertThat(testBesoinIntrant.getqStockGar()).isEqualTo(DEFAULT_Q_STOCK_GAR);
+        assertThat(testBesoinIntrant.getMagasinStock()).isEqualTo(DEFAULT_MAGASIN_STOCK);
         assertThat(testBesoinIntrant.getSfd()).isEqualTo(DEFAULT_SFD);
         assertThat(testBesoinIntrant.getmUniGes()).isEqualTo(DEFAULT_M_UNI_GES);
         assertThat(testBesoinIntrant.getmAdmin()).isEqualTo(DEFAULT_M_ADMIN);
@@ -227,6 +242,63 @@ public class BesoinIntrantResourceIntTest {
         int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
         // set the field null
         besoinIntrant.setBesIntID(null);
+
+        // Create the BesoinIntrant, which fails.
+        BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
+
+        restBesoinIntrantMockMvc.perform(post("/api/besoin-intrants")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(besoinIntrantDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<BesoinIntrant> besoinIntrantList = besoinIntrantRepository.findAll();
+        assertThat(besoinIntrantList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkSuperficieEscIsRequired() throws Exception {
+        int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
+        // set the field null
+        besoinIntrant.setSuperficieEsc(null);
+
+        // Create the BesoinIntrant, which fails.
+        BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
+
+        restBesoinIntrantMockMvc.perform(post("/api/besoin-intrants")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(besoinIntrantDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<BesoinIntrant> besoinIntrantList = besoinIntrantRepository.findAll();
+        assertThat(besoinIntrantList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkqSemenceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
+        // set the field null
+        besoinIntrant.setqSemence(null);
+
+        // Create the BesoinIntrant, which fails.
+        BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
+
+        restBesoinIntrantMockMvc.perform(post("/api/besoin-intrants")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(besoinIntrantDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<BesoinIntrant> besoinIntrantList = besoinIntrantRepository.findAll();
+        assertThat(besoinIntrantList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkValeurTotIsRequired() throws Exception {
+        int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
+        // set the field null
+        besoinIntrant.setValeurTot(null);
 
         // Create the BesoinIntrant, which fails.
         BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
@@ -299,10 +371,10 @@ public class BesoinIntrantResourceIntTest {
 
     @Test
     @Transactional
-    public void checkStockGarIsRequired() throws Exception {
+    public void checkqStockGarIsRequired() throws Exception {
         int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
         // set the field null
-        besoinIntrant.setStockGar(null);
+        besoinIntrant.setqStockGar(null);
 
         // Create the BesoinIntrant, which fails.
         BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
@@ -318,10 +390,10 @@ public class BesoinIntrantResourceIntTest {
 
     @Test
     @Transactional
-    public void checkMagasinIsRequired() throws Exception {
+    public void checkMagasinStockIsRequired() throws Exception {
         int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
         // set the field null
-        besoinIntrant.setMagasin(null);
+        besoinIntrant.setMagasinStock(null);
 
         // Create the BesoinIntrant, which fails.
         BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
@@ -423,11 +495,14 @@ public class BesoinIntrantResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(besoinIntrant.getId().intValue())))
             .andExpect(jsonPath("$.[*].besIntID").value(hasItem(DEFAULT_BES_INT_ID)))
+            .andExpect(jsonPath("$.[*].superficieEsc").value(hasItem(DEFAULT_SUPERFICIE_ESC.doubleValue())))
+            .andExpect(jsonPath("$.[*].qSemence").value(hasItem(DEFAULT_Q_SEMENCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].valeurTot").value(hasItem(DEFAULT_VALEUR_TOT.doubleValue())))
             .andExpect(jsonPath("$.[*].mAdhesion").value(hasItem(DEFAULT_M_ADHESION.doubleValue())))
             .andExpect(jsonPath("$.[*].mAssur").value(hasItem(DEFAULT_M_ASSUR.doubleValue())))
             .andExpect(jsonPath("$.[*].mGaran").value(hasItem(DEFAULT_M_GARAN.doubleValue())))
-            .andExpect(jsonPath("$.[*].stockGar").value(hasItem(DEFAULT_STOCK_GAR)))
-            .andExpect(jsonPath("$.[*].magasin").value(hasItem(DEFAULT_MAGASIN.toString())))
+            .andExpect(jsonPath("$.[*].qStockGar").value(hasItem(DEFAULT_Q_STOCK_GAR.doubleValue())))
+            .andExpect(jsonPath("$.[*].magasinStock").value(hasItem(DEFAULT_MAGASIN_STOCK.toString())))
             .andExpect(jsonPath("$.[*].sfd").value(hasItem(DEFAULT_SFD.toString())))
             .andExpect(jsonPath("$.[*].mUniGes").value(hasItem(DEFAULT_M_UNI_GES.doubleValue())))
             .andExpect(jsonPath("$.[*].mAdmin").value(hasItem(DEFAULT_M_ADMIN.doubleValue())))
@@ -454,11 +529,14 @@ public class BesoinIntrantResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(besoinIntrant.getId().intValue()))
             .andExpect(jsonPath("$.besIntID").value(DEFAULT_BES_INT_ID))
+            .andExpect(jsonPath("$.superficieEsc").value(DEFAULT_SUPERFICIE_ESC.doubleValue()))
+            .andExpect(jsonPath("$.qSemence").value(DEFAULT_Q_SEMENCE.doubleValue()))
+            .andExpect(jsonPath("$.valeurTot").value(DEFAULT_VALEUR_TOT.doubleValue()))
             .andExpect(jsonPath("$.mAdhesion").value(DEFAULT_M_ADHESION.doubleValue()))
             .andExpect(jsonPath("$.mAssur").value(DEFAULT_M_ASSUR.doubleValue()))
             .andExpect(jsonPath("$.mGaran").value(DEFAULT_M_GARAN.doubleValue()))
-            .andExpect(jsonPath("$.stockGar").value(DEFAULT_STOCK_GAR))
-            .andExpect(jsonPath("$.magasin").value(DEFAULT_MAGASIN.toString()))
+            .andExpect(jsonPath("$.qStockGar").value(DEFAULT_Q_STOCK_GAR.doubleValue()))
+            .andExpect(jsonPath("$.magasinStock").value(DEFAULT_MAGASIN_STOCK.toString()))
             .andExpect(jsonPath("$.sfd").value(DEFAULT_SFD.toString()))
             .andExpect(jsonPath("$.mUniGes").value(DEFAULT_M_UNI_GES.doubleValue()))
             .andExpect(jsonPath("$.mAdmin").value(DEFAULT_M_ADMIN.doubleValue()))
@@ -493,11 +571,14 @@ public class BesoinIntrantResourceIntTest {
         em.detach(updatedBesoinIntrant);
         updatedBesoinIntrant
             .besIntID(UPDATED_BES_INT_ID)
+            .superficieEsc(UPDATED_SUPERFICIE_ESC)
+            .qSemence(UPDATED_Q_SEMENCE)
+            .valeurTot(UPDATED_VALEUR_TOT)
             .mAdhesion(UPDATED_M_ADHESION)
             .mAssur(UPDATED_M_ASSUR)
             .mGaran(UPDATED_M_GARAN)
-            .stockGar(UPDATED_STOCK_GAR)
-            .magasin(UPDATED_MAGASIN)
+            .qStockGar(UPDATED_Q_STOCK_GAR)
+            .magasinStock(UPDATED_MAGASIN_STOCK)
             .sfd(UPDATED_SFD)
             .mUniGes(UPDATED_M_UNI_GES)
             .mAdmin(UPDATED_M_ADMIN)
@@ -521,11 +602,14 @@ public class BesoinIntrantResourceIntTest {
         assertThat(besoinIntrantList).hasSize(databaseSizeBeforeUpdate);
         BesoinIntrant testBesoinIntrant = besoinIntrantList.get(besoinIntrantList.size() - 1);
         assertThat(testBesoinIntrant.getBesIntID()).isEqualTo(UPDATED_BES_INT_ID);
+        assertThat(testBesoinIntrant.getSuperficieEsc()).isEqualTo(UPDATED_SUPERFICIE_ESC);
+        assertThat(testBesoinIntrant.getqSemence()).isEqualTo(UPDATED_Q_SEMENCE);
+        assertThat(testBesoinIntrant.getValeurTot()).isEqualTo(UPDATED_VALEUR_TOT);
         assertThat(testBesoinIntrant.getmAdhesion()).isEqualTo(UPDATED_M_ADHESION);
         assertThat(testBesoinIntrant.getmAssur()).isEqualTo(UPDATED_M_ASSUR);
         assertThat(testBesoinIntrant.getmGaran()).isEqualTo(UPDATED_M_GARAN);
-        assertThat(testBesoinIntrant.getStockGar()).isEqualTo(UPDATED_STOCK_GAR);
-        assertThat(testBesoinIntrant.getMagasin()).isEqualTo(UPDATED_MAGASIN);
+        assertThat(testBesoinIntrant.getqStockGar()).isEqualTo(UPDATED_Q_STOCK_GAR);
+        assertThat(testBesoinIntrant.getMagasinStock()).isEqualTo(UPDATED_MAGASIN_STOCK);
         assertThat(testBesoinIntrant.getSfd()).isEqualTo(UPDATED_SFD);
         assertThat(testBesoinIntrant.getmUniGes()).isEqualTo(UPDATED_M_UNI_GES);
         assertThat(testBesoinIntrant.getmAdmin()).isEqualTo(UPDATED_M_ADMIN);

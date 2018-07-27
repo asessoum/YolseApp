@@ -25,6 +25,51 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_superficieEsc">Superficie Esc</label>
+                    <input type="number" class="form-control" name="superficieEsc" id="field_superficieEsc"
+                        [(ngModel)]="besoinIntrant.superficieEsc" required/>
+                    <div [hidden]="!(editForm.controls.superficieEsc?.dirty && editForm.controls.superficieEsc?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.superficieEsc?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.superficieEsc?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qSemence">Q Semence</label>
+                    <input type="number" class="form-control" name="qSemence" id="field_qSemence"
+                        [(ngModel)]="besoinIntrant.qSemence" required/>
+                    <div [hidden]="!(editForm.controls.qSemence?.dirty && editForm.controls.qSemence?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.qSemence?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.qSemence?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_valeurTot">Valeur Tot</label>
+                    <input type="number" class="form-control" name="valeurTot" id="field_valeurTot"
+                        [(ngModel)]="besoinIntrant.valeurTot" required/>
+                    <div [hidden]="!(editForm.controls.valeurTot?.dirty && editForm.controls.valeurTot?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.valeurTot?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.valeurTot?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_mAdhesion">M Adhesion</label>
                     <input type="number" class="form-control" name="mAdhesion" id="field_mAdhesion"
                         [(ngModel)]="besoinIntrant.mAdhesion" required/>
@@ -70,31 +115,31 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_stockGar">Stock Gar</label>
-                    <input type="number" class="form-control" name="stockGar" id="field_stockGar"
-                        [(ngModel)]="besoinIntrant.stockGar" required/>
-                    <div [hidden]="!(editForm.controls.stockGar?.dirty && editForm.controls.stockGar?.invalid)">
+                    <label class="form-control-label" for="field_qStockGar">Q Stock Gar</label>
+                    <input type="number" class="form-control" name="qStockGar" id="field_qStockGar"
+                        [(ngModel)]="besoinIntrant.qStockGar" required/>
+                    <div [hidden]="!(editForm.controls.qStockGar?.dirty && editForm.controls.qStockGar?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.stockGar?.errors?.required">
+                        [hidden]="!editForm.controls.qStockGar?.errors?.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.stockGar?.errors?.number">
+                            [hidden]="!editForm.controls.qStockGar?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_magasin">Magasin</label>
-                    <input type="text" class="form-control" name="magasin" id="field_magasin"
-                        [(ngModel)]="besoinIntrant.magasin" required maxlength="50"/>
-                    <div [hidden]="!(editForm.controls.magasin?.dirty && editForm.controls.magasin?.invalid)">
+                    <label class="form-control-label" for="field_magasinStock">Magasin Stock</label>
+                    <input type="text" class="form-control" name="magasinStock" id="field_magasinStock"
+                        [(ngModel)]="besoinIntrant.magasinStock" required maxlength="50"/>
+                    <div [hidden]="!(editForm.controls.magasinStock?.dirty && editForm.controls.magasinStock?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.magasin?.errors?.required">
+                        [hidden]="!editForm.controls.magasinStock?.errors?.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.magasin?.errors?.maxlength">
+                        [hidden]="!editForm.controls.magasinStock?.errors?.maxlength">
                         This field cannot be longer than 50 characters.
                         </small>
                     </div>
@@ -199,6 +244,13 @@
                         [(ngModel)]="besoinIntrant.modifPar" />
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" for="field_besoinEngrais">Besoin Engrais</label>
+                    <select class="form-control" id="field_besoinEngrais" name="besoinEngrais" [(ngModel)]="besoinIntrant.besoinEngraisId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="besoinEngraisOption.id" *ngFor="let besoinEngraisOption of besoinengrais; trackBy: trackBesoinEngraisById">{{besoinEngraisOption.id}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

@@ -51,7 +51,7 @@ export class UtilisateurMySuffixService {
 
     private convertDateFromClient(utilisateur: IUtilisateurMySuffix): IUtilisateurMySuffix {
         const copy: IUtilisateurMySuffix = Object.assign({}, utilisateur, {
-            naissance: utilisateur.naissance != null && utilisateur.naissance.isValid() ? utilisateur.naissance.toJSON() : null,
+            dateNaiss: utilisateur.dateNaiss != null && utilisateur.dateNaiss.isValid() ? utilisateur.dateNaiss.toJSON() : null,
             creeLe: utilisateur.creeLe != null && utilisateur.creeLe.isValid() ? utilisateur.creeLe.toJSON() : null,
             modifLe: utilisateur.modifLe != null && utilisateur.modifLe.isValid() ? utilisateur.modifLe.toJSON() : null
         });
@@ -59,7 +59,7 @@ export class UtilisateurMySuffixService {
     }
 
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.naissance = res.body.naissance != null ? moment(res.body.naissance) : null;
+        res.body.dateNaiss = res.body.dateNaiss != null ? moment(res.body.dateNaiss) : null;
         res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
         res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
         return res;
@@ -67,7 +67,7 @@ export class UtilisateurMySuffixService {
 
     private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         res.body.forEach((utilisateur: IUtilisateurMySuffix) => {
-            utilisateur.naissance = utilisateur.naissance != null ? moment(utilisateur.naissance) : null;
+            utilisateur.dateNaiss = utilisateur.dateNaiss != null ? moment(utilisateur.dateNaiss) : null;
             utilisateur.creeLe = utilisateur.creeLe != null ? moment(utilisateur.creeLe) : null;
             utilisateur.modifLe = utilisateur.modifLe != null ? moment(utilisateur.modifLe) : null;
         });

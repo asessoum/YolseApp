@@ -51,14 +51,16 @@
             ]
         },
         {
-            "fieldName": "numCin",
-            "fieldType": "Integer",
+            "fieldName": "numCarteCli",
+            "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
         },
         {
-            "fieldName": "validCin",
+            "fieldName": "dCarteUtil",
             "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
@@ -74,15 +76,13 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
-            "fieldName": "tel1",
-            "fieldType": "Integer",
+            "fieldName": "tel",
+            "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "tel2",
-            "fieldType": "Integer"
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 10
         },
         {
             "fieldName": "email",
@@ -93,7 +93,7 @@
             "fieldValidateRulesMaxlength": 50
         },
         {
-            "fieldName": "orgaProd",
+            "fieldName": "groupe",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
@@ -109,11 +109,21 @@
             "fieldValidateRulesMaxlength": 200
         },
         {
-            "fieldName": "tMenage",
-            "fieldType": "Integer"
+            "fieldName": "tailleMenage",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
-            "fieldName": "nomPerAPr",
+            "fieldName": "superficiePos",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nomPAP",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
@@ -121,7 +131,7 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
-            "fieldName": "prenomPerAPr",
+            "fieldName": "prenomPAP",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
@@ -129,36 +139,20 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
-            "fieldName": "telPerAPr",
-            "fieldType": "Integer"
+            "fieldName": "telPAP",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 10
         },
         {
-            "fieldName": "superfice",
-            "fieldType": "Double",
+            "fieldName": "lienPAP",
+            "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "qSemence",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "mSimm",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "valTotal",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 10
         },
         {
             "fieldName": "estActif",
@@ -183,21 +177,33 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "langue",
+            "otherEntityName": "langue",
+            "otherEntityRelationshipName": "clients"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "utilisateur",
+            "otherEntityName": "utilisateur",
+            "otherEntityRelationshipName": "clients"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "commune",
+            "otherEntityName": "commune",
+            "otherEntityRelationshipName": "clients"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "besoinIntrants",
+            "otherEntityName": "besoinIntrant",
+            "otherEntityField": "id"
+        },
+        {
             "relationshipType": "many-to-one",
             "relationshipName": "suiviChamps",
             "otherEntityName": "suiviChamps",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "engraisClients",
-            "otherEntityName": "engraisClient",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "utilisateurs",
-            "otherEntityName": "utilisateur",
             "otherEntityField": "id"
         }
     ],

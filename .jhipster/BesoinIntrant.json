@@ -9,6 +9,27 @@
             ]
         },
         {
+            "fieldName": "superficieEsc",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "qSemence",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "valeurTot",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "mAdhesion",
             "fieldType": "Double",
             "fieldValidateRules": [
@@ -30,14 +51,14 @@
             ]
         },
         {
-            "fieldName": "stockGar",
-            "fieldType": "Integer",
+            "fieldName": "qStockGar",
+            "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "magasin",
+            "fieldName": "magasinStock",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
@@ -107,15 +128,27 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "engraisClient",
-            "otherEntityName": "engraisClient",
+            "relationshipName": "client",
+            "otherEntityName": "client",
             "otherEntityRelationshipName": "besoinIntrants"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "typeCulture",
-            "otherEntityName": "typeCulture",
-            "otherEntityRelationshipName": "engraisClients"
+            "relationshipName": "cultureEsc",
+            "otherEntityName": "culture",
+            "otherEntityRelationshipName": "besoinsIntrantsEsc"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "cultureGar",
+            "otherEntityName": "culture",
+            "otherEntityRelationshipName": "besoinsIntrantsGar"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "besoinEngrais",
+            "otherEntityName": "besoinEngrais",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180712214313",

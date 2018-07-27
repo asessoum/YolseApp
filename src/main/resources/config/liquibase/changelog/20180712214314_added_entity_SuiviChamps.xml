@@ -33,7 +33,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="obs" type="varchar(4000)">
+            <column name="obs_agent" type="varchar(1000)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="obs_res" type="varchar(2000)">
                 <constraints nullable="true" />
             </column>
 

@@ -16,6 +16,15 @@ public class BesoinIntrantDTO implements Serializable {
     private Integer besIntID;
 
     @NotNull
+    private Double superficieEsc;
+
+    @NotNull
+    private Double qSemence;
+
+    @NotNull
+    private Double valeurTot;
+
+    @NotNull
     private Double mAdhesion;
 
     @NotNull
@@ -25,11 +34,11 @@ public class BesoinIntrantDTO implements Serializable {
     private Double mGaran;
 
     @NotNull
-    private Integer stockGar;
+    private Double qStockGar;
 
     @NotNull
     @Size(max = 50)
-    private String magasin;
+    private String magasinStock;
 
     @NotNull
     @Size(max = 50)
@@ -58,6 +67,8 @@ public class BesoinIntrantDTO implements Serializable {
 
     private String modifPar;
 
+    private Long besoinEngraisId;
+
     public Long getId() {
         return id;
     }
@@ -72,6 +83,30 @@ public class BesoinIntrantDTO implements Serializable {
 
     public void setBesIntID(Integer besIntID) {
         this.besIntID = besIntID;
+    }
+
+    public Double getSuperficieEsc() {
+        return superficieEsc;
+    }
+
+    public void setSuperficieEsc(Double superficieEsc) {
+        this.superficieEsc = superficieEsc;
+    }
+
+    public Double getqSemence() {
+        return qSemence;
+    }
+
+    public void setqSemence(Double qSemence) {
+        this.qSemence = qSemence;
+    }
+
+    public Double getValeurTot() {
+        return valeurTot;
+    }
+
+    public void setValeurTot(Double valeurTot) {
+        this.valeurTot = valeurTot;
     }
 
     public Double getmAdhesion() {
@@ -98,20 +133,20 @@ public class BesoinIntrantDTO implements Serializable {
         this.mGaran = mGaran;
     }
 
-    public Integer getStockGar() {
-        return stockGar;
+    public Double getqStockGar() {
+        return qStockGar;
     }
 
-    public void setStockGar(Integer stockGar) {
-        this.stockGar = stockGar;
+    public void setqStockGar(Double qStockGar) {
+        this.qStockGar = qStockGar;
     }
 
-    public String getMagasin() {
-        return magasin;
+    public String getMagasinStock() {
+        return magasinStock;
     }
 
-    public void setMagasin(String magasin) {
-        this.magasin = magasin;
+    public void setMagasinStock(String magasinStock) {
+        this.magasinStock = magasinStock;
     }
 
     public String getSfd() {
@@ -202,6 +237,14 @@ public class BesoinIntrantDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
+    public Long getBesoinEngraisId() {
+        return besoinEngraisId;
+    }
+
+    public void setBesoinEngraisId(Long besoinEngraisId) {
+        this.besoinEngraisId = besoinEngraisId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -228,11 +271,14 @@ public class BesoinIntrantDTO implements Serializable {
         return "BesoinIntrantDTO{" +
             "id=" + getId() +
             ", besIntID=" + getBesIntID() +
+            ", superficieEsc=" + getSuperficieEsc() +
+            ", qSemence=" + getqSemence() +
+            ", valeurTot=" + getValeurTot() +
             ", mAdhesion=" + getmAdhesion() +
             ", mAssur=" + getmAssur() +
             ", mGaran=" + getmGaran() +
-            ", stockGar=" + getStockGar() +
-            ", magasin='" + getMagasin() + "'" +
+            ", qStockGar=" + getqStockGar() +
+            ", magasinStock='" + getMagasinStock() + "'" +
             ", sfd='" + getSfd() + "'" +
             ", mUniGes=" + getmUniGes() +
             ", mAdmin=" + getmAdmin() +
@@ -244,6 +290,7 @@ public class BesoinIntrantDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
+            ", besoinEngrais=" + getBesoinEngraisId() +
             "}";
     }
 }

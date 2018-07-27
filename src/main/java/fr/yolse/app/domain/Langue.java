@@ -54,6 +54,10 @@ public class Langue implements Serializable {
     @JsonIgnoreProperties("langues")
     private Utilisateur utilisateurs;
 
+    @ManyToOne
+    @JsonIgnoreProperties("langues")
+    private Client clients;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -165,6 +169,19 @@ public class Langue implements Serializable {
 
     public void setUtilisateurs(Utilisateur utilisateur) {
         this.utilisateurs = utilisateur;
+    }
+
+    public Client getClients() {
+        return clients;
+    }
+
+    public Langue clients(Client client) {
+        this.clients = client;
+        return this;
+    }
+
+    public void setClients(Client client) {
+        this.clients = client;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

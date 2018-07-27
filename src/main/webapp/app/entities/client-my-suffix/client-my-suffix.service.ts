@@ -52,7 +52,7 @@ export class ClientMySuffixService {
     private convertDateFromClient(client: IClientMySuffix): IClientMySuffix {
         const copy: IClientMySuffix = Object.assign({}, client, {
             naissance: client.naissance != null && client.naissance.isValid() ? client.naissance.toJSON() : null,
-            validCin: client.validCin != null && client.validCin.isValid() ? client.validCin.toJSON() : null,
+            dCarteUtil: client.dCarteUtil != null && client.dCarteUtil.isValid() ? client.dCarteUtil.toJSON() : null,
             creeLe: client.creeLe != null && client.creeLe.isValid() ? client.creeLe.toJSON() : null,
             modifLe: client.modifLe != null && client.modifLe.isValid() ? client.modifLe.toJSON() : null
         });
@@ -61,7 +61,7 @@ export class ClientMySuffixService {
 
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
         res.body.naissance = res.body.naissance != null ? moment(res.body.naissance) : null;
-        res.body.validCin = res.body.validCin != null ? moment(res.body.validCin) : null;
+        res.body.dCarteUtil = res.body.dCarteUtil != null ? moment(res.body.dCarteUtil) : null;
         res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
         res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
         return res;
@@ -70,7 +70,7 @@ export class ClientMySuffixService {
     private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         res.body.forEach((client: IClientMySuffix) => {
             client.naissance = client.naissance != null ? moment(client.naissance) : null;
-            client.validCin = client.validCin != null ? moment(client.validCin) : null;
+            client.dCarteUtil = client.dCarteUtil != null ? moment(client.dCarteUtil) : null;
             client.creeLe = client.creeLe != null ? moment(client.creeLe) : null;
             client.modifLe = client.modifLe != null ? moment(client.modifLe) : null;
         });

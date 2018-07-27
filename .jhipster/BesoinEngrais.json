@@ -1,0 +1,59 @@
+{
+    "name": "BesoinEngrais",
+    "fields": [
+        {
+            "fieldName": "qEngrais",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "pTotEngr",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creeLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creePar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "modifLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modifPar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "besoinIntrant",
+            "otherEntityName": "besoinIntrant",
+            "otherEntityRelationshipName": "besoinEngrais"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "engrais",
+            "otherEntityName": "engrais",
+            "otherEntityRelationshipName": "besoinEngrais"
+        }
+    ],
+    "changelogDate": "20180727151352",
+    "entityTableName": "besoin_engrais",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

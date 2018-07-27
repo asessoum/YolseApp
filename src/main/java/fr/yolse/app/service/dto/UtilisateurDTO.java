@@ -32,16 +32,30 @@ public class UtilisateurDTO implements Serializable {
     @Size(max = 20)
     private String prenom;
 
-    private Instant naissance;
+    @NotNull
+    private Instant dateNaiss;
 
     @NotNull
     private Genre genre;
 
-    private Integer tel1;
+    @NotNull
+    @Size(max = 10)
+    private String tel;
 
-    private Integer tel2;
-
+    @Size(max = 50)
     private String email;
+
+    @NotNull
+    @Size(max = 20)
+    private String numCarteUti;
+
+    private String nomPAP;
+
+    private String prenomPAP;
+
+    private String telPAP;
+
+    private String lienPAP;
 
     private Boolean estActif;
 
@@ -53,7 +67,13 @@ public class UtilisateurDTO implements Serializable {
 
     private String modifPar;
 
-    private Long profilsId;
+    private Long agentsId;
+
+    private Long profilesId;
+
+    private Long clientsId;
+
+    private Long suiviChampsId;
 
     public Long getId() {
         return id;
@@ -103,12 +123,12 @@ public class UtilisateurDTO implements Serializable {
         this.prenom = prenom;
     }
 
-    public Instant getNaissance() {
-        return naissance;
+    public Instant getDateNaiss() {
+        return dateNaiss;
     }
 
-    public void setNaissance(Instant naissance) {
-        this.naissance = naissance;
+    public void setDateNaiss(Instant dateNaiss) {
+        this.dateNaiss = dateNaiss;
     }
 
     public Genre getGenre() {
@@ -119,20 +139,12 @@ public class UtilisateurDTO implements Serializable {
         this.genre = genre;
     }
 
-    public Integer getTel1() {
-        return tel1;
+    public String getTel() {
+        return tel;
     }
 
-    public void setTel1(Integer tel1) {
-        this.tel1 = tel1;
-    }
-
-    public Integer getTel2() {
-        return tel2;
-    }
-
-    public void setTel2(Integer tel2) {
-        this.tel2 = tel2;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public String getEmail() {
@@ -141,6 +153,46 @@ public class UtilisateurDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNumCarteUti() {
+        return numCarteUti;
+    }
+
+    public void setNumCarteUti(String numCarteUti) {
+        this.numCarteUti = numCarteUti;
+    }
+
+    public String getNomPAP() {
+        return nomPAP;
+    }
+
+    public void setNomPAP(String nomPAP) {
+        this.nomPAP = nomPAP;
+    }
+
+    public String getPrenomPAP() {
+        return prenomPAP;
+    }
+
+    public void setPrenomPAP(String prenomPAP) {
+        this.prenomPAP = prenomPAP;
+    }
+
+    public String getTelPAP() {
+        return telPAP;
+    }
+
+    public void setTelPAP(String telPAP) {
+        this.telPAP = telPAP;
+    }
+
+    public String getLienPAP() {
+        return lienPAP;
+    }
+
+    public void setLienPAP(String lienPAP) {
+        this.lienPAP = lienPAP;
     }
 
     public Boolean isEstActif() {
@@ -183,12 +235,36 @@ public class UtilisateurDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getProfilsId() {
-        return profilsId;
+    public Long getAgentsId() {
+        return agentsId;
     }
 
-    public void setProfilsId(Long utiProfilId) {
-        this.profilsId = utiProfilId;
+    public void setAgentsId(Long utilisateurId) {
+        this.agentsId = utilisateurId;
+    }
+
+    public Long getProfilesId() {
+        return profilesId;
+    }
+
+    public void setProfilesId(Long utiProfileId) {
+        this.profilesId = utiProfileId;
+    }
+
+    public Long getClientsId() {
+        return clientsId;
+    }
+
+    public void setClientsId(Long clientId) {
+        this.clientsId = clientId;
+    }
+
+    public Long getSuiviChampsId() {
+        return suiviChampsId;
+    }
+
+    public void setSuiviChampsId(Long suiviChampsId) {
+        this.suiviChampsId = suiviChampsId;
     }
 
     @Override
@@ -221,17 +297,24 @@ public class UtilisateurDTO implements Serializable {
             ", mdp='" + getMdp() + "'" +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
-            ", naissance='" + getNaissance() + "'" +
+            ", dateNaiss='" + getDateNaiss() + "'" +
             ", genre='" + getGenre() + "'" +
-            ", tel1=" + getTel1() +
-            ", tel2=" + getTel2() +
+            ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
+            ", numCarteUti='" + getNumCarteUti() + "'" +
+            ", nomPAP='" + getNomPAP() + "'" +
+            ", prenomPAP='" + getPrenomPAP() + "'" +
+            ", telPAP='" + getTelPAP() + "'" +
+            ", lienPAP='" + getLienPAP() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", profils=" + getProfilsId() +
+            ", agents=" + getAgentsId() +
+            ", profiles=" + getProfilesId() +
+            ", clients=" + getClientsId() +
+            ", suiviChamps=" + getSuiviChampsId() +
             "}";
     }
 }

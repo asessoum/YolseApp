@@ -8,17 +8,22 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Utilisateur and its DTO UtilisateurDTO.
  */
-@Mapper(componentModel = "spring", uses = {UtiProfilMapper.class})
+@Mapper(componentModel = "spring", uses = {UtiProfileMapper.class, ClientMapper.class, SuiviChampsMapper.class})
 public interface UtilisateurMapper extends EntityMapper<UtilisateurDTO, Utilisateur> {
 
-    @Mapping(source = "profils.id", target = "profilsId")
+    @Mapping(source = "agents.id", target = "agentsId")
+    @Mapping(source = "profiles.id", target = "profilesId")
+    @Mapping(source = "clients.id", target = "clientsId")
+    @Mapping(source = "suiviChamps.id", target = "suiviChampsId")
     UtilisateurDTO toDto(Utilisateur utilisateur);
 
-    @Mapping(target = "typeCultures", ignore = true)
-    @Mapping(target = "clients", ignore = true)
     @Mapping(target = "langues", ignore = true)
     @Mapping(target = "communes", ignore = true)
-    @Mapping(source = "profilsId", target = "profils")
+    @Mapping(target = "responsables", ignore = true)
+    @Mapping(source = "agentsId", target = "agents")
+    @Mapping(source = "profilesId", target = "profiles")
+    @Mapping(source = "clientsId", target = "clients")
+    @Mapping(source = "suiviChampsId", target = "suiviChamps")
     Utilisateur toEntity(UtilisateurDTO utilisateurDTO);
 
     default Utilisateur fromId(Long id) {
