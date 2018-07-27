@@ -8,8 +8,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IBesoinIntrantMySuffix } from 'app/shared/model/besoin-intrant-my-suffix.model';
 import { BesoinIntrantMySuffixService } from './besoin-intrant-my-suffix.service';
-import { IBesoinEngraisMySuffix } from 'app/shared/model/besoin-engrais-my-suffix.model';
-import { BesoinEngraisMySuffixService } from 'app/entities/besoin-engrais-my-suffix';
+import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
+import { ClientMySuffixService } from 'app/entities/client-my-suffix';
+import { ICultureMySuffix } from 'app/shared/model/culture-my-suffix.model';
+import { CultureMySuffixService } from 'app/entities/culture-my-suffix';
 
 @Component({
     selector: 'jhi-besoin-intrant-my-suffix-update',
@@ -19,14 +21,17 @@ export class BesoinIntrantMySuffixUpdateComponent implements OnInit {
     private _besoinIntrant: IBesoinIntrantMySuffix;
     isSaving: boolean;
 
-    besoinengrais: IBesoinEngraisMySuffix[];
+    clients: IClientMySuffix[];
+
+    cultures: ICultureMySuffix[];
     creeLe: string;
     modifLe: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private besoinIntrantService: BesoinIntrantMySuffixService,
-        private besoinEngraisService: BesoinEngraisMySuffixService,
+        private clientService: ClientMySuffixService,
+        private cultureService: CultureMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -35,9 +40,15 @@ export class BesoinIntrantMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ besoinIntrant }) => {
             this.besoinIntrant = besoinIntrant;
         });
-        this.besoinEngraisService.query().subscribe(
-            (res: HttpResponse<IBesoinEngraisMySuffix[]>) => {
-                this.besoinengrais = res.body;
+        this.clientService.query().subscribe(
+            (res: HttpResponse<IClientMySuffix[]>) => {
+                this.clients = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.cultureService.query().subscribe(
+            (res: HttpResponse<ICultureMySuffix[]>) => {
+                this.cultures = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -78,7 +89,11 @@ export class BesoinIntrantMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackBesoinEngraisById(index: number, item: IBesoinEngraisMySuffix) {
+    trackClientById(index: number, item: IClientMySuffix) {
+        return item.id;
+    }
+
+    trackCultureById(index: number, item: ICultureMySuffix) {
         return item.id;
     }
     get besoinIntrant() {

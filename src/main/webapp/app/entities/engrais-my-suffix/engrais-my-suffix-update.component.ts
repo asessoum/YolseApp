@@ -4,12 +4,9 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
 
 import { IEngraisMySuffix } from 'app/shared/model/engrais-my-suffix.model';
 import { EngraisMySuffixService } from './engrais-my-suffix.service';
-import { IBesoinEngraisMySuffix } from 'app/shared/model/besoin-engrais-my-suffix.model';
-import { BesoinEngraisMySuffixService } from 'app/entities/besoin-engrais-my-suffix';
 
 @Component({
     selector: 'jhi-engrais-my-suffix-update',
@@ -18,29 +15,16 @@ import { BesoinEngraisMySuffixService } from 'app/entities/besoin-engrais-my-suf
 export class EngraisMySuffixUpdateComponent implements OnInit {
     private _engrais: IEngraisMySuffix;
     isSaving: boolean;
-
-    besoinengrais: IBesoinEngraisMySuffix[];
     creeLe: string;
     modifLe: string;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private engraisService: EngraisMySuffixService,
-        private besoinEngraisService: BesoinEngraisMySuffixService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private engraisService: EngraisMySuffixService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ engrais }) => {
             this.engrais = engrais;
         });
-        this.besoinEngraisService.query().subscribe(
-            (res: HttpResponse<IBesoinEngraisMySuffix[]>) => {
-                this.besoinengrais = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -69,14 +53,6 @@ export class EngraisMySuffixUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackBesoinEngraisById(index: number, item: IBesoinEngraisMySuffix) {
-        return item.id;
     }
     get engrais() {
         return this._engrais;

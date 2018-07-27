@@ -8,23 +8,11 @@
     -->
     <changeSet id="20180712214304-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="utilisateurs_id"
+        <addForeignKeyConstraint baseColumnNames="province_id"
                                  baseTableName="commune"
-                                 constraintName="fk_commune_utilisateurs_id"
+                                 constraintName="fk_commune_province_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="utilisateur"/>
-
-        <addForeignKeyConstraint baseColumnNames="clients_id"
-                                 baseTableName="commune"
-                                 constraintName="fk_commune_clients_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="client"/>
-
-        <addForeignKeyConstraint baseColumnNames="suivi_champs_id"
-                                 baseTableName="commune"
-                                 constraintName="fk_commune_suivi_champs_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="suivi_champs"/>
+                                 referencedTableName="province"/>
 
     </changeSet>
 </databaseChangeLog>

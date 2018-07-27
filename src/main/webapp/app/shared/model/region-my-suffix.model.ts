@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IProvinceMySuffix } from 'app/shared/model//province-my-suffix.model';
 
 export interface IRegionMySuffix {
     id?: number;
@@ -9,7 +10,7 @@ export interface IRegionMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPpar?: string;
-    provincesId?: number;
+    provinces?: IProvinceMySuffix[];
 }
 
 export class RegionMySuffix implements IRegionMySuffix {
@@ -22,7 +23,7 @@ export class RegionMySuffix implements IRegionMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPpar?: string,
-        public provincesId?: number
+        public provinces?: IProvinceMySuffix[]
     ) {
         this.estActif = false;
     }

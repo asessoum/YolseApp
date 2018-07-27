@@ -8,12 +8,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
 import { UtilisateurMySuffixService } from './utilisateur-my-suffix.service';
-import { IUtiProfileMySuffix } from 'app/shared/model/uti-profile-my-suffix.model';
-import { UtiProfileMySuffixService } from 'app/entities/uti-profile-my-suffix';
-import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
-import { ClientMySuffixService } from 'app/entities/client-my-suffix';
-import { ISuiviChampsMySuffix } from 'app/shared/model/suivi-champs-my-suffix.model';
-import { SuiviChampsMySuffixService } from 'app/entities/suivi-champs-my-suffix';
+import { ILangueMySuffix } from 'app/shared/model/langue-my-suffix.model';
+import { LangueMySuffixService } from 'app/entities/langue-my-suffix';
+import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
+import { CommuneMySuffixService } from 'app/entities/commune-my-suffix';
 
 @Component({
     selector: 'jhi-utilisateur-my-suffix-update',
@@ -23,13 +21,11 @@ export class UtilisateurMySuffixUpdateComponent implements OnInit {
     private _utilisateur: IUtilisateurMySuffix;
     isSaving: boolean;
 
+    langues: ILangueMySuffix[];
+
+    communes: ICommuneMySuffix[];
+
     utilisateurs: IUtilisateurMySuffix[];
-
-    utiprofiles: IUtiProfileMySuffix[];
-
-    clients: IClientMySuffix[];
-
-    suivichamps: ISuiviChampsMySuffix[];
     dateNaiss: string;
     creeLe: string;
     modifLe: string;
@@ -37,9 +33,8 @@ export class UtilisateurMySuffixUpdateComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private utilisateurService: UtilisateurMySuffixService,
-        private utiProfileService: UtiProfileMySuffixService,
-        private clientService: ClientMySuffixService,
-        private suiviChampsService: SuiviChampsMySuffixService,
+        private langueService: LangueMySuffixService,
+        private communeService: CommuneMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -48,27 +43,21 @@ export class UtilisateurMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ utilisateur }) => {
             this.utilisateur = utilisateur;
         });
+        this.langueService.query().subscribe(
+            (res: HttpResponse<ILangueMySuffix[]>) => {
+                this.langues = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.communeService.query().subscribe(
+            (res: HttpResponse<ICommuneMySuffix[]>) => {
+                this.communes = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
         this.utilisateurService.query().subscribe(
             (res: HttpResponse<IUtilisateurMySuffix[]>) => {
                 this.utilisateurs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.utiProfileService.query().subscribe(
-            (res: HttpResponse<IUtiProfileMySuffix[]>) => {
-                this.utiprofiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.clientService.query().subscribe(
-            (res: HttpResponse<IClientMySuffix[]>) => {
-                this.clients = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.suiviChampsService.query().subscribe(
-            (res: HttpResponse<ISuiviChampsMySuffix[]>) => {
-                this.suivichamps = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -107,19 +96,15 @@ export class UtilisateurMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
+    trackLangueById(index: number, item: ILangueMySuffix) {
+        return item.id;
+    }
+
+    trackCommuneById(index: number, item: ICommuneMySuffix) {
+        return item.id;
+    }
+
     trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
-        return item.id;
-    }
-
-    trackUtiProfileById(index: number, item: IUtiProfileMySuffix) {
-        return item.id;
-    }
-
-    trackClientById(index: number, item: IClientMySuffix) {
-        return item.id;
-    }
-
-    trackSuiviChampsById(index: number, item: ISuiviChampsMySuffix) {
         return item.id;
     }
     get utilisateur() {

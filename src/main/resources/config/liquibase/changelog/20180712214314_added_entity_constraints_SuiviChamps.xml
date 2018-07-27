@@ -4,25 +4,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <!--
-        Added the constraints for entity Client.
+        Added the constraints for entity SuiviChamps.
     -->
-    <changeSet id="20180712214311-2" author="jhipster">
+    <changeSet id="20180712214314-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="langue_id"
-                                 baseTableName="client"
-                                 constraintName="fk_client_langue_id"
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="suivi_champs"
+                                 constraintName="fk_suivi_champs_client_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="langue"/>
+                                 referencedTableName="client"/>
 
         <addForeignKeyConstraint baseColumnNames="utilisateur_id"
-                                 baseTableName="client"
-                                 constraintName="fk_client_utilisateur_id"
+                                 baseTableName="suivi_champs"
+                                 constraintName="fk_suivi_champs_utilisateur_id"
                                  referencedColumnNames="id"
                                  referencedTableName="utilisateur"/>
 
         <addForeignKeyConstraint baseColumnNames="commune_id"
-                                 baseTableName="client"
-                                 constraintName="fk_client_commune_id"
+                                 baseTableName="suivi_champs"
+                                 constraintName="fk_suivi_champs_commune_id"
                                  referencedColumnNames="id"
                                  referencedTableName="commune"/>
 

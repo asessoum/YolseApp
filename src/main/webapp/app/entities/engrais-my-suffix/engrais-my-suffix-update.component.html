@@ -74,13 +74,6 @@
                         [(ngModel)]="engrais.modifPar" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_besoinEngrais">Besoin Engrais</label>
-                    <select class="form-control" id="field_besoinEngrais" name="besoinEngrais" [(ngModel)]="engrais.besoinEngraisId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="besoinEngraisOption.id" *ngFor="let besoinEngraisOption of besoinengrais; trackBy: trackBesoinEngraisById">{{besoinEngraisOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

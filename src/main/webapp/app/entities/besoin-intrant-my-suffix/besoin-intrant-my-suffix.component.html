@@ -35,7 +35,9 @@
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="besoinEngraisId"><span>Besoin Engrais</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clientId"><span>Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cultureEscId"><span>Culture Esc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cultureGarId"><span>Culture Gar</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -63,8 +65,18 @@
                 <td>{{besoinIntrant.modifLe | date:'medium'}}</td>
                 <td>{{besoinIntrant.modifPar}}</td>
                 <td>
-                    <div *ngIf="besoinIntrant.besoinEngraisId">
-                        <a [routerLink]="['../besoin-engrais-my-suffix', besoinIntrant.besoinEngraisId , 'view' ]" >{{besoinIntrant.besoinEngraisId}}</a>
+                    <div *ngIf="besoinIntrant.clientId">
+                        <a [routerLink]="['../client-my-suffix', besoinIntrant.clientId , 'view' ]" >{{besoinIntrant.clientId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="besoinIntrant.cultureEscId">
+                        <a [routerLink]="['../culture-my-suffix', besoinIntrant.cultureEscId , 'view' ]" >{{besoinIntrant.cultureEscId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="besoinIntrant.cultureGarId">
+                        <a [routerLink]="['../culture-my-suffix', besoinIntrant.cultureGarId , 'view' ]" >{{besoinIntrant.cultureGarId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

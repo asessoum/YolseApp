@@ -206,31 +206,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_agents">Agents</label>
-                    <select class="form-control" id="field_agents" name="agents" [(ngModel)]="utilisateur.agentsId" >
+                    <label class="form-control-label" for="field_langue">Langue</label>
+                    <select class="form-control" id="field_langue" name="langue" [(ngModel)]="utilisateur.langueId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="langueOption.id" *ngFor="let langueOption of langues; trackBy: trackLangueById">{{langueOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_commune">Commune</label>
+                    <select class="form-control" id="field_commune" name="commune" [(ngModel)]="utilisateur.communeId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="communeOption.id" *ngFor="let communeOption of communes; trackBy: trackCommuneById">{{communeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_responsable">Responsable</label>
+                    <select class="form-control" id="field_responsable" name="responsable" [(ngModel)]="utilisateur.responsableId" >
                         <option [ngValue]="null"></option>
                         <option [ngValue]="utilisateurOption.id" *ngFor="let utilisateurOption of utilisateurs; trackBy: trackUtilisateurById">{{utilisateurOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_profiles">Profiles</label>
-                    <select class="form-control" id="field_profiles" name="profiles" [(ngModel)]="utilisateur.profilesId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="utiProfileOption.id" *ngFor="let utiProfileOption of utiprofiles; trackBy: trackUtiProfileById">{{utiProfileOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_clients">Clients</label>
-                    <select class="form-control" id="field_clients" name="clients" [(ngModel)]="utilisateur.clientsId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="clientOption.id" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_suiviChamps">Suivi Champs</label>
-                    <select class="form-control" id="field_suiviChamps" name="suiviChamps" [(ngModel)]="utilisateur.suiviChampsId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="suiviChampsOption.id" *ngFor="let suiviChampsOption of suivichamps; trackBy: trackSuiviChampsById">{{suiviChampsOption.id}}</option>
                     </select>
                 </div>
             </div>

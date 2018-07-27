@@ -69,13 +69,6 @@
                         [(ngModel)]="profile.modifPar" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" for="field_utilisateurs">Utilisateurs</label>
-                    <select class="form-control" id="field_utilisateurs" name="utilisateurs" [(ngModel)]="profile.utilisateursId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="utiProfileOption.id" *ngFor="let utiProfileOption of utiprofiles; trackBy: trackUtiProfileById">{{utiProfileOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

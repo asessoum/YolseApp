@@ -33,12 +33,6 @@
                 <dd>
                     <span>{{profile.modifPar}}</span>
                 </dd>
-                <dt><span>Utilisateurs</span></dt>
-                <dd>
-                    <div *ngIf="profile.utilisateursId">
-                        <a [routerLink]="['/uti-profile-my-suffix', profile.utilisateursId, 'view']">{{profile.utilisateursId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

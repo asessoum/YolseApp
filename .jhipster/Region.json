@@ -40,10 +40,10 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "provinces",
             "otherEntityName": "province",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "region"
         }
     ],
     "changelogDate": "20180712214302",

@@ -22,7 +22,7 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Communes</span></th>
+            <th><span>Region</span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,8 +37,8 @@
                 <td>{{province.modifLe | date:'medium'}}</td>
                 <td>{{province.modifPar}}</td>
                 <td>
-                    <div *ngIf="province.communesId">
-                        <a [routerLink]="['../commune-my-suffix', province.communesId , 'view' ]" >{{province.communesId}}</a>
+                    <div *ngIf="province.regionId">
+                        <a [routerLink]="['../region-my-suffix', province.regionId , 'view' ]" >{{province.regionId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

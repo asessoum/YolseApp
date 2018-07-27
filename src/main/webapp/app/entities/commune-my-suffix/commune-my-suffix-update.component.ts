@@ -8,12 +8,8 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
 import { CommuneMySuffixService } from './commune-my-suffix.service';
-import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
-import { UtilisateurMySuffixService } from 'app/entities/utilisateur-my-suffix';
-import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
-import { ClientMySuffixService } from 'app/entities/client-my-suffix';
-import { ISuiviChampsMySuffix } from 'app/shared/model/suivi-champs-my-suffix.model';
-import { SuiviChampsMySuffixService } from 'app/entities/suivi-champs-my-suffix';
+import { IProvinceMySuffix } from 'app/shared/model/province-my-suffix.model';
+import { ProvinceMySuffixService } from 'app/entities/province-my-suffix';
 
 @Component({
     selector: 'jhi-commune-my-suffix-update',
@@ -23,20 +19,14 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
     private _commune: ICommuneMySuffix;
     isSaving: boolean;
 
-    utilisateurs: IUtilisateurMySuffix[];
-
-    clients: IClientMySuffix[];
-
-    suivichamps: ISuiviChampsMySuffix[];
+    provinces: IProvinceMySuffix[];
     creeLe: string;
     modifLe: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private communeService: CommuneMySuffixService,
-        private utilisateurService: UtilisateurMySuffixService,
-        private clientService: ClientMySuffixService,
-        private suiviChampsService: SuiviChampsMySuffixService,
+        private provinceService: ProvinceMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -45,21 +35,9 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ commune }) => {
             this.commune = commune;
         });
-        this.utilisateurService.query().subscribe(
-            (res: HttpResponse<IUtilisateurMySuffix[]>) => {
-                this.utilisateurs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.clientService.query().subscribe(
-            (res: HttpResponse<IClientMySuffix[]>) => {
-                this.clients = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.suiviChampsService.query().subscribe(
-            (res: HttpResponse<ISuiviChampsMySuffix[]>) => {
-                this.suivichamps = res.body;
+        this.provinceService.query().subscribe(
+            (res: HttpResponse<IProvinceMySuffix[]>) => {
+                this.provinces = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -97,15 +75,7 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
-        return item.id;
-    }
-
-    trackClientById(index: number, item: IClientMySuffix) {
-        return item.id;
-    }
-
-    trackSuiviChampsById(index: number, item: ISuiviChampsMySuffix) {
+    trackProvinceById(index: number, item: IProvinceMySuffix) {
         return item.id;
     }
     get commune() {

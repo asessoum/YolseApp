@@ -53,21 +53,21 @@ public class Commune implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "communes")
+    @ManyToOne
+    @JsonIgnoreProperties("communes")
+    private Province province;
+
+    @OneToMany(mappedBy = "commune")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Province> provinces = new HashSet<>();
+    private Set<Utilisateur> utilisateurs = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("communes")
-    private Utilisateur utilisateurs;
+    @OneToMany(mappedBy = "commune")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Client> clients = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("communes")
-    private Client clients;
-
-    @ManyToOne
-    @JsonIgnoreProperties("communes")
-    private SuiviChamps suiviChamps;
+    @OneToMany(mappedBy = "commune")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<SuiviChamps> suiviChamps = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -169,67 +169,91 @@ public class Commune implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<Province> getProvinces() {
-        return provinces;
+    public Province getProvince() {
+        return province;
     }
 
-    public Commune provinces(Set<Province> provinces) {
-        this.provinces = provinces;
+    public Commune province(Province province) {
+        this.province = province;
         return this;
     }
 
-    public Commune addProvince(Province province) {
-        this.provinces.add(province);
-        province.setCommunes(this);
-        return this;
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
-    public Commune removeProvince(Province province) {
-        this.provinces.remove(province);
-        province.setCommunes(null);
-        return this;
-    }
-
-    public void setProvinces(Set<Province> provinces) {
-        this.provinces = provinces;
-    }
-
-    public Utilisateur getUtilisateurs() {
+    public Set<Utilisateur> getUtilisateurs() {
         return utilisateurs;
     }
 
-    public Commune utilisateurs(Utilisateur utilisateur) {
-        this.utilisateurs = utilisateur;
+    public Commune utilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
         return this;
     }
 
-    public void setUtilisateurs(Utilisateur utilisateur) {
-        this.utilisateurs = utilisateur;
+    public Commune addUtilisateurs(Utilisateur utilisateur) {
+        this.utilisateurs.add(utilisateur);
+        utilisateur.setCommune(this);
+        return this;
     }
 
-    public Client getClients() {
+    public Commune removeUtilisateurs(Utilisateur utilisateur) {
+        this.utilisateurs.remove(utilisateur);
+        utilisateur.setCommune(null);
+        return this;
+    }
+
+    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+    }
+
+    public Set<Client> getClients() {
         return clients;
     }
 
-    public Commune clients(Client client) {
-        this.clients = client;
+    public Commune clients(Set<Client> clients) {
+        this.clients = clients;
         return this;
     }
 
-    public void setClients(Client client) {
-        this.clients = client;
+    public Commune addClients(Client client) {
+        this.clients.add(client);
+        client.setCommune(this);
+        return this;
     }
 
-    public SuiviChamps getSuiviChamps() {
+    public Commune removeClients(Client client) {
+        this.clients.remove(client);
+        client.setCommune(null);
+        return this;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
+    }
+
+    public Set<SuiviChamps> getSuiviChamps() {
         return suiviChamps;
     }
 
-    public Commune suiviChamps(SuiviChamps suiviChamps) {
+    public Commune suiviChamps(Set<SuiviChamps> suiviChamps) {
         this.suiviChamps = suiviChamps;
         return this;
     }
 
-    public void setSuiviChamps(SuiviChamps suiviChamps) {
+    public Commune addSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps.add(suiviChamps);
+        suiviChamps.setCommune(this);
+        return this;
+    }
+
+    public Commune removeSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps.remove(suiviChamps);
+        suiviChamps.setCommune(null);
+        return this;
+    }
+
+    public void setSuiviChamps(Set<SuiviChamps> suiviChamps) {
         this.suiviChamps = suiviChamps;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

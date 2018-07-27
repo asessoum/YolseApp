@@ -8,16 +8,18 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity BesoinIntrant and its DTO BesoinIntrantDTO.
  */
-@Mapper(componentModel = "spring", uses = {BesoinEngraisMapper.class})
+@Mapper(componentModel = "spring", uses = {ClientMapper.class, CultureMapper.class})
 public interface BesoinIntrantMapper extends EntityMapper<BesoinIntrantDTO, BesoinIntrant> {
 
-    @Mapping(source = "besoinEngrais.id", target = "besoinEngraisId")
+    @Mapping(source = "client.id", target = "clientId")
+    @Mapping(source = "cultureEsc.id", target = "cultureEscId")
+    @Mapping(source = "cultureGar.id", target = "cultureGarId")
     BesoinIntrantDTO toDto(BesoinIntrant besoinIntrant);
 
-    @Mapping(target = "clients", ignore = true)
-    @Mapping(target = "cultureEscs", ignore = true)
-    @Mapping(target = "cultureGars", ignore = true)
-    @Mapping(source = "besoinEngraisId", target = "besoinEngrais")
+    @Mapping(source = "clientId", target = "client")
+    @Mapping(source = "cultureEscId", target = "cultureEsc")
+    @Mapping(source = "cultureGarId", target = "cultureGar")
+    @Mapping(target = "besoinEngrais", ignore = true)
     BesoinIntrant toEntity(BesoinIntrantDTO besoinIntrantDTO);
 
     default BesoinIntrant fromId(Long id) {

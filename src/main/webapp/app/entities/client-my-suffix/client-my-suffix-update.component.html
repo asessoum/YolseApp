@@ -295,17 +295,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_besoinIntrants">Besoin Intrants</label>
-                    <select class="form-control" id="field_besoinIntrants" name="besoinIntrants" [(ngModel)]="client.besoinIntrantsId" >
+                    <label class="form-control-label" for="field_langue">Langue</label>
+                    <select class="form-control" id="field_langue" name="langue" [(ngModel)]="client.langueId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="besoinIntrantOption.id" *ngFor="let besoinIntrantOption of besoinintrants; trackBy: trackBesoinIntrantById">{{besoinIntrantOption.id}}</option>
+                        <option [ngValue]="langueOption.id" *ngFor="let langueOption of langues; trackBy: trackLangueById">{{langueOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_suiviChamps">Suivi Champs</label>
-                    <select class="form-control" id="field_suiviChamps" name="suiviChamps" [(ngModel)]="client.suiviChampsId" >
+                    <label class="form-control-label" for="field_utilisateur">Utilisateur</label>
+                    <select class="form-control" id="field_utilisateur" name="utilisateur" [(ngModel)]="client.utilisateurId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="suiviChampsOption.id" *ngFor="let suiviChampsOption of suivichamps; trackBy: trackSuiviChampsById">{{suiviChampsOption.id}}</option>
+                        <option [ngValue]="utilisateurOption.id" *ngFor="let utilisateurOption of utilisateurs; trackBy: trackUtilisateurById">{{utilisateurOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_commune">Commune</label>
+                    <select class="form-control" id="field_commune" name="commune" [(ngModel)]="client.communeId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="communeOption.id" *ngFor="let communeOption of communes; trackBy: trackCommuneById">{{communeOption.id}}</option>
                     </select>
                 </div>
             </div>

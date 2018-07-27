@@ -22,8 +22,6 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Utilisateurs</span></th>
-            <th><span>Clients</span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,16 +35,6 @@
                 <td>{{langue.creePar}}</td>
                 <td>{{langue.modifLe | date:'medium'}}</td>
                 <td>{{langue.modifPar}}</td>
-                <td>
-                    <div *ngIf="langue.utilisateursId">
-                        <a [routerLink]="['../utilisateur-my-suffix', langue.utilisateursId , 'view' ]" >{{langue.utilisateursId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="langue.clientsId">
-                        <a [routerLink]="['../client-my-suffix', langue.clientsId , 'view' ]" >{{langue.clientsId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

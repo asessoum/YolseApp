@@ -44,10 +44,10 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "besoinEngrais",
             "otherEntityName": "besoinEngrais",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "engrais"
         }
     ],
     "changelogDate": "20180727151343",

@@ -40,28 +40,28 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "province",
             "otherEntityName": "province",
-            "otherEntityRelationshipName": "communes"
+            "otherEntityField": "id"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "utilisateurs",
             "otherEntityName": "utilisateur",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "commune"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "clients",
             "otherEntityName": "client",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "commune"
         },
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "suiviChamps",
             "otherEntityName": "suiviChamps",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "commune"
         }
     ],
     "changelogDate": "20180712214304",

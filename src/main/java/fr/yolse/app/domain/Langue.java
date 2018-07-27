@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -50,13 +52,13 @@ public class Langue implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @ManyToOne
-    @JsonIgnoreProperties("langues")
-    private Utilisateur utilisateurs;
+    @OneToMany(mappedBy = "langue")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Utilisateur> utilisateurs = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("langues")
-    private Client clients;
+    @OneToMany(mappedBy = "langue")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Client> clients = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -158,30 +160,54 @@ public class Langue implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Utilisateur getUtilisateurs() {
+    public Set<Utilisateur> getUtilisateurs() {
         return utilisateurs;
     }
 
-    public Langue utilisateurs(Utilisateur utilisateur) {
-        this.utilisateurs = utilisateur;
+    public Langue utilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
         return this;
     }
 
-    public void setUtilisateurs(Utilisateur utilisateur) {
-        this.utilisateurs = utilisateur;
+    public Langue addUtilisateurs(Utilisateur utilisateur) {
+        this.utilisateurs.add(utilisateur);
+        utilisateur.setLangue(this);
+        return this;
     }
 
-    public Client getClients() {
+    public Langue removeUtilisateurs(Utilisateur utilisateur) {
+        this.utilisateurs.remove(utilisateur);
+        utilisateur.setLangue(null);
+        return this;
+    }
+
+    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+    }
+
+    public Set<Client> getClients() {
         return clients;
     }
 
-    public Langue clients(Client client) {
-        this.clients = client;
+    public Langue clients(Set<Client> clients) {
+        this.clients = clients;
         return this;
     }
 
-    public void setClients(Client client) {
-        this.clients = client;
+    public Langue addClients(Client client) {
+        this.clients.add(client);
+        client.setLangue(this);
+        return this;
+    }
+
+    public Langue removeClients(Client client) {
+        this.clients.remove(client);
+        client.setLangue(null);
+        return this;
+    }
+
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

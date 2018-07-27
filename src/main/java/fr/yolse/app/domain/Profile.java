@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -50,9 +52,9 @@ public class Profile implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @ManyToOne
-    @JsonIgnoreProperties("profiles")
-    private UtiProfile utilisateurs;
+    @OneToMany(mappedBy = "profile")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UtiProfile> utilisateurs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -154,17 +156,29 @@ public class Profile implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public UtiProfile getUtilisateurs() {
+    public Set<UtiProfile> getUtilisateurs() {
         return utilisateurs;
     }
 
-    public Profile utilisateurs(UtiProfile utiProfile) {
-        this.utilisateurs = utiProfile;
+    public Profile utilisateurs(Set<UtiProfile> utiProfiles) {
+        this.utilisateurs = utiProfiles;
         return this;
     }
 
-    public void setUtilisateurs(UtiProfile utiProfile) {
-        this.utilisateurs = utiProfile;
+    public Profile addUtilisateurs(UtiProfile utiProfile) {
+        this.utilisateurs.add(utiProfile);
+        utiProfile.setProfile(this);
+        return this;
+    }
+
+    public Profile removeUtilisateurs(UtiProfile utiProfile) {
+        this.utilisateurs.remove(utiProfile);
+        utiProfile.setProfile(null);
+        return this;
+    }
+
+    public void setUtilisateurs(Set<UtiProfile> utiProfiles) {
+        this.utilisateurs = utiProfiles;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

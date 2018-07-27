@@ -4,12 +4,9 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
-import { JhiAlertService } from 'ng-jhipster';
 
 import { IRegionMySuffix } from 'app/shared/model/region-my-suffix.model';
 import { RegionMySuffixService } from './region-my-suffix.service';
-import { IProvinceMySuffix } from 'app/shared/model/province-my-suffix.model';
-import { ProvinceMySuffixService } from 'app/entities/province-my-suffix';
 
 @Component({
     selector: 'jhi-region-my-suffix-update',
@@ -18,29 +15,16 @@ import { ProvinceMySuffixService } from 'app/entities/province-my-suffix';
 export class RegionMySuffixUpdateComponent implements OnInit {
     private _region: IRegionMySuffix;
     isSaving: boolean;
-
-    provinces: IProvinceMySuffix[];
     creeLe: string;
     modifLe: string;
 
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private regionService: RegionMySuffixService,
-        private provinceService: ProvinceMySuffixService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private regionService: RegionMySuffixService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ region }) => {
             this.region = region;
         });
-        this.provinceService.query().subscribe(
-            (res: HttpResponse<IProvinceMySuffix[]>) => {
-                this.provinces = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -69,14 +53,6 @@ export class RegionMySuffixUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackProvinceById(index: number, item: IProvinceMySuffix) {
-        return item.id;
     }
     get region() {
         return this._region;

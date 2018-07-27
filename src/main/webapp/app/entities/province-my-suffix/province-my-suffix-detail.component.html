@@ -33,10 +33,10 @@
                 <dd>
                     <span>{{province.modifPar}}</span>
                 </dd>
-                <dt><span>Communes</span></dt>
+                <dt><span>Region</span></dt>
                 <dd>
-                    <div *ngIf="province.communesId">
-                        <a [routerLink]="['/commune-my-suffix', province.communesId, 'view']">{{province.communesId}}</a>
+                    <div *ngIf="province.regionId">
+                        <a [routerLink]="['/region-my-suffix', province.regionId, 'view']">{{province.regionId}}</a>
                     </div>
                 </dd>
             </dl>

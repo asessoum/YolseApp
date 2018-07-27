@@ -23,7 +23,6 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Besoin Engrais</span></th>
             <th></th>
             </tr>
             </thead>
@@ -38,11 +37,6 @@
                 <td>{{engrais.creePar}}</td>
                 <td>{{engrais.modifLe | date:'medium'}}</td>
                 <td>{{engrais.modifPar}}</td>
-                <td>
-                    <div *ngIf="engrais.besoinEngraisId">
-                        <a [routerLink]="['../besoin-engrais-my-suffix', engrais.besoinEngraisId , 'view' ]" >{{engrais.besoinEngraisId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

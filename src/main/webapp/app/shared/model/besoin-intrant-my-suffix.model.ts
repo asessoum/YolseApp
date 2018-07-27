@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
-import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
-import { ICultureMySuffix } from 'app/shared/model//culture-my-suffix.model';
+import { IBesoinEngraisMySuffix } from 'app/shared/model//besoin-engrais-my-suffix.model';
 
 export interface IBesoinIntrantMySuffix {
     id?: number;
@@ -24,10 +23,10 @@ export interface IBesoinIntrantMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    clients?: IClientMySuffix[];
-    cultureEscs?: ICultureMySuffix[];
-    cultureGars?: ICultureMySuffix[];
-    besoinEngraisId?: number;
+    clientId?: number;
+    cultureEscId?: number;
+    cultureGarId?: number;
+    besoinEngrais?: IBesoinEngraisMySuffix[];
 }
 
 export class BesoinIntrantMySuffix implements IBesoinIntrantMySuffix {
@@ -53,10 +52,10 @@ export class BesoinIntrantMySuffix implements IBesoinIntrantMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public clients?: IClientMySuffix[],
-        public cultureEscs?: ICultureMySuffix[],
-        public cultureGars?: ICultureMySuffix[],
-        public besoinEngraisId?: number
+        public clientId?: number,
+        public cultureEscId?: number,
+        public cultureGarId?: number,
+        public besoinEngrais?: IBesoinEngraisMySuffix[]
     ) {
         this.validSup = false;
         this.validRes = false;

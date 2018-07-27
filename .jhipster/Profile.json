@@ -40,10 +40,10 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-many",
             "relationshipName": "utilisateurs",
             "otherEntityName": "utiProfile",
-            "otherEntityField": "id"
+            "otherEntityRelationshipName": "profile"
         }
     ],
     "changelogDate": "20180727151347",

@@ -8,22 +8,21 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Utilisateur and its DTO UtilisateurDTO.
  */
-@Mapper(componentModel = "spring", uses = {UtiProfileMapper.class, ClientMapper.class, SuiviChampsMapper.class})
+@Mapper(componentModel = "spring", uses = {LangueMapper.class, CommuneMapper.class})
 public interface UtilisateurMapper extends EntityMapper<UtilisateurDTO, Utilisateur> {
 
-    @Mapping(source = "agents.id", target = "agentsId")
-    @Mapping(source = "profiles.id", target = "profilesId")
-    @Mapping(source = "clients.id", target = "clientsId")
-    @Mapping(source = "suiviChamps.id", target = "suiviChampsId")
+    @Mapping(source = "langue.id", target = "langueId")
+    @Mapping(source = "commune.id", target = "communeId")
+    @Mapping(source = "responsable.id", target = "responsableId")
     UtilisateurDTO toDto(Utilisateur utilisateur);
 
-    @Mapping(target = "langues", ignore = true)
-    @Mapping(target = "communes", ignore = true)
-    @Mapping(target = "responsables", ignore = true)
-    @Mapping(source = "agentsId", target = "agents")
-    @Mapping(source = "profilesId", target = "profiles")
-    @Mapping(source = "clientsId", target = "clients")
-    @Mapping(source = "suiviChampsId", target = "suiviChamps")
+    @Mapping(source = "langueId", target = "langue")
+    @Mapping(source = "communeId", target = "commune")
+    @Mapping(source = "responsableId", target = "responsable")
+    @Mapping(target = "agents", ignore = true)
+    @Mapping(target = "profiles", ignore = true)
+    @Mapping(target = "clients", ignore = true)
+    @Mapping(target = "suiviChamps", ignore = true)
     Utilisateur toEntity(UtilisateurDTO utilisateurDTO);
 
     default Utilisateur fromId(Long id) {

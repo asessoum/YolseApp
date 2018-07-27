@@ -67,13 +67,11 @@ public class UtilisateurDTO implements Serializable {
 
     private String modifPar;
 
-    private Long agentsId;
+    private Long langueId;
 
-    private Long profilesId;
+    private Long communeId;
 
-    private Long clientsId;
-
-    private Long suiviChampsId;
+    private Long responsableId;
 
     public Long getId() {
         return id;
@@ -235,36 +233,28 @@ public class UtilisateurDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getAgentsId() {
-        return agentsId;
+    public Long getLangueId() {
+        return langueId;
     }
 
-    public void setAgentsId(Long utilisateurId) {
-        this.agentsId = utilisateurId;
+    public void setLangueId(Long langueId) {
+        this.langueId = langueId;
     }
 
-    public Long getProfilesId() {
-        return profilesId;
+    public Long getCommuneId() {
+        return communeId;
     }
 
-    public void setProfilesId(Long utiProfileId) {
-        this.profilesId = utiProfileId;
+    public void setCommuneId(Long communeId) {
+        this.communeId = communeId;
     }
 
-    public Long getClientsId() {
-        return clientsId;
+    public Long getResponsableId() {
+        return responsableId;
     }
 
-    public void setClientsId(Long clientId) {
-        this.clientsId = clientId;
-    }
-
-    public Long getSuiviChampsId() {
-        return suiviChampsId;
-    }
-
-    public void setSuiviChampsId(Long suiviChampsId) {
-        this.suiviChampsId = suiviChampsId;
+    public void setResponsableId(Long utilisateurId) {
+        this.responsableId = utilisateurId;
     }
 
     @Override
@@ -311,10 +301,9 @@ public class UtilisateurDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", agents=" + getAgentsId() +
-            ", profiles=" + getProfilesId() +
-            ", clients=" + getClientsId() +
-            ", suiviChamps=" + getSuiviChampsId() +
+            ", langue=" + getLangueId() +
+            ", commune=" + getCommuneId() +
+            ", responsable=" + getResponsableId() +
             "}";
     }
 }

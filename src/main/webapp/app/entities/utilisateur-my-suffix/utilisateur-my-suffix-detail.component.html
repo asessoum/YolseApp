@@ -81,28 +81,22 @@
                 <dd>
                     <span>{{utilisateur.modifPar}}</span>
                 </dd>
-                <dt><span>Agents</span></dt>
+                <dt><span>Langue</span></dt>
                 <dd>
-                    <div *ngIf="utilisateur.agentsId">
-                        <a [routerLink]="['/utilisateur-my-suffix', utilisateur.agentsId, 'view']">{{utilisateur.agentsId}}</a>
+                    <div *ngIf="utilisateur.langueId">
+                        <a [routerLink]="['/langue-my-suffix', utilisateur.langueId, 'view']">{{utilisateur.langueId}}</a>
                     </div>
                 </dd>
-                <dt><span>Profiles</span></dt>
+                <dt><span>Commune</span></dt>
                 <dd>
-                    <div *ngIf="utilisateur.profilesId">
-                        <a [routerLink]="['/uti-profile-my-suffix', utilisateur.profilesId, 'view']">{{utilisateur.profilesId}}</a>
+                    <div *ngIf="utilisateur.communeId">
+                        <a [routerLink]="['/commune-my-suffix', utilisateur.communeId, 'view']">{{utilisateur.communeId}}</a>
                     </div>
                 </dd>
-                <dt><span>Clients</span></dt>
+                <dt><span>Responsable</span></dt>
                 <dd>
-                    <div *ngIf="utilisateur.clientsId">
-                        <a [routerLink]="['/client-my-suffix', utilisateur.clientsId, 'view']">{{utilisateur.clientsId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Suivi Champs</span></dt>
-                <dd>
-                    <div *ngIf="utilisateur.suiviChampsId">
-                        <a [routerLink]="['/suivi-champs-my-suffix', utilisateur.suiviChampsId, 'view']">{{utilisateur.suiviChampsId}}</a>
+                    <div *ngIf="utilisateur.responsableId">
+                        <a [routerLink]="['/utilisateur-my-suffix', utilisateur.responsableId, 'view']">{{utilisateur.responsableId}}</a>
                     </div>
                 </dd>
             </dl>

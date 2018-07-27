@@ -49,6 +49,24 @@
                 <dd>
                     <span>{{suiviChamps.modifPar}}</span>
                 </dd>
+                <dt><span>Client</span></dt>
+                <dd>
+                    <div *ngIf="suiviChamps.clientId">
+                        <a [routerLink]="['/client-my-suffix', suiviChamps.clientId, 'view']">{{suiviChamps.clientId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Utilisateur</span></dt>
+                <dd>
+                    <div *ngIf="suiviChamps.utilisateurId">
+                        <a [routerLink]="['/utilisateur-my-suffix', suiviChamps.utilisateurId, 'view']">{{suiviChamps.utilisateurId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Commune</span></dt>
+                <dd>
+                    <div *ngIf="suiviChamps.communeId">
+                        <a [routerLink]="['/commune-my-suffix', suiviChamps.communeId, 'view']">{{suiviChamps.communeId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

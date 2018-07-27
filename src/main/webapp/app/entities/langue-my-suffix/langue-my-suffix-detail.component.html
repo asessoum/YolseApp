@@ -33,18 +33,6 @@
                 <dd>
                     <span>{{langue.modifPar}}</span>
                 </dd>
-                <dt><span>Utilisateurs</span></dt>
-                <dd>
-                    <div *ngIf="langue.utilisateursId">
-                        <a [routerLink]="['/utilisateur-my-suffix', langue.utilisateursId, 'view']">{{langue.utilisateursId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Clients</span></dt>
-                <dd>
-                    <div *ngIf="langue.clientsId">
-                        <a [routerLink]="['/client-my-suffix', langue.clientsId, 'view']">{{langue.clientsId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

@@ -34,10 +34,9 @@
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="agentsId"><span>Agents</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="profilesId"><span>Profiles</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="clientsId"><span>Clients</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="suiviChampsId"><span>Suivi Champs</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="langueId"><span>Langue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="communeId"><span>Commune</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="responsableId"><span>Responsable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -64,23 +63,18 @@
                 <td>{{utilisateur.modifLe | date:'medium'}}</td>
                 <td>{{utilisateur.modifPar}}</td>
                 <td>
-                    <div *ngIf="utilisateur.agentsId">
-                        <a [routerLink]="['../utilisateur-my-suffix', utilisateur.agentsId , 'view' ]" >{{utilisateur.agentsId}}</a>
+                    <div *ngIf="utilisateur.langueId">
+                        <a [routerLink]="['../langue-my-suffix', utilisateur.langueId , 'view' ]" >{{utilisateur.langueId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="utilisateur.profilesId">
-                        <a [routerLink]="['../uti-profile-my-suffix', utilisateur.profilesId , 'view' ]" >{{utilisateur.profilesId}}</a>
+                    <div *ngIf="utilisateur.communeId">
+                        <a [routerLink]="['../commune-my-suffix', utilisateur.communeId , 'view' ]" >{{utilisateur.communeId}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="utilisateur.clientsId">
-                        <a [routerLink]="['../client-my-suffix', utilisateur.clientsId , 'view' ]" >{{utilisateur.clientsId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="utilisateur.suiviChampsId">
-                        <a [routerLink]="['../suivi-champs-my-suffix', utilisateur.suiviChampsId , 'view' ]" >{{utilisateur.suiviChampsId}}</a>
+                    <div *ngIf="utilisateur.responsableId">
+                        <a [routerLink]="['../utilisateur-my-suffix', utilisateur.responsableId , 'view' ]" >{{utilisateur.responsableId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

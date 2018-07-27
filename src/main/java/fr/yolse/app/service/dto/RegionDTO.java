@@ -29,8 +29,6 @@ public class RegionDTO implements Serializable {
 
     private String modifPpar;
 
-    private Long provincesId;
-
     public Long getId() {
         return id;
     }
@@ -95,14 +93,6 @@ public class RegionDTO implements Serializable {
         this.modifPpar = modifPpar;
     }
 
-    public Long getProvincesId() {
-        return provincesId;
-    }
-
-    public void setProvincesId(Long provinceId) {
-        this.provincesId = provinceId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -135,7 +125,6 @@ public class RegionDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPpar='" + getModifPpar() + "'" +
-            ", provinces=" + getProvincesId() +
             "}";
     }
 }

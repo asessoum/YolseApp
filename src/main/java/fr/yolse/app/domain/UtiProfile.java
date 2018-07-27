@@ -1,6 +1,6 @@
 package fr.yolse.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,8 +9,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -47,13 +45,13 @@ public class UtiProfile implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "profiles")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Utilisateur> utilisateurs = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("profiles")
+    private Utilisateur utilisateur;
 
-    @OneToMany(mappedBy = "utilisateurs")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Profile> profiles = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("utilisateurs")
+    private Profile profile;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -142,54 +140,30 @@ public class UtiProfile implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 
-    public UtiProfile utilisateurs(Set<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
+    public UtiProfile utilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
         return this;
     }
 
-    public UtiProfile addUtilisateur(Utilisateur utilisateur) {
-        this.utilisateurs.add(utilisateur);
-        utilisateur.setProfiles(this);
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public UtiProfile profile(Profile profile) {
+        this.profile = profile;
         return this;
     }
 
-    public UtiProfile removeUtilisateur(Utilisateur utilisateur) {
-        this.utilisateurs.remove(utilisateur);
-        utilisateur.setProfiles(null);
-        return this;
-    }
-
-    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-    }
-
-    public Set<Profile> getProfiles() {
-        return profiles;
-    }
-
-    public UtiProfile profiles(Set<Profile> profiles) {
-        this.profiles = profiles;
-        return this;
-    }
-
-    public UtiProfile addProfile(Profile profile) {
-        this.profiles.add(profile);
-        profile.setUtilisateurs(this);
-        return this;
-    }
-
-    public UtiProfile removeProfile(Profile profile) {
-        this.profiles.remove(profile);
-        profile.setUtilisateurs(null);
-        return this;
-    }
-
-    public void setProfiles(Set<Profile> profiles) {
-        this.profiles = profiles;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

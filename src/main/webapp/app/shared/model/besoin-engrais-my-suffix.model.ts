@@ -1,6 +1,4 @@
 import { Moment } from 'moment';
-import { IBesoinIntrantMySuffix } from 'app/shared/model//besoin-intrant-my-suffix.model';
-import { IEngraisMySuffix } from 'app/shared/model//engrais-my-suffix.model';
 
 export interface IBesoinEngraisMySuffix {
     id?: number;
@@ -10,8 +8,8 @@ export interface IBesoinEngraisMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    besoinIntrants?: IBesoinIntrantMySuffix[];
-    engrais?: IEngraisMySuffix[];
+    besoinIntrantId?: number;
+    engraisId?: number;
 }
 
 export class BesoinEngraisMySuffix implements IBesoinEngraisMySuffix {
@@ -23,7 +21,7 @@ export class BesoinEngraisMySuffix implements IBesoinEngraisMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public besoinIntrants?: IBesoinIntrantMySuffix[],
-        public engrais?: IEngraisMySuffix[]
+        public besoinIntrantId?: number,
+        public engraisId?: number
     ) {}
 }

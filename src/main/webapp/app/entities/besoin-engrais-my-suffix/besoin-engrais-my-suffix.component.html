@@ -21,6 +21,8 @@
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="besoinIntrantId"><span>Besoin Intrant</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="engraisId"><span>Engrais</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -33,6 +35,16 @@
                 <td>{{besoinEngrais.creePar}}</td>
                 <td>{{besoinEngrais.modifLe | date:'medium'}}</td>
                 <td>{{besoinEngrais.modifPar}}</td>
+                <td>
+                    <div *ngIf="besoinEngrais.besoinIntrantId">
+                        <a [routerLink]="['../besoin-intrant-my-suffix', besoinEngrais.besoinIntrantId , 'view' ]" >{{besoinEngrais.besoinIntrantId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="besoinEngrais.engraisId">
+                        <a [routerLink]="['../engrais-my-suffix', besoinEngrais.engraisId , 'view' ]" >{{besoinEngrais.engraisId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

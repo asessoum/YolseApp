@@ -33,22 +33,10 @@
                 <dd>
                     <span>{{commune.modifPar}}</span>
                 </dd>
-                <dt><span>Utilisateurs</span></dt>
+                <dt><span>Province</span></dt>
                 <dd>
-                    <div *ngIf="commune.utilisateursId">
-                        <a [routerLink]="['/utilisateur-my-suffix', commune.utilisateursId, 'view']">{{commune.utilisateursId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Clients</span></dt>
-                <dd>
-                    <div *ngIf="commune.clientsId">
-                        <a [routerLink]="['/client-my-suffix', commune.clientsId, 'view']">{{commune.clientsId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Suivi Champs</span></dt>
-                <dd>
-                    <div *ngIf="commune.suiviChampsId">
-                        <a [routerLink]="['/suivi-champs-my-suffix', commune.suiviChampsId, 'view']">{{commune.suiviChampsId}}</a>
+                    <div *ngIf="commune.provinceId">
+                        <a [routerLink]="['/province-my-suffix', commune.provinceId, 'view']">{{commune.provinceId}}</a>
                     </div>
                 </dd>
             </dl>

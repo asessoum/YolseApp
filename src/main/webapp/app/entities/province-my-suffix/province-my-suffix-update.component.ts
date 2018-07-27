@@ -8,8 +8,8 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IProvinceMySuffix } from 'app/shared/model/province-my-suffix.model';
 import { ProvinceMySuffixService } from './province-my-suffix.service';
-import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
-import { CommuneMySuffixService } from 'app/entities/commune-my-suffix';
+import { IRegionMySuffix } from 'app/shared/model/region-my-suffix.model';
+import { RegionMySuffixService } from 'app/entities/region-my-suffix';
 
 @Component({
     selector: 'jhi-province-my-suffix-update',
@@ -19,14 +19,14 @@ export class ProvinceMySuffixUpdateComponent implements OnInit {
     private _province: IProvinceMySuffix;
     isSaving: boolean;
 
-    communes: ICommuneMySuffix[];
+    regions: IRegionMySuffix[];
     creeLe: string;
     modifLe: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private provinceService: ProvinceMySuffixService,
-        private communeService: CommuneMySuffixService,
+        private regionService: RegionMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -35,9 +35,9 @@ export class ProvinceMySuffixUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ province }) => {
             this.province = province;
         });
-        this.communeService.query().subscribe(
-            (res: HttpResponse<ICommuneMySuffix[]>) => {
-                this.communes = res.body;
+        this.regionService.query().subscribe(
+            (res: HttpResponse<IRegionMySuffix[]>) => {
+                this.regions = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -75,7 +75,7 @@ export class ProvinceMySuffixUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackCommuneById(index: number, item: ICommuneMySuffix) {
+    trackRegionById(index: number, item: IRegionMySuffix) {
         return item.id;
     }
     get province() {

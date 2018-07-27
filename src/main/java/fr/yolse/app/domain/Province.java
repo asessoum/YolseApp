@@ -53,13 +53,13 @@ public class Province implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
-    @OneToMany(mappedBy = "provinces")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Region> regions = new HashSet<>();
-
     @ManyToOne
     @JsonIgnoreProperties("provinces")
-    private Commune communes;
+    private Region region;
+
+    @OneToMany(mappedBy = "province")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Commune> communes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -161,42 +161,42 @@ public class Province implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<Region> getRegions() {
-        return regions;
+    public Region getRegion() {
+        return region;
     }
 
-    public Province regions(Set<Region> regions) {
-        this.regions = regions;
+    public Province region(Region region) {
+        this.region = region;
         return this;
     }
 
-    public Province addRegion(Region region) {
-        this.regions.add(region);
-        region.setProvinces(this);
-        return this;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
-    public Province removeRegion(Region region) {
-        this.regions.remove(region);
-        region.setProvinces(null);
-        return this;
-    }
-
-    public void setRegions(Set<Region> regions) {
-        this.regions = regions;
-    }
-
-    public Commune getCommunes() {
+    public Set<Commune> getCommunes() {
         return communes;
     }
 
-    public Province communes(Commune commune) {
-        this.communes = commune;
+    public Province communes(Set<Commune> communes) {
+        this.communes = communes;
         return this;
     }
 
-    public void setCommunes(Commune commune) {
-        this.communes = commune;
+    public Province addCommunes(Commune commune) {
+        this.communes.add(commune);
+        commune.setProvince(this);
+        return this;
+    }
+
+    public Province removeCommunes(Commune commune) {
+        this.communes.remove(commune);
+        commune.setProvince(null);
+        return this;
+    }
+
+    public void setCommunes(Set<Commune> communes) {
+        this.communes = communes;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

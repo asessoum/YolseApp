@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IBesoinIntrantMySuffix } from 'app/shared/model//besoin-intrant-my-suffix.model';
 
 export interface ICultureMySuffix {
     id?: number;
@@ -10,8 +11,8 @@ export interface ICultureMySuffix {
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    besoinsIntrantsEscId?: number;
-    besoinsIntrantsGarId?: number;
+    besoinsIntrantsEscs?: IBesoinIntrantMySuffix[];
+    besoinsIntrantsGars?: IBesoinIntrantMySuffix[];
 }
 
 export class CultureMySuffix implements ICultureMySuffix {
@@ -25,8 +26,8 @@ export class CultureMySuffix implements ICultureMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public besoinsIntrantsEscId?: number,
-        public besoinsIntrantsGarId?: number
+        public besoinsIntrantsEscs?: IBesoinIntrantMySuffix[],
+        public besoinsIntrantsGars?: IBesoinIntrantMySuffix[]
     ) {
         this.estActif = false;
     }

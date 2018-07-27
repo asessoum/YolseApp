@@ -29,11 +29,7 @@ public class CommuneDTO implements Serializable {
 
     private String modifPar;
 
-    private Long utilisateursId;
-
-    private Long clientsId;
-
-    private Long suiviChampsId;
+    private Long provinceId;
 
     public Long getId() {
         return id;
@@ -99,28 +95,12 @@ public class CommuneDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getUtilisateursId() {
-        return utilisateursId;
+    public Long getProvinceId() {
+        return provinceId;
     }
 
-    public void setUtilisateursId(Long utilisateurId) {
-        this.utilisateursId = utilisateurId;
-    }
-
-    public Long getClientsId() {
-        return clientsId;
-    }
-
-    public void setClientsId(Long clientId) {
-        this.clientsId = clientId;
-    }
-
-    public Long getSuiviChampsId() {
-        return suiviChampsId;
-    }
-
-    public void setSuiviChampsId(Long suiviChampsId) {
-        this.suiviChampsId = suiviChampsId;
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
     }
 
     @Override
@@ -155,9 +135,7 @@ public class CommuneDTO implements Serializable {
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", utilisateurs=" + getUtilisateursId() +
-            ", clients=" + getClientsId() +
-            ", suiviChamps=" + getSuiviChampsId() +
+            ", province=" + getProvinceId() +
             "}";
     }
 }

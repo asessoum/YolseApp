@@ -22,9 +22,7 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Utilisateurs</span></th>
-            <th><span>Clients</span></th>
-            <th><span>Suivi Champs</span></th>
+            <th><span>Province</span></th>
             <th></th>
             </tr>
             </thead>
@@ -39,18 +37,8 @@
                 <td>{{commune.modifLe | date:'medium'}}</td>
                 <td>{{commune.modifPar}}</td>
                 <td>
-                    <div *ngIf="commune.utilisateursId">
-                        <a [routerLink]="['../utilisateur-my-suffix', commune.utilisateursId , 'view' ]" >{{commune.utilisateursId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="commune.clientsId">
-                        <a [routerLink]="['../client-my-suffix', commune.clientsId , 'view' ]" >{{commune.clientsId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="commune.suiviChampsId">
-                        <a [routerLink]="['../suivi-champs-my-suffix', commune.suiviChampsId , 'view' ]" >{{commune.suiviChampsId}}</a>
+                    <div *ngIf="commune.provinceId">
+                        <a [routerLink]="['../province-my-suffix', commune.provinceId , 'view' ]" >{{commune.provinceId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

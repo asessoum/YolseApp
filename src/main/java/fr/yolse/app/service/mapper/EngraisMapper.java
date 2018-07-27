@@ -8,13 +8,11 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Engrais and its DTO EngraisDTO.
  */
-@Mapper(componentModel = "spring", uses = {BesoinEngraisMapper.class})
+@Mapper(componentModel = "spring", uses = {})
 public interface EngraisMapper extends EntityMapper<EngraisDTO, Engrais> {
 
-    @Mapping(source = "besoinEngrais.id", target = "besoinEngraisId")
-    EngraisDTO toDto(Engrais engrais);
 
-    @Mapping(source = "besoinEngraisId", target = "besoinEngrais")
+    @Mapping(target = "besoinEngrais", ignore = true)
     Engrais toEntity(EngraisDTO engraisDTO);
 
     default Engrais fromId(Long id) {

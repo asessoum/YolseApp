@@ -22,7 +22,6 @@
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Utilisateurs</span></th>
             <th></th>
             </tr>
             </thead>
@@ -36,11 +35,6 @@
                 <td>{{profile.creePar}}</td>
                 <td>{{profile.modifLe | date:'medium'}}</td>
                 <td>{{profile.modifPar}}</td>
-                <td>
-                    <div *ngIf="profile.utilisateursId">
-                        <a [routerLink]="['../uti-profile-my-suffix', profile.utilisateursId , 'view' ]" >{{profile.utilisateursId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -33,12 +33,6 @@
                 <dd>
                     <span>{{region.modifPpar}}</span>
                 </dd>
-                <dt><span>Provinces</span></dt>
-                <dd>
-                    <div *ngIf="region.provincesId">
-                        <a [routerLink]="['/province-my-suffix', region.provincesId, 'view']">{{region.provincesId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"
