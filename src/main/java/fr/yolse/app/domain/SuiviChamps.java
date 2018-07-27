@@ -41,9 +41,13 @@ public class SuiviChamps implements Serializable {
     @Column(name = "emplac", length = 50, nullable = false)
     private String emplac;
 
-    @Size(max = 4000)
-    @Column(name = "obs", length = 4000)
-    private String obs;
+    @Size(max = 1000)
+    @Column(name = "obs_agent", length = 1000)
+    private String obsAgent;
+
+    @Size(max = 2000)
+    @Column(name = "obs_res", length = 2000)
+    private String obsRes;
 
     @Size(max = 200)
     @Column(name = "dos_img", length = 200)
@@ -67,6 +71,14 @@ public class SuiviChamps implements Serializable {
     @OneToMany(mappedBy = "suiviChamps")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Client> clients = new HashSet<>();
+
+    @OneToMany(mappedBy = "suiviChamps")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Utilisateur> utilisateurs = new HashSet<>();
+
+    @OneToMany(mappedBy = "suiviChamps")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Commune> communes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -116,17 +128,30 @@ public class SuiviChamps implements Serializable {
         this.emplac = emplac;
     }
 
-    public String getObs() {
-        return obs;
+    public String getObsAgent() {
+        return obsAgent;
     }
 
-    public SuiviChamps obs(String obs) {
-        this.obs = obs;
+    public SuiviChamps obsAgent(String obsAgent) {
+        this.obsAgent = obsAgent;
         return this;
     }
 
-    public void setObs(String obs) {
-        this.obs = obs;
+    public void setObsAgent(String obsAgent) {
+        this.obsAgent = obsAgent;
+    }
+
+    public String getObsRes() {
+        return obsRes;
+    }
+
+    public SuiviChamps obsRes(String obsRes) {
+        this.obsRes = obsRes;
+        return this;
+    }
+
+    public void setObsRes(String obsRes) {
+        this.obsRes = obsRes;
     }
 
     public String getDosImg() {
@@ -231,6 +256,56 @@ public class SuiviChamps implements Serializable {
     public void setClients(Set<Client> clients) {
         this.clients = clients;
     }
+
+    public Set<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public SuiviChamps utilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+        return this;
+    }
+
+    public SuiviChamps addUtilisateur(Utilisateur utilisateur) {
+        this.utilisateurs.add(utilisateur);
+        utilisateur.setSuiviChamps(this);
+        return this;
+    }
+
+    public SuiviChamps removeUtilisateur(Utilisateur utilisateur) {
+        this.utilisateurs.remove(utilisateur);
+        utilisateur.setSuiviChamps(null);
+        return this;
+    }
+
+    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+    }
+
+    public Set<Commune> getCommunes() {
+        return communes;
+    }
+
+    public SuiviChamps communes(Set<Commune> communes) {
+        this.communes = communes;
+        return this;
+    }
+
+    public SuiviChamps addCommune(Commune commune) {
+        this.communes.add(commune);
+        commune.setSuiviChamps(this);
+        return this;
+    }
+
+    public SuiviChamps removeCommune(Commune commune) {
+        this.communes.remove(commune);
+        commune.setSuiviChamps(null);
+        return this;
+    }
+
+    public void setCommunes(Set<Commune> communes) {
+        this.communes = communes;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -260,7 +335,8 @@ public class SuiviChamps implements Serializable {
             ", suiviID=" + getSuiviID() +
             ", dVisit='" + getdVisit() + "'" +
             ", emplac='" + getEmplac() + "'" +
-            ", obs='" + getObs() + "'" +
+            ", obsAgent='" + getObsAgent() + "'" +
+            ", obsRes='" + getObsRes() + "'" +
             ", dosImg='" + getDosImg() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +

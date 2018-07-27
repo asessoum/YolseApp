@@ -61,6 +61,14 @@ public class Commune implements Serializable {
     @JsonIgnoreProperties("communes")
     private Utilisateur utilisateurs;
 
+    @ManyToOne
+    @JsonIgnoreProperties("communes")
+    private Client clients;
+
+    @ManyToOne
+    @JsonIgnoreProperties("communes")
+    private SuiviChamps suiviChamps;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -197,6 +205,32 @@ public class Commune implements Serializable {
 
     public void setUtilisateurs(Utilisateur utilisateur) {
         this.utilisateurs = utilisateur;
+    }
+
+    public Client getClients() {
+        return clients;
+    }
+
+    public Commune clients(Client client) {
+        this.clients = client;
+        return this;
+    }
+
+    public void setClients(Client client) {
+        this.clients = client;
+    }
+
+    public SuiviChamps getSuiviChamps() {
+        return suiviChamps;
+    }
+
+    public Commune suiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps = suiviChamps;
+        return this;
+    }
+
+    public void setSuiviChamps(SuiviChamps suiviChamps) {
+        this.suiviChamps = suiviChamps;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="utilisateur"/>
 
+        <addForeignKeyConstraint baseColumnNames="clients_id"
+                                 baseTableName="langue"
+                                 constraintName="fk_langue_clients_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"/>
+
     </changeSet>
 </databaseChangeLog>

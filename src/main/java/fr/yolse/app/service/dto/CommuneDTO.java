@@ -31,6 +31,10 @@ public class CommuneDTO implements Serializable {
 
     private Long utilisateursId;
 
+    private Long clientsId;
+
+    private Long suiviChampsId;
+
     public Long getId() {
         return id;
     }
@@ -103,6 +107,22 @@ public class CommuneDTO implements Serializable {
         this.utilisateursId = utilisateurId;
     }
 
+    public Long getClientsId() {
+        return clientsId;
+    }
+
+    public void setClientsId(Long clientId) {
+        this.clientsId = clientId;
+    }
+
+    public Long getSuiviChampsId() {
+        return suiviChampsId;
+    }
+
+    public void setSuiviChampsId(Long suiviChampsId) {
+        this.suiviChampsId = suiviChampsId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,6 +156,8 @@ public class CommuneDTO implements Serializable {
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
             ", utilisateurs=" + getUtilisateursId() +
+            ", clients=" + getClientsId() +
+            ", suiviChamps=" + getSuiviChampsId() +
             "}";
     }
 }

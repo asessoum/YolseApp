@@ -13,6 +13,12 @@ import { YolseAppClientMySuffixModule } from './client-my-suffix/client-my-suffi
 import { YolseAppEngraisClientMySuffixModule } from './engrais-client-my-suffix/engrais-client-my-suffix.module';
 import { YolseAppBesoinIntrantMySuffixModule } from './besoin-intrant-my-suffix/besoin-intrant-my-suffix.module';
 import { YolseAppSuiviChampsMySuffixModule } from './suivi-champs-my-suffix/suivi-champs-my-suffix.module';
+import { YolseAppEngraisMySuffixModule } from './engrais-my-suffix/engrais-my-suffix.module';
+import { YolseAppCultureMySuffixModule } from './culture-my-suffix/culture-my-suffix.module';
+import { YolseAppReferenceMySuffixModule } from './reference-my-suffix/reference-my-suffix.module';
+import { YolseAppProfileMySuffixModule } from './profile-my-suffix/profile-my-suffix.module';
+import { YolseAppUtiProfileMySuffixModule } from './uti-profile-my-suffix/uti-profile-my-suffix.module';
+import { YolseAppBesoinEngraisMySuffixModule } from './besoin-engrais-my-suffix/besoin-engrais-my-suffix.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -31,6 +37,12 @@ import { YolseAppSuiviChampsMySuffixModule } from './suivi-champs-my-suffix/suiv
         YolseAppEngraisClientMySuffixModule,
         YolseAppBesoinIntrantMySuffixModule,
         YolseAppSuiviChampsMySuffixModule,
+        YolseAppEngraisMySuffixModule,
+        YolseAppCultureMySuffixModule,
+        YolseAppReferenceMySuffixModule,
+        YolseAppProfileMySuffixModule,
+        YolseAppUtiProfileMySuffixModule,
+        YolseAppBesoinEngraisMySuffixModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -41,23 +41,39 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="naissance" type="datetime">
-                <constraints nullable="true" />
+            <column name="date_naiss" type="datetime">
+                <constraints nullable="false" />
             </column>
 
             <column name="genre" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="tel_1" type="integer">
+            <column name="tel" type="varchar(10)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="email" type="varchar(50)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="tel_2" type="integer">
+            <column name="num_carte_uti" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="nom_pap" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="email" type="varchar(255)">
+            <column name="prenom_pap" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tel_pap" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="lien_pap" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
@@ -81,13 +97,25 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="profils_id" type="bigint">
+            <column name="agents_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="profiles_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="clients_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="suivi_champs_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="utilisateur" columnName="naissance" columnDataType="datetime"/>
+        <dropDefaultValue tableName="utilisateur" columnName="date_naiss" columnDataType="datetime"/>
         <dropDefaultValue tableName="utilisateur" columnName="cree_le" columnDataType="datetime"/>
         <dropDefaultValue tableName="utilisateur" columnName="modif_le" columnDataType="datetime"/>
         

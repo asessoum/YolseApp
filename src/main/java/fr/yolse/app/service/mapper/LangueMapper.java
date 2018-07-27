@@ -8,13 +8,15 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Langue and its DTO LangueDTO.
  */
-@Mapper(componentModel = "spring", uses = {UtilisateurMapper.class})
+@Mapper(componentModel = "spring", uses = {UtilisateurMapper.class, ClientMapper.class})
 public interface LangueMapper extends EntityMapper<LangueDTO, Langue> {
 
     @Mapping(source = "utilisateurs.id", target = "utilisateursId")
+    @Mapping(source = "clients.id", target = "clientsId")
     LangueDTO toDto(Langue langue);
 
     @Mapping(source = "utilisateursId", target = "utilisateurs")
+    @Mapping(source = "clientsId", target = "clients")
     Langue toEntity(LangueDTO langueDTO);
 
     default Langue fromId(Long id) {

@@ -29,69 +29,57 @@
                 <dd>
                     <span>{{client.estMarie}}</span>
                 </dd>
-                <dt><span>Num Cin</span></dt>
+                <dt><span>Num Carte Cli</span></dt>
                 <dd>
-                    <span>{{client.numCin}}</span>
+                    <span>{{client.numCarteCli}}</span>
                 </dd>
-                <dt><span>Valid Cin</span></dt>
+                <dt><span>D Carte Util</span></dt>
                 <dd>
-                    <span>{{client.validCin}}</span>
+                    <span>{{client.dCarteUtil}}</span>
                 </dd>
                 <dt><span>Village</span></dt>
                 <dd>
                     <span>{{client.village}}</span>
                 </dd>
-                <dt><span>Tel 1</span></dt>
+                <dt><span>Tel</span></dt>
                 <dd>
-                    <span>{{client.tel1}}</span>
-                </dd>
-                <dt><span>Tel 2</span></dt>
-                <dd>
-                    <span>{{client.tel2}}</span>
+                    <span>{{client.tel}}</span>
                 </dd>
                 <dt><span>Email</span></dt>
                 <dd>
                     <span>{{client.email}}</span>
                 </dd>
-                <dt><span>Orga Prod</span></dt>
+                <dt><span>Groupe</span></dt>
                 <dd>
-                    <span>{{client.orgaProd}}</span>
+                    <span>{{client.groupe}}</span>
                 </dd>
                 <dt><span>Photo ID</span></dt>
                 <dd>
                     <span>{{client.photoID}}</span>
                 </dd>
-                <dt><span>T Menage</span></dt>
+                <dt><span>Taille Menage</span></dt>
                 <dd>
-                    <span>{{client.tMenage}}</span>
+                    <span>{{client.tailleMenage}}</span>
                 </dd>
-                <dt><span>Nom Per A Pr</span></dt>
+                <dt><span>Superficie Pos</span></dt>
                 <dd>
-                    <span>{{client.nomPerAPr}}</span>
+                    <span>{{client.superficiePos}}</span>
                 </dd>
-                <dt><span>Prenom Per A Pr</span></dt>
+                <dt><span>Nom PAP</span></dt>
                 <dd>
-                    <span>{{client.prenomPerAPr}}</span>
+                    <span>{{client.nomPAP}}</span>
                 </dd>
-                <dt><span>Tel Per A Pr</span></dt>
+                <dt><span>Prenom PAP</span></dt>
                 <dd>
-                    <span>{{client.telPerAPr}}</span>
+                    <span>{{client.prenomPAP}}</span>
                 </dd>
-                <dt><span>Superfice</span></dt>
+                <dt><span>Tel PAP</span></dt>
                 <dd>
-                    <span>{{client.superfice}}</span>
+                    <span>{{client.telPAP}}</span>
                 </dd>
-                <dt><span>Q Semence</span></dt>
+                <dt><span>Lien PAP</span></dt>
                 <dd>
-                    <span>{{client.qSemence}}</span>
-                </dd>
-                <dt><span>M Simm</span></dt>
-                <dd>
-                    <span>{{client.mSimm}}</span>
-                </dd>
-                <dt><span>Val Total</span></dt>
-                <dd>
-                    <span>{{client.valTotal}}</span>
+                    <span>{{client.lienPAP}}</span>
                 </dd>
                 <dt><span>Est Actif</span></dt>
                 <dd>
@@ -113,22 +101,16 @@
                 <dd>
                     <span>{{client.modifPar}}</span>
                 </dd>
+                <dt><span>Besoin Intrants</span></dt>
+                <dd>
+                    <div *ngIf="client.besoinIntrantsId">
+                        <a [routerLink]="['/besoin-intrant-my-suffix', client.besoinIntrantsId, 'view']">{{client.besoinIntrantsId}}</a>
+                    </div>
+                </dd>
                 <dt><span>Suivi Champs</span></dt>
                 <dd>
                     <div *ngIf="client.suiviChampsId">
                         <a [routerLink]="['/suivi-champs-my-suffix', client.suiviChampsId, 'view']">{{client.suiviChampsId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Engrais Clients</span></dt>
-                <dd>
-                    <div *ngIf="client.engraisClientsId">
-                        <a [routerLink]="['/engrais-client-my-suffix', client.engraisClientsId, 'view']">{{client.engraisClientsId}}</a>
-                    </div>
-                </dd>
-                <dt><span>Utilisateurs</span></dt>
-                <dd>
-                    <div *ngIf="client.utilisateursId">
-                        <a [routerLink]="['/utilisateur-my-suffix', client.utilisateursId, 'view']">{{client.utilisateursId}}</a>
                     </div>
                 </dd>
             </dl>

@@ -10,6 +10,7 @@ export interface ILangueMySuffix {
     modifLe?: Moment;
     modifPar?: string;
     utilisateursId?: number;
+    clientsId?: number;
 }
 
 export class LangueMySuffix implements ILangueMySuffix {
@@ -22,7 +23,8 @@ export class LangueMySuffix implements ILangueMySuffix {
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public utilisateursId?: number
+        public utilisateursId?: number,
+        public clientsId?: number
     ) {
         this.estActif = false;
     }

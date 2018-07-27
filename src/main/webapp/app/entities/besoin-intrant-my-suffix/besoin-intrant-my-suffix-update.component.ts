@@ -4,9 +4,12 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { IBesoinIntrantMySuffix } from 'app/shared/model/besoin-intrant-my-suffix.model';
 import { BesoinIntrantMySuffixService } from './besoin-intrant-my-suffix.service';
+import { IBesoinEngraisMySuffix } from 'app/shared/model/besoin-engrais-my-suffix.model';
+import { BesoinEngraisMySuffixService } from 'app/entities/besoin-engrais-my-suffix';
 
 @Component({
     selector: 'jhi-besoin-intrant-my-suffix-update',
@@ -15,16 +18,29 @@ import { BesoinIntrantMySuffixService } from './besoin-intrant-my-suffix.service
 export class BesoinIntrantMySuffixUpdateComponent implements OnInit {
     private _besoinIntrant: IBesoinIntrantMySuffix;
     isSaving: boolean;
+
+    besoinengrais: IBesoinEngraisMySuffix[];
     creeLe: string;
     modifLe: string;
 
-    constructor(private besoinIntrantService: BesoinIntrantMySuffixService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private besoinIntrantService: BesoinIntrantMySuffixService,
+        private besoinEngraisService: BesoinEngraisMySuffixService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ besoinIntrant }) => {
             this.besoinIntrant = besoinIntrant;
         });
+        this.besoinEngraisService.query().subscribe(
+            (res: HttpResponse<IBesoinEngraisMySuffix[]>) => {
+                this.besoinengrais = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -56,6 +72,14 @@ export class BesoinIntrantMySuffixUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackBesoinEngraisById(index: number, item: IBesoinEngraisMySuffix) {
+        return item.id;
     }
     get besoinIntrant() {
         return this._besoinIntrant;

@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="engrais">
+            <h2><span>Engrais</span> {{engrais.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Engrais ID</span></dt>
+                <dd>
+                    <span>{{engrais.engraisID}}</span>
+                </dd>
+                <dt><span>Libelle</span></dt>
+                <dd>
+                    <span>{{engrais.libelle}}</span>
+                </dd>
+                <dt><span>Prix Unitaire</span></dt>
+                <dd>
+                    <span>{{engrais.prixUnitaire}}</span>
+                </dd>
+                <dt><span>Est Actif</span></dt>
+                <dd>
+                    <span>{{engrais.estActif}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{engrais.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{engrais.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{engrais.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{engrais.modifPar}}</span>
+                </dd>
+                <dt><span>Besoin Engrais</span></dt>
+                <dd>
+                    <div *ngIf="engrais.besoinEngraisId">
+                        <a [routerLink]="['/besoin-engrais-my-suffix', engrais.besoinEngraisId, 'view']">{{engrais.besoinEngraisId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/engrais-my-suffix', engrais.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

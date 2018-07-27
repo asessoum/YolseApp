@@ -1,8 +1,7 @@
 import { Moment } from 'moment';
-import { ITypeCultureMySuffix } from 'app/shared/model//type-culture-my-suffix.model';
-import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
 import { ILangueMySuffix } from 'app/shared/model//langue-my-suffix.model';
 import { ICommuneMySuffix } from 'app/shared/model//commune-my-suffix.model';
+import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
 
 export const enum Genre {
     HOMME = 'HOMME',
@@ -16,21 +15,27 @@ export interface IUtilisateurMySuffix {
     mdp?: string;
     nom?: string;
     prenom?: string;
-    naissance?: Moment;
+    dateNaiss?: Moment;
     genre?: Genre;
-    tel1?: number;
-    tel2?: number;
+    tel?: string;
     email?: string;
+    numCarteUti?: string;
+    nomPAP?: string;
+    prenomPAP?: string;
+    telPAP?: string;
+    lienPAP?: string;
     estActif?: boolean;
     creeLe?: Moment;
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
-    typeCultures?: ITypeCultureMySuffix[];
-    clients?: IClientMySuffix[];
     langues?: ILangueMySuffix[];
     communes?: ICommuneMySuffix[];
-    profilsId?: number;
+    responsables?: IUtilisateurMySuffix[];
+    agentsId?: number;
+    profilesId?: number;
+    clientsId?: number;
+    suiviChampsId?: number;
 }
 
 export class UtilisateurMySuffix implements IUtilisateurMySuffix {
@@ -41,21 +46,27 @@ export class UtilisateurMySuffix implements IUtilisateurMySuffix {
         public mdp?: string,
         public nom?: string,
         public prenom?: string,
-        public naissance?: Moment,
+        public dateNaiss?: Moment,
         public genre?: Genre,
-        public tel1?: number,
-        public tel2?: number,
+        public tel?: string,
         public email?: string,
+        public numCarteUti?: string,
+        public nomPAP?: string,
+        public prenomPAP?: string,
+        public telPAP?: string,
+        public lienPAP?: string,
         public estActif?: boolean,
         public creeLe?: Moment,
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
-        public typeCultures?: ITypeCultureMySuffix[],
-        public clients?: IClientMySuffix[],
         public langues?: ILangueMySuffix[],
         public communes?: ICommuneMySuffix[],
-        public profilsId?: number
+        public responsables?: IUtilisateurMySuffix[],
+        public agentsId?: number,
+        public profilesId?: number,
+        public clientsId?: number,
+        public suiviChampsId?: number
     ) {
         this.estActif = false;
     }

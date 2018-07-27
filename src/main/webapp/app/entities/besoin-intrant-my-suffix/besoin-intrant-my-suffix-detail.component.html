@@ -9,6 +9,18 @@
                 <dd>
                     <span>{{besoinIntrant.besIntID}}</span>
                 </dd>
+                <dt><span>Superficie Esc</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.superficieEsc}}</span>
+                </dd>
+                <dt><span>Q Semence</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.qSemence}}</span>
+                </dd>
+                <dt><span>Valeur Tot</span></dt>
+                <dd>
+                    <span>{{besoinIntrant.valeurTot}}</span>
+                </dd>
                 <dt><span>M Adhesion</span></dt>
                 <dd>
                     <span>{{besoinIntrant.mAdhesion}}</span>
@@ -21,13 +33,13 @@
                 <dd>
                     <span>{{besoinIntrant.mGaran}}</span>
                 </dd>
-                <dt><span>Stock Gar</span></dt>
+                <dt><span>Q Stock Gar</span></dt>
                 <dd>
-                    <span>{{besoinIntrant.stockGar}}</span>
+                    <span>{{besoinIntrant.qStockGar}}</span>
                 </dd>
-                <dt><span>Magasin</span></dt>
+                <dt><span>Magasin Stock</span></dt>
                 <dd>
-                    <span>{{besoinIntrant.magasin}}</span>
+                    <span>{{besoinIntrant.magasinStock}}</span>
                 </dd>
                 <dt><span>Sfd</span></dt>
                 <dd>
@@ -72,6 +84,12 @@
                 <dt><span>Modif Par</span></dt>
                 <dd>
                     <span>{{besoinIntrant.modifPar}}</span>
+                </dd>
+                <dt><span>Besoin Engrais</span></dt>
+                <dd>
+                    <div *ngIf="besoinIntrant.besoinEngraisId">
+                        <a [routerLink]="['/besoin-engrais-my-suffix', besoinIntrant.besoinEngraisId, 'view']">{{besoinIntrant.besoinEngraisId}}</a>
+                    </div>
                 </dd>
             </dl>
 

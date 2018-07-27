@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-besoin-engrais-my-suffix-heading">Create or edit a Besoin Engrais</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!besoinEngrais.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="besoinEngrais.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qEngrais">Q Engrais</label>
+                    <input type="number" class="form-control" name="qEngrais" id="field_qEngrais"
+                        [(ngModel)]="besoinEngrais.qEngrais" required/>
+                    <div [hidden]="!(editForm.controls.qEngrais?.dirty && editForm.controls.qEngrais?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.qEngrais?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.qEngrais?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_pTotEngr">P Tot Engr</label>
+                    <input type="number" class="form-control" name="pTotEngr" id="field_pTotEngr"
+                        [(ngModel)]="besoinEngrais.pTotEngr" required/>
+                    <div [hidden]="!(editForm.controls.pTotEngr?.dirty && editForm.controls.pTotEngr?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.pTotEngr?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.pTotEngr?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creeLe">Cree Le</label>
+                    <div class="d-flex">
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creePar">Cree Par</label>
+                    <input type="text" class="form-control" name="creePar" id="field_creePar"
+                        [(ngModel)]="besoinEngrais.creePar" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifLe">Modif Le</label>
+                    <div class="d-flex">
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifPar">Modif Par</label>
+                    <input type="text" class="form-control" name="modifPar" id="field_modifPar"
+                        [(ngModel)]="besoinEngrais.modifPar" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

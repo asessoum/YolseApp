@@ -60,20 +60,32 @@ public class UtilisateurResourceIntTest {
     private static final String DEFAULT_PRENOM = "AAAAAAAAAA";
     private static final String UPDATED_PRENOM = "BBBBBBBBBB";
 
-    private static final Instant DEFAULT_NAISSANCE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_NAISSANCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_DATE_NAISS = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_NAISS = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Genre DEFAULT_GENRE = Genre.HOMME;
     private static final Genre UPDATED_GENRE = Genre.FEMME;
 
-    private static final Integer DEFAULT_TEL_1 = 1;
-    private static final Integer UPDATED_TEL_1 = 2;
-
-    private static final Integer DEFAULT_TEL_2 = 1;
-    private static final Integer UPDATED_TEL_2 = 2;
+    private static final String DEFAULT_TEL = "AAAAAAAAAA";
+    private static final String UPDATED_TEL = "BBBBBBBBBB";
 
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NUM_CARTE_UTI = "AAAAAAAAAA";
+    private static final String UPDATED_NUM_CARTE_UTI = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NOM_PAP = "AAAAAAAAAA";
+    private static final String UPDATED_NOM_PAP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PRENOM_PAP = "AAAAAAAAAA";
+    private static final String UPDATED_PRENOM_PAP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_TEL_PAP = "AAAAAAAAAA";
+    private static final String UPDATED_TEL_PAP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LIEN_PAP = "AAAAAAAAAA";
+    private static final String UPDATED_LIEN_PAP = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_EST_ACTIF = false;
     private static final Boolean UPDATED_EST_ACTIF = true;
@@ -141,11 +153,15 @@ public class UtilisateurResourceIntTest {
             .mdp(DEFAULT_MDP)
             .nom(DEFAULT_NOM)
             .prenom(DEFAULT_PRENOM)
-            .naissance(DEFAULT_NAISSANCE)
+            .dateNaiss(DEFAULT_DATE_NAISS)
             .genre(DEFAULT_GENRE)
-            .tel1(DEFAULT_TEL_1)
-            .tel2(DEFAULT_TEL_2)
+            .tel(DEFAULT_TEL)
             .email(DEFAULT_EMAIL)
+            .numCarteUti(DEFAULT_NUM_CARTE_UTI)
+            .nomPAP(DEFAULT_NOM_PAP)
+            .prenomPAP(DEFAULT_PRENOM_PAP)
+            .telPAP(DEFAULT_TEL_PAP)
+            .lienPAP(DEFAULT_LIEN_PAP)
             .estActif(DEFAULT_EST_ACTIF)
             .creeLe(DEFAULT_CREE_LE)
             .creePar(DEFAULT_CREE_PAR)
@@ -180,11 +196,15 @@ public class UtilisateurResourceIntTest {
         assertThat(testUtilisateur.getMdp()).isEqualTo(DEFAULT_MDP);
         assertThat(testUtilisateur.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testUtilisateur.getPrenom()).isEqualTo(DEFAULT_PRENOM);
-        assertThat(testUtilisateur.getNaissance()).isEqualTo(DEFAULT_NAISSANCE);
+        assertThat(testUtilisateur.getDateNaiss()).isEqualTo(DEFAULT_DATE_NAISS);
         assertThat(testUtilisateur.getGenre()).isEqualTo(DEFAULT_GENRE);
-        assertThat(testUtilisateur.getTel1()).isEqualTo(DEFAULT_TEL_1);
-        assertThat(testUtilisateur.getTel2()).isEqualTo(DEFAULT_TEL_2);
+        assertThat(testUtilisateur.getTel()).isEqualTo(DEFAULT_TEL);
         assertThat(testUtilisateur.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testUtilisateur.getNumCarteUti()).isEqualTo(DEFAULT_NUM_CARTE_UTI);
+        assertThat(testUtilisateur.getNomPAP()).isEqualTo(DEFAULT_NOM_PAP);
+        assertThat(testUtilisateur.getPrenomPAP()).isEqualTo(DEFAULT_PRENOM_PAP);
+        assertThat(testUtilisateur.getTelPAP()).isEqualTo(DEFAULT_TEL_PAP);
+        assertThat(testUtilisateur.getLienPAP()).isEqualTo(DEFAULT_LIEN_PAP);
         assertThat(testUtilisateur.isEstActif()).isEqualTo(DEFAULT_EST_ACTIF);
         assertThat(testUtilisateur.getCreeLe()).isEqualTo(DEFAULT_CREE_LE);
         assertThat(testUtilisateur.getCreePar()).isEqualTo(DEFAULT_CREE_PAR);
@@ -309,10 +329,67 @@ public class UtilisateurResourceIntTest {
 
     @Test
     @Transactional
+    public void checkDateNaissIsRequired() throws Exception {
+        int databaseSizeBeforeTest = utilisateurRepository.findAll().size();
+        // set the field null
+        utilisateur.setDateNaiss(null);
+
+        // Create the Utilisateur, which fails.
+        UtilisateurDTO utilisateurDTO = utilisateurMapper.toDto(utilisateur);
+
+        restUtilisateurMockMvc.perform(post("/api/utilisateurs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(utilisateurDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Utilisateur> utilisateurList = utilisateurRepository.findAll();
+        assertThat(utilisateurList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void checkGenreIsRequired() throws Exception {
         int databaseSizeBeforeTest = utilisateurRepository.findAll().size();
         // set the field null
         utilisateur.setGenre(null);
+
+        // Create the Utilisateur, which fails.
+        UtilisateurDTO utilisateurDTO = utilisateurMapper.toDto(utilisateur);
+
+        restUtilisateurMockMvc.perform(post("/api/utilisateurs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(utilisateurDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Utilisateur> utilisateurList = utilisateurRepository.findAll();
+        assertThat(utilisateurList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkTelIsRequired() throws Exception {
+        int databaseSizeBeforeTest = utilisateurRepository.findAll().size();
+        // set the field null
+        utilisateur.setTel(null);
+
+        // Create the Utilisateur, which fails.
+        UtilisateurDTO utilisateurDTO = utilisateurMapper.toDto(utilisateur);
+
+        restUtilisateurMockMvc.perform(post("/api/utilisateurs")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(utilisateurDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Utilisateur> utilisateurList = utilisateurRepository.findAll();
+        assertThat(utilisateurList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkNumCarteUtiIsRequired() throws Exception {
+        int databaseSizeBeforeTest = utilisateurRepository.findAll().size();
+        // set the field null
+        utilisateur.setNumCarteUti(null);
 
         // Create the Utilisateur, which fails.
         UtilisateurDTO utilisateurDTO = utilisateurMapper.toDto(utilisateur);
@@ -342,11 +419,15 @@ public class UtilisateurResourceIntTest {
             .andExpect(jsonPath("$.[*].mdp").value(hasItem(DEFAULT_MDP.toString())))
             .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM.toString())))
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM.toString())))
-            .andExpect(jsonPath("$.[*].naissance").value(hasItem(DEFAULT_NAISSANCE.toString())))
+            .andExpect(jsonPath("$.[*].dateNaiss").value(hasItem(DEFAULT_DATE_NAISS.toString())))
             .andExpect(jsonPath("$.[*].genre").value(hasItem(DEFAULT_GENRE.toString())))
-            .andExpect(jsonPath("$.[*].tel1").value(hasItem(DEFAULT_TEL_1)))
-            .andExpect(jsonPath("$.[*].tel2").value(hasItem(DEFAULT_TEL_2)))
+            .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].numCarteUti").value(hasItem(DEFAULT_NUM_CARTE_UTI.toString())))
+            .andExpect(jsonPath("$.[*].nomPAP").value(hasItem(DEFAULT_NOM_PAP.toString())))
+            .andExpect(jsonPath("$.[*].prenomPAP").value(hasItem(DEFAULT_PRENOM_PAP.toString())))
+            .andExpect(jsonPath("$.[*].telPAP").value(hasItem(DEFAULT_TEL_PAP.toString())))
+            .andExpect(jsonPath("$.[*].lienPAP").value(hasItem(DEFAULT_LIEN_PAP.toString())))
             .andExpect(jsonPath("$.[*].estActif").value(hasItem(DEFAULT_EST_ACTIF.booleanValue())))
             .andExpect(jsonPath("$.[*].creeLe").value(hasItem(DEFAULT_CREE_LE.toString())))
             .andExpect(jsonPath("$.[*].creePar").value(hasItem(DEFAULT_CREE_PAR.toString())))
@@ -371,11 +452,15 @@ public class UtilisateurResourceIntTest {
             .andExpect(jsonPath("$.mdp").value(DEFAULT_MDP.toString()))
             .andExpect(jsonPath("$.nom").value(DEFAULT_NOM.toString()))
             .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM.toString()))
-            .andExpect(jsonPath("$.naissance").value(DEFAULT_NAISSANCE.toString()))
+            .andExpect(jsonPath("$.dateNaiss").value(DEFAULT_DATE_NAISS.toString()))
             .andExpect(jsonPath("$.genre").value(DEFAULT_GENRE.toString()))
-            .andExpect(jsonPath("$.tel1").value(DEFAULT_TEL_1))
-            .andExpect(jsonPath("$.tel2").value(DEFAULT_TEL_2))
+            .andExpect(jsonPath("$.tel").value(DEFAULT_TEL.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.numCarteUti").value(DEFAULT_NUM_CARTE_UTI.toString()))
+            .andExpect(jsonPath("$.nomPAP").value(DEFAULT_NOM_PAP.toString()))
+            .andExpect(jsonPath("$.prenomPAP").value(DEFAULT_PRENOM_PAP.toString()))
+            .andExpect(jsonPath("$.telPAP").value(DEFAULT_TEL_PAP.toString()))
+            .andExpect(jsonPath("$.lienPAP").value(DEFAULT_LIEN_PAP.toString()))
             .andExpect(jsonPath("$.estActif").value(DEFAULT_EST_ACTIF.booleanValue()))
             .andExpect(jsonPath("$.creeLe").value(DEFAULT_CREE_LE.toString()))
             .andExpect(jsonPath("$.creePar").value(DEFAULT_CREE_PAR.toString()))
@@ -408,11 +493,15 @@ public class UtilisateurResourceIntTest {
             .mdp(UPDATED_MDP)
             .nom(UPDATED_NOM)
             .prenom(UPDATED_PRENOM)
-            .naissance(UPDATED_NAISSANCE)
+            .dateNaiss(UPDATED_DATE_NAISS)
             .genre(UPDATED_GENRE)
-            .tel1(UPDATED_TEL_1)
-            .tel2(UPDATED_TEL_2)
+            .tel(UPDATED_TEL)
             .email(UPDATED_EMAIL)
+            .numCarteUti(UPDATED_NUM_CARTE_UTI)
+            .nomPAP(UPDATED_NOM_PAP)
+            .prenomPAP(UPDATED_PRENOM_PAP)
+            .telPAP(UPDATED_TEL_PAP)
+            .lienPAP(UPDATED_LIEN_PAP)
             .estActif(UPDATED_EST_ACTIF)
             .creeLe(UPDATED_CREE_LE)
             .creePar(UPDATED_CREE_PAR)
@@ -434,11 +523,15 @@ public class UtilisateurResourceIntTest {
         assertThat(testUtilisateur.getMdp()).isEqualTo(UPDATED_MDP);
         assertThat(testUtilisateur.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testUtilisateur.getPrenom()).isEqualTo(UPDATED_PRENOM);
-        assertThat(testUtilisateur.getNaissance()).isEqualTo(UPDATED_NAISSANCE);
+        assertThat(testUtilisateur.getDateNaiss()).isEqualTo(UPDATED_DATE_NAISS);
         assertThat(testUtilisateur.getGenre()).isEqualTo(UPDATED_GENRE);
-        assertThat(testUtilisateur.getTel1()).isEqualTo(UPDATED_TEL_1);
-        assertThat(testUtilisateur.getTel2()).isEqualTo(UPDATED_TEL_2);
+        assertThat(testUtilisateur.getTel()).isEqualTo(UPDATED_TEL);
         assertThat(testUtilisateur.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testUtilisateur.getNumCarteUti()).isEqualTo(UPDATED_NUM_CARTE_UTI);
+        assertThat(testUtilisateur.getNomPAP()).isEqualTo(UPDATED_NOM_PAP);
+        assertThat(testUtilisateur.getPrenomPAP()).isEqualTo(UPDATED_PRENOM_PAP);
+        assertThat(testUtilisateur.getTelPAP()).isEqualTo(UPDATED_TEL_PAP);
+        assertThat(testUtilisateur.getLienPAP()).isEqualTo(UPDATED_LIEN_PAP);
         assertThat(testUtilisateur.isEstActif()).isEqualTo(UPDATED_EST_ACTIF);
         assertThat(testUtilisateur.getCreeLe()).isEqualTo(UPDATED_CREE_LE);
         assertThat(testUtilisateur.getCreePar()).isEqualTo(UPDATED_CREE_PAR);

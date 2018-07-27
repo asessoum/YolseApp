@@ -4,10 +4,15 @@ import com.codahale.metrics.annotation.Timed;
 import fr.yolse.app.service.UtilisateurService;
 import fr.yolse.app.web.rest.errors.BadRequestAlertException;
 import fr.yolse.app.web.rest.util.HeaderUtil;
+import fr.yolse.app.web.rest.util.PaginationUtil;
 import fr.yolse.app.service.dto.UtilisateurDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,13 +85,16 @@ public class UtilisateurResource {
     /**
      * GET  /utilisateurs : get all the utilisateurs.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of utilisateurs in body
      */
     @GetMapping("/utilisateurs")
     @Timed
-    public List<UtilisateurDTO> getAllUtilisateurs() {
-        log.debug("REST request to get all Utilisateurs");
-        return utilisateurService.findAll();
+    public ResponseEntity<List<UtilisateurDTO>> getAllUtilisateurs(Pageable pageable) {
+        log.debug("REST request to get a page of Utilisateurs");
+        Page<UtilisateurDTO> page = utilisateurService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/utilisateurs");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

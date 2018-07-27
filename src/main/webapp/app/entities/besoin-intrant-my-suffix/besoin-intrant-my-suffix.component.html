@@ -16,11 +16,14 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="besIntID"><span>Bes Int ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="superficieEsc"><span>Superficie Esc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qSemence"><span>Q Semence</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="valeurTot"><span>Valeur Tot</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="mAdhesion"><span>M Adhesion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="mAssur"><span>M Assur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="mGaran"><span>M Garan</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="stockGar"><span>Stock Gar</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="magasin"><span>Magasin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qStockGar"><span>Q Stock Gar</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="magasinStock"><span>Magasin Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="sfd"><span>Sfd</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="mUniGes"><span>M Uni Ges</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="mAdmin"><span>M Admin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -32,6 +35,7 @@
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="besoinEngraisId"><span>Besoin Engrais</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -39,11 +43,14 @@
             <tr *ngFor="let besoinIntrant of besoinIntrants ;trackBy: trackId">
                 <td><a [routerLink]="['/besoin-intrant-my-suffix', besoinIntrant.id, 'view' ]">{{besoinIntrant.id}}</a></td>
                 <td>{{besoinIntrant.besIntID}}</td>
+                <td>{{besoinIntrant.superficieEsc}}</td>
+                <td>{{besoinIntrant.qSemence}}</td>
+                <td>{{besoinIntrant.valeurTot}}</td>
                 <td>{{besoinIntrant.mAdhesion}}</td>
                 <td>{{besoinIntrant.mAssur}}</td>
                 <td>{{besoinIntrant.mGaran}}</td>
-                <td>{{besoinIntrant.stockGar}}</td>
-                <td>{{besoinIntrant.magasin}}</td>
+                <td>{{besoinIntrant.qStockGar}}</td>
+                <td>{{besoinIntrant.magasinStock}}</td>
                 <td>{{besoinIntrant.sfd}}</td>
                 <td>{{besoinIntrant.mUniGes}}</td>
                 <td>{{besoinIntrant.mAdmin}}</td>
@@ -55,6 +62,11 @@
                 <td>{{besoinIntrant.creePar}}</td>
                 <td>{{besoinIntrant.modifLe | date:'medium'}}</td>
                 <td>{{besoinIntrant.modifPar}}</td>
+                <td>
+                    <div *ngIf="besoinIntrant.besoinEngraisId">
+                        <a [routerLink]="['../besoin-engrais-my-suffix', besoinIntrant.besoinEngraisId , 'view' ]" >{{besoinIntrant.besoinEngraisId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

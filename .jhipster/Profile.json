@@ -1,0 +1,59 @@
+{
+    "name": "Profile",
+    "fields": [
+        {
+            "fieldName": "profileID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "libelle",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "estActif",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "creeLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "creePar",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "modifLe",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "modifPar",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "utilisateurs",
+            "otherEntityName": "utiProfile",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180727151347",
+    "entityTableName": "profile",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "mySuffix"
+}

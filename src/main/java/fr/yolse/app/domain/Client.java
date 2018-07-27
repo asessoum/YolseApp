@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,6 +10,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import fr.yolse.app.domain.enumeration.Genre;
@@ -57,12 +60,13 @@ public class Client implements Serializable {
     private Boolean estMarie;
 
     @NotNull
-    @Column(name = "num_cin", nullable = false)
-    private Integer numCin;
+    @Size(max = 20)
+    @Column(name = "num_carte_cli", length = 20, nullable = false)
+    private String numCarteCli;
 
     @NotNull
-    @Column(name = "valid_cin", nullable = false)
-    private Instant validCin;
+    @Column(name = "d_carte_util", nullable = false)
+    private Instant dCarteUtil;
 
     @NotNull
     @Size(max = 20)
@@ -70,53 +74,45 @@ public class Client implements Serializable {
     private String village;
 
     @NotNull
-    @Column(name = "tel_1", nullable = false)
-    private Integer tel1;
-
-    @Column(name = "tel_2")
-    private Integer tel2;
+    @Size(max = 10)
+    @Column(name = "tel", length = 10, nullable = false)
+    private String tel;
 
     @Size(max = 50)
     @Column(name = "email", length = 50)
     private String email;
 
     @Size(max = 50)
-    @Column(name = "orga_prod", length = 50)
-    private String orgaProd;
+    @Column(name = "groupe", length = 50)
+    private String groupe;
 
     @Size(max = 200)
     @Column(name = "photo_id", length = 200)
     private String photoID;
 
-    @Column(name = "t_menage")
-    private Integer tMenage;
+    @NotNull
+    @Column(name = "taille_menage", nullable = false)
+    private Integer tailleMenage;
+
+    @NotNull
+    @Column(name = "superficie_pos", nullable = false)
+    private Double superficiePos;
 
     @Size(max = 20)
-    @Column(name = "nom_per_a_pr", length = 20)
-    private String nomPerAPr;
+    @Column(name = "nom_pap", length = 20)
+    private String nomPAP;
 
     @Size(max = 20)
-    @Column(name = "prenom_per_a_pr", length = 20)
-    private String prenomPerAPr;
+    @Column(name = "prenom_pap", length = 20)
+    private String prenomPAP;
 
-    @Column(name = "tel_per_a_pr")
-    private Integer telPerAPr;
+    @Size(max = 10)
+    @Column(name = "tel_pap", length = 10)
+    private String telPAP;
 
-    @NotNull
-    @Column(name = "superfice", nullable = false)
-    private Double superfice;
-
-    @NotNull
-    @Column(name = "q_semence", nullable = false)
-    private Double qSemence;
-
-    @NotNull
-    @Column(name = "m_simm", nullable = false)
-    private Double mSimm;
-
-    @NotNull
-    @Column(name = "val_total", nullable = false)
-    private Double valTotal;
+    @Size(max = 10)
+    @Column(name = "lien_pap", length = 10)
+    private String lienPAP;
 
     @Column(name = "est_actif")
     private Boolean estActif;
@@ -133,17 +129,25 @@ public class Client implements Serializable {
     @Column(name = "modif_par")
     private String modifPar;
 
+    @OneToMany(mappedBy = "clients")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Langue> langues = new HashSet<>();
+
+    @OneToMany(mappedBy = "clients")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Utilisateur> utilisateurs = new HashSet<>();
+
+    @OneToMany(mappedBy = "clients")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Commune> communes = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("clients")
+    private BesoinIntrant besoinIntrants;
+
     @ManyToOne
     @JsonIgnoreProperties("clients")
     private SuiviChamps suiviChamps;
-
-    @ManyToOne
-    @JsonIgnoreProperties("clients")
-    private EngraisClient engraisClients;
-
-    @ManyToOne
-    @JsonIgnoreProperties("clients")
-    private Utilisateur utilisateurs;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -232,30 +236,30 @@ public class Client implements Serializable {
         this.estMarie = estMarie;
     }
 
-    public Integer getNumCin() {
-        return numCin;
+    public String getNumCarteCli() {
+        return numCarteCli;
     }
 
-    public Client numCin(Integer numCin) {
-        this.numCin = numCin;
+    public Client numCarteCli(String numCarteCli) {
+        this.numCarteCli = numCarteCli;
         return this;
     }
 
-    public void setNumCin(Integer numCin) {
-        this.numCin = numCin;
+    public void setNumCarteCli(String numCarteCli) {
+        this.numCarteCli = numCarteCli;
     }
 
-    public Instant getValidCin() {
-        return validCin;
+    public Instant getdCarteUtil() {
+        return dCarteUtil;
     }
 
-    public Client validCin(Instant validCin) {
-        this.validCin = validCin;
+    public Client dCarteUtil(Instant dCarteUtil) {
+        this.dCarteUtil = dCarteUtil;
         return this;
     }
 
-    public void setValidCin(Instant validCin) {
-        this.validCin = validCin;
+    public void setdCarteUtil(Instant dCarteUtil) {
+        this.dCarteUtil = dCarteUtil;
     }
 
     public String getVillage() {
@@ -271,30 +275,17 @@ public class Client implements Serializable {
         this.village = village;
     }
 
-    public Integer getTel1() {
-        return tel1;
+    public String getTel() {
+        return tel;
     }
 
-    public Client tel1(Integer tel1) {
-        this.tel1 = tel1;
+    public Client tel(String tel) {
+        this.tel = tel;
         return this;
     }
 
-    public void setTel1(Integer tel1) {
-        this.tel1 = tel1;
-    }
-
-    public Integer getTel2() {
-        return tel2;
-    }
-
-    public Client tel2(Integer tel2) {
-        this.tel2 = tel2;
-        return this;
-    }
-
-    public void setTel2(Integer tel2) {
-        this.tel2 = tel2;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public String getEmail() {
@@ -310,17 +301,17 @@ public class Client implements Serializable {
         this.email = email;
     }
 
-    public String getOrgaProd() {
-        return orgaProd;
+    public String getGroupe() {
+        return groupe;
     }
 
-    public Client orgaProd(String orgaProd) {
-        this.orgaProd = orgaProd;
+    public Client groupe(String groupe) {
+        this.groupe = groupe;
         return this;
     }
 
-    public void setOrgaProd(String orgaProd) {
-        this.orgaProd = orgaProd;
+    public void setGroupe(String groupe) {
+        this.groupe = groupe;
     }
 
     public String getPhotoID() {
@@ -336,108 +327,82 @@ public class Client implements Serializable {
         this.photoID = photoID;
     }
 
-    public Integer gettMenage() {
-        return tMenage;
+    public Integer getTailleMenage() {
+        return tailleMenage;
     }
 
-    public Client tMenage(Integer tMenage) {
-        this.tMenage = tMenage;
+    public Client tailleMenage(Integer tailleMenage) {
+        this.tailleMenage = tailleMenage;
         return this;
     }
 
-    public void settMenage(Integer tMenage) {
-        this.tMenage = tMenage;
+    public void setTailleMenage(Integer tailleMenage) {
+        this.tailleMenage = tailleMenage;
     }
 
-    public String getNomPerAPr() {
-        return nomPerAPr;
+    public Double getSuperficiePos() {
+        return superficiePos;
     }
 
-    public Client nomPerAPr(String nomPerAPr) {
-        this.nomPerAPr = nomPerAPr;
+    public Client superficiePos(Double superficiePos) {
+        this.superficiePos = superficiePos;
         return this;
     }
 
-    public void setNomPerAPr(String nomPerAPr) {
-        this.nomPerAPr = nomPerAPr;
+    public void setSuperficiePos(Double superficiePos) {
+        this.superficiePos = superficiePos;
     }
 
-    public String getPrenomPerAPr() {
-        return prenomPerAPr;
+    public String getNomPAP() {
+        return nomPAP;
     }
 
-    public Client prenomPerAPr(String prenomPerAPr) {
-        this.prenomPerAPr = prenomPerAPr;
+    public Client nomPAP(String nomPAP) {
+        this.nomPAP = nomPAP;
         return this;
     }
 
-    public void setPrenomPerAPr(String prenomPerAPr) {
-        this.prenomPerAPr = prenomPerAPr;
+    public void setNomPAP(String nomPAP) {
+        this.nomPAP = nomPAP;
     }
 
-    public Integer getTelPerAPr() {
-        return telPerAPr;
+    public String getPrenomPAP() {
+        return prenomPAP;
     }
 
-    public Client telPerAPr(Integer telPerAPr) {
-        this.telPerAPr = telPerAPr;
+    public Client prenomPAP(String prenomPAP) {
+        this.prenomPAP = prenomPAP;
         return this;
     }
 
-    public void setTelPerAPr(Integer telPerAPr) {
-        this.telPerAPr = telPerAPr;
+    public void setPrenomPAP(String prenomPAP) {
+        this.prenomPAP = prenomPAP;
     }
 
-    public Double getSuperfice() {
-        return superfice;
+    public String getTelPAP() {
+        return telPAP;
     }
 
-    public Client superfice(Double superfice) {
-        this.superfice = superfice;
+    public Client telPAP(String telPAP) {
+        this.telPAP = telPAP;
         return this;
     }
 
-    public void setSuperfice(Double superfice) {
-        this.superfice = superfice;
+    public void setTelPAP(String telPAP) {
+        this.telPAP = telPAP;
     }
 
-    public Double getqSemence() {
-        return qSemence;
+    public String getLienPAP() {
+        return lienPAP;
     }
 
-    public Client qSemence(Double qSemence) {
-        this.qSemence = qSemence;
+    public Client lienPAP(String lienPAP) {
+        this.lienPAP = lienPAP;
         return this;
     }
 
-    public void setqSemence(Double qSemence) {
-        this.qSemence = qSemence;
-    }
-
-    public Double getmSimm() {
-        return mSimm;
-    }
-
-    public Client mSimm(Double mSimm) {
-        this.mSimm = mSimm;
-        return this;
-    }
-
-    public void setmSimm(Double mSimm) {
-        this.mSimm = mSimm;
-    }
-
-    public Double getValTotal() {
-        return valTotal;
-    }
-
-    public Client valTotal(Double valTotal) {
-        this.valTotal = valTotal;
-        return this;
-    }
-
-    public void setValTotal(Double valTotal) {
-        this.valTotal = valTotal;
+    public void setLienPAP(String lienPAP) {
+        this.lienPAP = lienPAP;
     }
 
     public Boolean isEstActif() {
@@ -505,6 +470,94 @@ public class Client implements Serializable {
         this.modifPar = modifPar;
     }
 
+    public Set<Langue> getLangues() {
+        return langues;
+    }
+
+    public Client langues(Set<Langue> langues) {
+        this.langues = langues;
+        return this;
+    }
+
+    public Client addLangue(Langue langue) {
+        this.langues.add(langue);
+        langue.setClients(this);
+        return this;
+    }
+
+    public Client removeLangue(Langue langue) {
+        this.langues.remove(langue);
+        langue.setClients(null);
+        return this;
+    }
+
+    public void setLangues(Set<Langue> langues) {
+        this.langues = langues;
+    }
+
+    public Set<Utilisateur> getUtilisateurs() {
+        return utilisateurs;
+    }
+
+    public Client utilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+        return this;
+    }
+
+    public Client addUtilisateur(Utilisateur utilisateur) {
+        this.utilisateurs.add(utilisateur);
+        utilisateur.setClients(this);
+        return this;
+    }
+
+    public Client removeUtilisateur(Utilisateur utilisateur) {
+        this.utilisateurs.remove(utilisateur);
+        utilisateur.setClients(null);
+        return this;
+    }
+
+    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+    }
+
+    public Set<Commune> getCommunes() {
+        return communes;
+    }
+
+    public Client communes(Set<Commune> communes) {
+        this.communes = communes;
+        return this;
+    }
+
+    public Client addCommune(Commune commune) {
+        this.communes.add(commune);
+        commune.setClients(this);
+        return this;
+    }
+
+    public Client removeCommune(Commune commune) {
+        this.communes.remove(commune);
+        commune.setClients(null);
+        return this;
+    }
+
+    public void setCommunes(Set<Commune> communes) {
+        this.communes = communes;
+    }
+
+    public BesoinIntrant getBesoinIntrants() {
+        return besoinIntrants;
+    }
+
+    public Client besoinIntrants(BesoinIntrant besoinIntrant) {
+        this.besoinIntrants = besoinIntrant;
+        return this;
+    }
+
+    public void setBesoinIntrants(BesoinIntrant besoinIntrant) {
+        this.besoinIntrants = besoinIntrant;
+    }
+
     public SuiviChamps getSuiviChamps() {
         return suiviChamps;
     }
@@ -516,32 +569,6 @@ public class Client implements Serializable {
 
     public void setSuiviChamps(SuiviChamps suiviChamps) {
         this.suiviChamps = suiviChamps;
-    }
-
-    public EngraisClient getEngraisClients() {
-        return engraisClients;
-    }
-
-    public Client engraisClients(EngraisClient engraisClient) {
-        this.engraisClients = engraisClient;
-        return this;
-    }
-
-    public void setEngraisClients(EngraisClient engraisClient) {
-        this.engraisClients = engraisClient;
-    }
-
-    public Utilisateur getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public Client utilisateurs(Utilisateur utilisateur) {
-        this.utilisateurs = utilisateur;
-        return this;
-    }
-
-    public void setUtilisateurs(Utilisateur utilisateur) {
-        this.utilisateurs = utilisateur;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -575,22 +602,19 @@ public class Client implements Serializable {
             ", naissance='" + getNaissance() + "'" +
             ", genre='" + getGenre() + "'" +
             ", estMarie='" + isEstMarie() + "'" +
-            ", numCin=" + getNumCin() +
-            ", validCin='" + getValidCin() + "'" +
+            ", numCarteCli='" + getNumCarteCli() + "'" +
+            ", dCarteUtil='" + getdCarteUtil() + "'" +
             ", village='" + getVillage() + "'" +
-            ", tel1=" + getTel1() +
-            ", tel2=" + getTel2() +
+            ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
-            ", orgaProd='" + getOrgaProd() + "'" +
+            ", groupe='" + getGroupe() + "'" +
             ", photoID='" + getPhotoID() + "'" +
-            ", tMenage=" + gettMenage() +
-            ", nomPerAPr='" + getNomPerAPr() + "'" +
-            ", prenomPerAPr='" + getPrenomPerAPr() + "'" +
-            ", telPerAPr=" + getTelPerAPr() +
-            ", superfice=" + getSuperfice() +
-            ", qSemence=" + getqSemence() +
-            ", mSimm=" + getmSimm() +
-            ", valTotal=" + getValTotal() +
+            ", tailleMenage=" + getTailleMenage() +
+            ", superficiePos=" + getSuperficiePos() +
+            ", nomPAP='" + getNomPAP() + "'" +
+            ", prenomPAP='" + getPrenomPAP() + "'" +
+            ", telPAP='" + getTelPAP() + "'" +
+            ", lienPAP='" + getLienPAP() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +

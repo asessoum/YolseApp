@@ -25,12 +25,20 @@
             "fieldValidateRulesMaxlength": 50
         },
         {
-            "fieldName": "obs",
+            "fieldName": "obsAgent",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 4000
+            "fieldValidateRulesMaxlength": 1000
+        },
+        {
+            "fieldName": "obsRes",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 2000
         },
         {
             "fieldName": "dosImg",
@@ -66,6 +74,18 @@
             "relationshipType": "one-to-many",
             "relationshipName": "client",
             "otherEntityName": "client",
+            "otherEntityRelationshipName": "suiviChamps"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "utilisateur",
+            "otherEntityName": "utilisateur",
+            "otherEntityRelationshipName": "suiviChamps"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "commune",
+            "otherEntityName": "commune",
             "otherEntityRelationshipName": "suiviChamps"
         }
     ],

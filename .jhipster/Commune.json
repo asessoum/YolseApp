@@ -50,6 +50,18 @@
             "relationshipName": "utilisateurs",
             "otherEntityName": "utilisateur",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "clients",
+            "otherEntityName": "client",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "suiviChamps",
+            "otherEntityName": "suiviChamps",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20180712214304",

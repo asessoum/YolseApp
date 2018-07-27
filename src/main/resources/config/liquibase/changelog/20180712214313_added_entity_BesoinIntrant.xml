@@ -25,6 +25,18 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="superficie_esc" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="q_semence" type="double">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="valeur_tot" type="double">
+                <constraints nullable="false" />
+            </column>
+
             <column name="m_adhesion" type="double">
                 <constraints nullable="false" />
             </column>
@@ -37,11 +49,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="stock_gar" type="integer">
+            <column name="q_stock_gar" type="double">
                 <constraints nullable="false" />
             </column>
 
-            <column name="magasin" type="varchar(50)">
+            <column name="magasin_stock" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
 
@@ -86,6 +98,10 @@
             </column>
 
             <column name="modif_par" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="besoin_engrais_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

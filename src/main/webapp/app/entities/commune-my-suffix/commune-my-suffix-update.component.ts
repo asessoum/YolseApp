@@ -10,6 +10,10 @@ import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
 import { CommuneMySuffixService } from './commune-my-suffix.service';
 import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
 import { UtilisateurMySuffixService } from 'app/entities/utilisateur-my-suffix';
+import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
+import { ClientMySuffixService } from 'app/entities/client-my-suffix';
+import { ISuiviChampsMySuffix } from 'app/shared/model/suivi-champs-my-suffix.model';
+import { SuiviChampsMySuffixService } from 'app/entities/suivi-champs-my-suffix';
 
 @Component({
     selector: 'jhi-commune-my-suffix-update',
@@ -20,6 +24,10 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
     isSaving: boolean;
 
     utilisateurs: IUtilisateurMySuffix[];
+
+    clients: IClientMySuffix[];
+
+    suivichamps: ISuiviChampsMySuffix[];
     creeLe: string;
     modifLe: string;
 
@@ -27,6 +35,8 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private communeService: CommuneMySuffixService,
         private utilisateurService: UtilisateurMySuffixService,
+        private clientService: ClientMySuffixService,
+        private suiviChampsService: SuiviChampsMySuffixService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,6 +48,18 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
         this.utilisateurService.query().subscribe(
             (res: HttpResponse<IUtilisateurMySuffix[]>) => {
                 this.utilisateurs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.clientService.query().subscribe(
+            (res: HttpResponse<IClientMySuffix[]>) => {
+                this.clients = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.suiviChampsService.query().subscribe(
+            (res: HttpResponse<ISuiviChampsMySuffix[]>) => {
+                this.suivichamps = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -76,6 +98,14 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
     }
 
     trackUtilisateurById(index: number, item: IUtilisateurMySuffix) {
+        return item.id;
+    }
+
+    trackClientById(index: number, item: IClientMySuffix) {
+        return item.id;
+    }
+
+    trackSuiviChampsById(index: number, item: ISuiviChampsMySuffix) {
         return item.id;
     }
     get commune() {

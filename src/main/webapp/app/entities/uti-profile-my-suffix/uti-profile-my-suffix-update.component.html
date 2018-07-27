@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-uti-profile-my-suffix-heading">Create or edit a Uti Profile</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!utiProfile.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="utiProfile.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_utiProID">Uti Pro ID</label>
+                    <input type="number" class="form-control" name="utiProID" id="field_utiProID"
+                        [(ngModel)]="utiProfile.utiProID" required/>
+                    <div [hidden]="!(editForm.controls.utiProID?.dirty && editForm.controls.utiProID?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.utiProID?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.utiProID?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_estActif">Est Actif</label>
+                    <input type="checkbox" class="form-control" name="estActif" id="field_estActif"
+                        [(ngModel)]="utiProfile.estActif" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creeLe">Cree Le</label>
+                    <div class="d-flex">
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creePar">Cree Par</label>
+                    <input type="text" class="form-control" name="creePar" id="field_creePar"
+                        [(ngModel)]="utiProfile.creePar" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifLe">Modif Le</label>
+                    <div class="d-flex">
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifPar">Modif Par</label>
+                    <input type="text" class="form-control" name="modifPar" id="field_modifPar"
+                        [(ngModel)]="utiProfile.modifPar" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

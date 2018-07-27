@@ -1,6 +1,7 @@
 package fr.yolse.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,6 +34,18 @@ public class BesoinIntrant implements Serializable {
     private Integer besIntID;
 
     @NotNull
+    @Column(name = "superficie_esc", nullable = false)
+    private Double superficieEsc;
+
+    @NotNull
+    @Column(name = "q_semence", nullable = false)
+    private Double qSemence;
+
+    @NotNull
+    @Column(name = "valeur_tot", nullable = false)
+    private Double valeurTot;
+
+    @NotNull
     @Column(name = "m_adhesion", nullable = false)
     private Double mAdhesion;
 
@@ -45,13 +58,13 @@ public class BesoinIntrant implements Serializable {
     private Double mGaran;
 
     @NotNull
-    @Column(name = "stock_gar", nullable = false)
-    private Integer stockGar;
+    @Column(name = "q_stock_gar", nullable = false)
+    private Double qStockGar;
 
     @NotNull
     @Size(max = 50)
-    @Column(name = "magasin", length = 50, nullable = false)
-    private String magasin;
+    @Column(name = "magasin_stock", length = 50, nullable = false)
+    private String magasinStock;
 
     @NotNull
     @Size(max = 50)
@@ -93,11 +106,19 @@ public class BesoinIntrant implements Serializable {
 
     @OneToMany(mappedBy = "besoinIntrants")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<EngraisClient> engraisClients = new HashSet<>();
+    private Set<Client> clients = new HashSet<>();
 
-    @OneToMany(mappedBy = "engraisClients")
+    @OneToMany(mappedBy = "besoinsIntrantsEsc")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<TypeCulture> typeCultures = new HashSet<>();
+    private Set<Culture> cultureEscs = new HashSet<>();
+
+    @OneToMany(mappedBy = "besoinsIntrantsGar")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Culture> cultureGars = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties("besoinIntrants")
+    private BesoinEngrais besoinEngrais;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -119,6 +140,45 @@ public class BesoinIntrant implements Serializable {
 
     public void setBesIntID(Integer besIntID) {
         this.besIntID = besIntID;
+    }
+
+    public Double getSuperficieEsc() {
+        return superficieEsc;
+    }
+
+    public BesoinIntrant superficieEsc(Double superficieEsc) {
+        this.superficieEsc = superficieEsc;
+        return this;
+    }
+
+    public void setSuperficieEsc(Double superficieEsc) {
+        this.superficieEsc = superficieEsc;
+    }
+
+    public Double getqSemence() {
+        return qSemence;
+    }
+
+    public BesoinIntrant qSemence(Double qSemence) {
+        this.qSemence = qSemence;
+        return this;
+    }
+
+    public void setqSemence(Double qSemence) {
+        this.qSemence = qSemence;
+    }
+
+    public Double getValeurTot() {
+        return valeurTot;
+    }
+
+    public BesoinIntrant valeurTot(Double valeurTot) {
+        this.valeurTot = valeurTot;
+        return this;
+    }
+
+    public void setValeurTot(Double valeurTot) {
+        this.valeurTot = valeurTot;
     }
 
     public Double getmAdhesion() {
@@ -160,30 +220,30 @@ public class BesoinIntrant implements Serializable {
         this.mGaran = mGaran;
     }
 
-    public Integer getStockGar() {
-        return stockGar;
+    public Double getqStockGar() {
+        return qStockGar;
     }
 
-    public BesoinIntrant stockGar(Integer stockGar) {
-        this.stockGar = stockGar;
+    public BesoinIntrant qStockGar(Double qStockGar) {
+        this.qStockGar = qStockGar;
         return this;
     }
 
-    public void setStockGar(Integer stockGar) {
-        this.stockGar = stockGar;
+    public void setqStockGar(Double qStockGar) {
+        this.qStockGar = qStockGar;
     }
 
-    public String getMagasin() {
-        return magasin;
+    public String getMagasinStock() {
+        return magasinStock;
     }
 
-    public BesoinIntrant magasin(String magasin) {
-        this.magasin = magasin;
+    public BesoinIntrant magasinStock(String magasinStock) {
+        this.magasinStock = magasinStock;
         return this;
     }
 
-    public void setMagasin(String magasin) {
-        this.magasin = magasin;
+    public void setMagasinStock(String magasinStock) {
+        this.magasinStock = magasinStock;
     }
 
     public String getSfd() {
@@ -329,54 +389,92 @@ public class BesoinIntrant implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Set<EngraisClient> getEngraisClients() {
-        return engraisClients;
+    public Set<Client> getClients() {
+        return clients;
     }
 
-    public BesoinIntrant engraisClients(Set<EngraisClient> engraisClients) {
-        this.engraisClients = engraisClients;
+    public BesoinIntrant clients(Set<Client> clients) {
+        this.clients = clients;
         return this;
     }
 
-    public BesoinIntrant addEngraisClient(EngraisClient engraisClient) {
-        this.engraisClients.add(engraisClient);
-        engraisClient.setBesoinIntrants(this);
+    public BesoinIntrant addClient(Client client) {
+        this.clients.add(client);
+        client.setBesoinIntrants(this);
         return this;
     }
 
-    public BesoinIntrant removeEngraisClient(EngraisClient engraisClient) {
-        this.engraisClients.remove(engraisClient);
-        engraisClient.setBesoinIntrants(null);
+    public BesoinIntrant removeClient(Client client) {
+        this.clients.remove(client);
+        client.setBesoinIntrants(null);
         return this;
     }
 
-    public void setEngraisClients(Set<EngraisClient> engraisClients) {
-        this.engraisClients = engraisClients;
+    public void setClients(Set<Client> clients) {
+        this.clients = clients;
     }
 
-    public Set<TypeCulture> getTypeCultures() {
-        return typeCultures;
+    public Set<Culture> getCultureEscs() {
+        return cultureEscs;
     }
 
-    public BesoinIntrant typeCultures(Set<TypeCulture> typeCultures) {
-        this.typeCultures = typeCultures;
+    public BesoinIntrant cultureEscs(Set<Culture> cultures) {
+        this.cultureEscs = cultures;
         return this;
     }
 
-    public BesoinIntrant addTypeCulture(TypeCulture typeCulture) {
-        this.typeCultures.add(typeCulture);
-        typeCulture.setEngraisClients(this);
+    public BesoinIntrant addCultureEsc(Culture culture) {
+        this.cultureEscs.add(culture);
+        culture.setBesoinsIntrantsEsc(this);
         return this;
     }
 
-    public BesoinIntrant removeTypeCulture(TypeCulture typeCulture) {
-        this.typeCultures.remove(typeCulture);
-        typeCulture.setEngraisClients(null);
+    public BesoinIntrant removeCultureEsc(Culture culture) {
+        this.cultureEscs.remove(culture);
+        culture.setBesoinsIntrantsEsc(null);
         return this;
     }
 
-    public void setTypeCultures(Set<TypeCulture> typeCultures) {
-        this.typeCultures = typeCultures;
+    public void setCultureEscs(Set<Culture> cultures) {
+        this.cultureEscs = cultures;
+    }
+
+    public Set<Culture> getCultureGars() {
+        return cultureGars;
+    }
+
+    public BesoinIntrant cultureGars(Set<Culture> cultures) {
+        this.cultureGars = cultures;
+        return this;
+    }
+
+    public BesoinIntrant addCultureGar(Culture culture) {
+        this.cultureGars.add(culture);
+        culture.setBesoinsIntrantsGar(this);
+        return this;
+    }
+
+    public BesoinIntrant removeCultureGar(Culture culture) {
+        this.cultureGars.remove(culture);
+        culture.setBesoinsIntrantsGar(null);
+        return this;
+    }
+
+    public void setCultureGars(Set<Culture> cultures) {
+        this.cultureGars = cultures;
+    }
+
+    public BesoinEngrais getBesoinEngrais() {
+        return besoinEngrais;
+    }
+
+    public BesoinIntrant besoinEngrais(BesoinEngrais besoinEngrais) {
+        this.besoinEngrais = besoinEngrais;
+        return this;
+    }
+
+    public void setBesoinEngrais(BesoinEngrais besoinEngrais) {
+        this.besoinEngrais = besoinEngrais;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -405,11 +503,14 @@ public class BesoinIntrant implements Serializable {
         return "BesoinIntrant{" +
             "id=" + getId() +
             ", besIntID=" + getBesIntID() +
+            ", superficieEsc=" + getSuperficieEsc() +
+            ", qSemence=" + getqSemence() +
+            ", valeurTot=" + getValeurTot() +
             ", mAdhesion=" + getmAdhesion() +
             ", mAssur=" + getmAssur() +
             ", mGaran=" + getmGaran() +
-            ", stockGar=" + getStockGar() +
-            ", magasin='" + getMagasin() + "'" +
+            ", qStockGar=" + getqStockGar() +
+            ", magasinStock='" + getMagasinStock() + "'" +
             ", sfd='" + getSfd() + "'" +
             ", mUniGes=" + getmUniGes() +
             ", mAdmin=" + getmAdmin() +
