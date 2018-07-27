@@ -168,6 +168,7 @@ entity BesoinIntrant {
 	besIntID Integer required
     superficieEsc Double required
     qSemence Double required
+    prixTotSemence Double required
     valeurTot Double required
     mAdhesion Double required
     mAssur Double required

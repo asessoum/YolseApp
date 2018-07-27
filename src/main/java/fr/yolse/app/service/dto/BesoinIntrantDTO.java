@@ -22,6 +22,9 @@ public class BesoinIntrantDTO implements Serializable {
     private Double qSemence;
 
     @NotNull
+    private Double prixTotSemence;
+
+    @NotNull
     private Double valeurTot;
 
     @NotNull
@@ -103,6 +106,14 @@ public class BesoinIntrantDTO implements Serializable {
 
     public void setqSemence(Double qSemence) {
         this.qSemence = qSemence;
+    }
+
+    public Double getPrixTotSemence() {
+        return prixTotSemence;
+    }
+
+    public void setPrixTotSemence(Double prixTotSemence) {
+        this.prixTotSemence = prixTotSemence;
     }
 
     public Double getValeurTot() {
@@ -293,6 +304,7 @@ public class BesoinIntrantDTO implements Serializable {
             ", besIntID=" + getBesIntID() +
             ", superficieEsc=" + getSuperficieEsc() +
             ", qSemence=" + getqSemence() +
+            ", prixTotSemence=" + getPrixTotSemence() +
             ", valeurTot=" + getValeurTot() +
             ", mAdhesion=" + getmAdhesion() +
             ", mAssur=" + getmAssur() +

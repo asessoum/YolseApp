@@ -53,6 +53,9 @@ public class BesoinIntrantResourceIntTest {
     private static final Double DEFAULT_Q_SEMENCE = 1D;
     private static final Double UPDATED_Q_SEMENCE = 2D;
 
+    private static final Double DEFAULT_PRIX_TOT_SEMENCE = 1D;
+    private static final Double UPDATED_PRIX_TOT_SEMENCE = 2D;
+
     private static final Double DEFAULT_VALEUR_TOT = 1D;
     private static final Double UPDATED_VALEUR_TOT = 2D;
 
@@ -153,6 +156,7 @@ public class BesoinIntrantResourceIntTest {
             .besIntID(DEFAULT_BES_INT_ID)
             .superficieEsc(DEFAULT_SUPERFICIE_ESC)
             .qSemence(DEFAULT_Q_SEMENCE)
+            .prixTotSemence(DEFAULT_PRIX_TOT_SEMENCE)
             .valeurTot(DEFAULT_VALEUR_TOT)
             .mAdhesion(DEFAULT_M_ADHESION)
             .mAssur(DEFAULT_M_ASSUR)
@@ -197,6 +201,7 @@ public class BesoinIntrantResourceIntTest {
         assertThat(testBesoinIntrant.getBesIntID()).isEqualTo(DEFAULT_BES_INT_ID);
         assertThat(testBesoinIntrant.getSuperficieEsc()).isEqualTo(DEFAULT_SUPERFICIE_ESC);
         assertThat(testBesoinIntrant.getqSemence()).isEqualTo(DEFAULT_Q_SEMENCE);
+        assertThat(testBesoinIntrant.getPrixTotSemence()).isEqualTo(DEFAULT_PRIX_TOT_SEMENCE);
         assertThat(testBesoinIntrant.getValeurTot()).isEqualTo(DEFAULT_VALEUR_TOT);
         assertThat(testBesoinIntrant.getmAdhesion()).isEqualTo(DEFAULT_M_ADHESION);
         assertThat(testBesoinIntrant.getmAssur()).isEqualTo(DEFAULT_M_ASSUR);
@@ -280,6 +285,25 @@ public class BesoinIntrantResourceIntTest {
         int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
         // set the field null
         besoinIntrant.setqSemence(null);
+
+        // Create the BesoinIntrant, which fails.
+        BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
+
+        restBesoinIntrantMockMvc.perform(post("/api/besoin-intrants")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(besoinIntrantDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<BesoinIntrant> besoinIntrantList = besoinIntrantRepository.findAll();
+        assertThat(besoinIntrantList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPrixTotSemenceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = besoinIntrantRepository.findAll().size();
+        // set the field null
+        besoinIntrant.setPrixTotSemence(null);
 
         // Create the BesoinIntrant, which fails.
         BesoinIntrantDTO besoinIntrantDTO = besoinIntrantMapper.toDto(besoinIntrant);
@@ -497,6 +521,7 @@ public class BesoinIntrantResourceIntTest {
             .andExpect(jsonPath("$.[*].besIntID").value(hasItem(DEFAULT_BES_INT_ID)))
             .andExpect(jsonPath("$.[*].superficieEsc").value(hasItem(DEFAULT_SUPERFICIE_ESC.doubleValue())))
             .andExpect(jsonPath("$.[*].qSemence").value(hasItem(DEFAULT_Q_SEMENCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].prixTotSemence").value(hasItem(DEFAULT_PRIX_TOT_SEMENCE.doubleValue())))
             .andExpect(jsonPath("$.[*].valeurTot").value(hasItem(DEFAULT_VALEUR_TOT.doubleValue())))
             .andExpect(jsonPath("$.[*].mAdhesion").value(hasItem(DEFAULT_M_ADHESION.doubleValue())))
             .andExpect(jsonPath("$.[*].mAssur").value(hasItem(DEFAULT_M_ASSUR.doubleValue())))
@@ -531,6 +556,7 @@ public class BesoinIntrantResourceIntTest {
             .andExpect(jsonPath("$.besIntID").value(DEFAULT_BES_INT_ID))
             .andExpect(jsonPath("$.superficieEsc").value(DEFAULT_SUPERFICIE_ESC.doubleValue()))
             .andExpect(jsonPath("$.qSemence").value(DEFAULT_Q_SEMENCE.doubleValue()))
+            .andExpect(jsonPath("$.prixTotSemence").value(DEFAULT_PRIX_TOT_SEMENCE.doubleValue()))
             .andExpect(jsonPath("$.valeurTot").value(DEFAULT_VALEUR_TOT.doubleValue()))
             .andExpect(jsonPath("$.mAdhesion").value(DEFAULT_M_ADHESION.doubleValue()))
             .andExpect(jsonPath("$.mAssur").value(DEFAULT_M_ASSUR.doubleValue()))
@@ -573,6 +599,7 @@ public class BesoinIntrantResourceIntTest {
             .besIntID(UPDATED_BES_INT_ID)
             .superficieEsc(UPDATED_SUPERFICIE_ESC)
             .qSemence(UPDATED_Q_SEMENCE)
+            .prixTotSemence(UPDATED_PRIX_TOT_SEMENCE)
             .valeurTot(UPDATED_VALEUR_TOT)
             .mAdhesion(UPDATED_M_ADHESION)
             .mAssur(UPDATED_M_ASSUR)
@@ -604,6 +631,7 @@ public class BesoinIntrantResourceIntTest {
         assertThat(testBesoinIntrant.getBesIntID()).isEqualTo(UPDATED_BES_INT_ID);
         assertThat(testBesoinIntrant.getSuperficieEsc()).isEqualTo(UPDATED_SUPERFICIE_ESC);
         assertThat(testBesoinIntrant.getqSemence()).isEqualTo(UPDATED_Q_SEMENCE);
+        assertThat(testBesoinIntrant.getPrixTotSemence()).isEqualTo(UPDATED_PRIX_TOT_SEMENCE);
         assertThat(testBesoinIntrant.getValeurTot()).isEqualTo(UPDATED_VALEUR_TOT);
         assertThat(testBesoinIntrant.getmAdhesion()).isEqualTo(UPDATED_M_ADHESION);
         assertThat(testBesoinIntrant.getmAssur()).isEqualTo(UPDATED_M_ASSUR);

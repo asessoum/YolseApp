@@ -42,6 +42,10 @@ public class BesoinIntrant implements Serializable {
     private Double qSemence;
 
     @NotNull
+    @Column(name = "prix_tot_semence", nullable = false)
+    private Double prixTotSemence;
+
+    @NotNull
     @Column(name = "valeur_tot", nullable = false)
     private Double valeurTot;
 
@@ -166,6 +170,19 @@ public class BesoinIntrant implements Serializable {
 
     public void setqSemence(Double qSemence) {
         this.qSemence = qSemence;
+    }
+
+    public Double getPrixTotSemence() {
+        return prixTotSemence;
+    }
+
+    public BesoinIntrant prixTotSemence(Double prixTotSemence) {
+        this.prixTotSemence = prixTotSemence;
+        return this;
+    }
+
+    public void setPrixTotSemence(Double prixTotSemence) {
+        this.prixTotSemence = prixTotSemence;
     }
 
     public Double getValeurTot() {
@@ -481,6 +498,7 @@ public class BesoinIntrant implements Serializable {
             ", besIntID=" + getBesIntID() +
             ", superficieEsc=" + getSuperficieEsc() +
             ", qSemence=" + getqSemence() +
+            ", prixTotSemence=" + getPrixTotSemence() +
             ", valeurTot=" + getValeurTot() +
             ", mAdhesion=" + getmAdhesion() +
             ", mAssur=" + getmAssur() +

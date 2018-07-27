@@ -23,6 +23,13 @@
             ]
         },
         {
+            "fieldName": "prixTotSemence",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "valeurTot",
             "fieldType": "Double",
             "fieldValidateRules": [
