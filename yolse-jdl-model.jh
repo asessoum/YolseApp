@@ -18,6 +18,10 @@ entity Province {
     modifPar String
 }
 
+relationship OneToMany {
+    Province{region} to Region{provinces}
+}
+
 entity Commune {
 	communeID Integer required
 	nomCommune String required maxlength(20)
@@ -28,17 +32,11 @@ entity Commune {
     modifPar String
 }
 
-entity Profil {
-	profilID Integer required
-	libelle String required maxlength(20)
-    estActif Boolean 
-    creeLe Instant
-    creePar String
-    modifLe Instant
-    modifPar String
+relationship OneToMany {
+    Commune{province} to Province{communes}
 }
 
-entity TypeEngrais {
+entity Engrais {
 	engraisID Integer required
 	libelle String required maxlength(20)
     prixUnitaire Double
@@ -49,10 +47,10 @@ entity TypeEngrais {
     modifPar String
 }
 
-entity TypeCulture {
+entity Culture {
 	engraisID Integer required
 	libelle String required maxlength(20)
-    prixCession Double
+    prixCession Double 
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -70,17 +68,10 @@ entity Langue {
     modifPar String
 }
 
-entity Utilisateur {
-	userID Integer required
-	login String required maxlength(6)
-    mdp String required maxlength(8)
-    nom String required maxlength(20)
-    prenom String required maxlength(20)
-    naissance Instant
-    genre Genre required
-    tel1 Integer
-    tel2 Integer
-    email String
+entity Reference {
+	idRef Integer required
+	libelleRef String required maxlength(10)
+    valeurRef String required maxlength(100)
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -88,13 +79,57 @@ entity Utilisateur {
     modifPar String
 }
 
-entity UtiProfil {
+entity Profile {
+	profileID Integer required
+	libelle String required maxlength(20)
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+entity Utilisateur {
+	userID Integer required
+	login String required maxlength(6)
+    mdp String required maxlength(8)
+    nom String required maxlength(20)
+    prenom String required maxlength(20)
+    dateNaiss Instant required
+    genre Genre required
+    tel String required maxlength(10)
+    email String maxlength(50)
+    numCarte String required maxlength(20)
+    validCarte Date required
+    nomPAP String
+    prenomPAP String
+    telPAP String
+    lienPAP String 
+    estActif Boolean 
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+relationship OneToMany {
+    Utilisateur{langue} to Langue{utilisateurs}
+    Utilisateur{commune} to Commune{utilisateurs}
+    Utilisateur{responsable} to Utilisateur{agents}
+}
+
+entity UtiProfile {
 	utiProID Integer required
     estActif Boolean 
     creeLe Instant
     creePar String
     modifLe Instant
     modifPar String
+}
+
+relationship OneToMany {
+    UtiProfile{utilisateur} to Utilisateur{profiles}
+    UtiProfile{profile} to Profile{utilisateurs}
 }
 
 entity Client {
@@ -104,22 +139,19 @@ entity Client {
     naissance Instant required
     genre Genre required
     estMarie Boolean required
-    numCin Integer required
-    validCin Instant required
+    numCarte String required maxlength(20)
+    validCarte Instant required
     village String required maxlength(20)
-    tel1 Integer required
-    tel2 Integer
+    tel String required maxlength(10)
     email String maxlength(50)
-    orgaProd String maxlength(50)
+    groupe String maxlength(50)
     photoID String maxlength(200)
-    tMenage Integer
-    nomPerAPr String maxlength(20)
-    prenomPerAPr String maxlength(20)
-    telPerAPr Integer
-    superfice Double required
-    qSemence Double required
-    mSimm Double required
-    valTotal Double required
+    tailleMenage Integer required
+    superficiePos Double required
+    nomPAP String maxlength(20)
+    prenomPAP String maxlength(20)
+    telPAP String maxlength(10)
+    lienPAP String maxlength(10)
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -127,24 +159,22 @@ entity Client {
     modifPar String
 }
 
-entity EngraisClient {
-	engCliID Integer required
-    qEngrais Double required
-    pTotEngr Double required
-    estActif Boolean 
-    creeLe Instant
-    creePar String
-    modifLe Instant
-    modifPar String
+relationship OneToMany {
+    Client{langue} to Langue{clients}
+    Client{utilisateur} to Utilisateur{clients}
+    Client{commune} to Commune{clients}
 }
 
 entity BesoinIntrant {
 	besIntID Integer required
+    superficieEsc Double required
+    qSemence Double required
+    valeurTot Double required
     mAdhesion Double required
     mAssur Double required
     mGaran Double required
-    stockGar Integer required
-    magasin String required maxlength(50)
+    qStockGar Double required
+    magasinStock String required maxlength(50)
     sfd String required maxlength(50)
     mUniGes Double required
     mAdmin Double required
@@ -158,11 +188,32 @@ entity BesoinIntrant {
     modifPar String
 }
 
+relationship OneToMany {
+    BesoinIntrant{client} to Client{besoinIntrants}
+    BesoinIntrant{cultureEsc} to Culture{besoinsIntrantsEsc}
+    BesoinIntrant{cultureGar} to Culture{besoinsIntrantsGar}
+}
+
+entity BesoinEngrais {
+    qEngrais Double required
+    pTotEngr Double required
+    creeLe Instant
+    creePar String
+    modifLe Instant
+    modifPar String
+}
+
+relationship OneToMany {
+    BesoinEngrais{besoinIntrant} to BesoinIntrant{besoinEngrais}
+    BesoinEngrais{engrais} to Engrais{besoinEngrais}
+}
+
 entity SuiviChamps {
 	suiviID Integer required
    	dVisit Instant required
     emplac String required maxlength(50)
-    obs String maxlength(4000)
+    obsAgent String maxlength(1000)
+    obsRes String maxlength(2000)
     dosImg String maxlength(200)
     estActif Boolean 
     creeLe Instant
@@ -171,64 +222,22 @@ entity SuiviChamps {
     modifPar String
 }
 
+relationship OneToMany {
+	SuiviChamps{client} to Client{suiviChamps}
+    SuiviChamps{utilisateur} to Utilisateur{suiviChamps}
+    SuiviChamps{commune} to Commune{suiviChamps}
+}
 
 enum Genre {
     HOMME, FEMME
 }
 
-relationship OneToMany {
-	BesoinIntrant{engraisClient} to EngraisClient{besoinIntrants}
-    BesoinIntrant{typeCulture} to TypeCulture{engraisClients}
-}
-
-relationship OneToMany {
-	SuiviChamps{client} to Client{suiviChamps}
-}
-
-relationship OneToMany {
-	Utilisateur{typeCulture} to TypeCulture{utilisateurs}
-}
-
-relationship OneToMany {
-	EngraisClient{client} to Client{engraisClients}
-    EngraisClient{typeEngrais} to TypeEngrais{engraisClients}
-}
-
-relationship OneToMany {
-	Utilisateur{typeCulture} to TypeCulture{utilisateurs}
-}
-
-relationship OneToMany {
-	Utilisateur{client} to Client{utilisateurs}
-}
-
-relationship OneToMany {
-	Utilisateur{langue} to Langue{utilisateurs}
-}
-
-relationship OneToMany {
-	UtiProfil{utilisateur} to Utilisateur{profils}
-    UtiProfil{profil} to Profil{utilisateurs}
-}
-
-relationship OneToMany {
-	Utilisateur{commune} to Commune{utilisateurs}
-}
-
-relationship OneToMany {
-	Province{region} to Region{provinces}
-}
-
-relationship OneToMany {
-	Commune{province} to Province{communes}
-}
-
 // Set pagination options
-paginate Client, BesoinIntrant, SuiviChamps, EngraisClient with infinite-scroll
+paginate Client, BesoinIntrant, SuiviChamps, BesoinClient, Utilisateur with infinite-scroll
 
 dto * with mapstruct
 
 // Set service options to all except few
-service all with serviceImpl except Employee, Job
+service all with serviceImpl
 // Set an angular suffix
 angularSuffix * with mySuffix
