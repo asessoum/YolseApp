@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <!--
         Added the constraints for entity Client.
     -->
@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="langue"/>
 
-        <addForeignKeyConstraint baseColumnNames="utilisateur_id"
+        <addForeignKeyConstraint baseColumnNames="commercial_id"
                                  baseTableName="client"
-                                 constraintName="fk_client_utilisateur_id"
+                                 constraintName="fk_client_commercial_id"
                                  referencedColumnNames="id"
                                  referencedTableName="utilisateur"/>
 

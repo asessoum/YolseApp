@@ -25,10 +25,7 @@
             <th jhiSortBy="tel"><span>Tel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numCarteUti"><span>Num Carte Uti</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nomPAP"><span>Nom PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="prenomPAP"><span>Prenom PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="telPAP"><span>Tel PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="lienPAP"><span>Lien PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateCarteUti"><span>Date Carte Uti</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estActif"><span>Est Actif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -53,10 +50,7 @@
                 <td>{{utilisateur.tel}}</td>
                 <td>{{utilisateur.email}}</td>
                 <td>{{utilisateur.numCarteUti}}</td>
-                <td>{{utilisateur.nomPAP}}</td>
-                <td>{{utilisateur.prenomPAP}}</td>
-                <td>{{utilisateur.telPAP}}</td>
-                <td>{{utilisateur.lienPAP}}</td>
+                <td>{{utilisateur.dateCarteUti | date:'medium'}}</td>
                 <td>{{utilisateur.estActif}}</td>
                 <td>{{utilisateur.creeLe | date:'medium'}}</td>
                 <td>{{utilisateur.creePar}}</td>
@@ -78,7 +72,7 @@
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/utilisateur-my-suffix', utilisateur.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -92,7 +86,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'utilisateur-my-suffix/'+ utilisateur.id + '/delete'} }]"
+                                [routerLink]="['/', 'utilisateur-my-suffix', { outlets: { popup: utilisateur.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

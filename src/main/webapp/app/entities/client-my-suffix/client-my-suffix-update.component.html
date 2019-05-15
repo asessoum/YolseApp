@@ -1,40 +1,70 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-client-my-suffix-heading">Create or edit a Client</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!client.id">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="client.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_clientID">Client ID</label>
                     <input type="text" class="form-control" name="clientID" id="field_clientID"
-                        [(ngModel)]="client.clientID" required maxlength="13"/>
-                    <div [hidden]="!(editForm.controls.clientID?.dirty && editForm.controls.clientID?.invalid)">
+                           formControlName="clientID"/>
+                    <div *ngIf="editForm.get('clientID').invalid && (editForm.get('clientID').dirty || editForm.get('clientID').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.clientID?.errors?.required">
+                               *ngIf="editForm.get('clientID').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.clientID?.errors?.maxlength">
+                               *ngIf="editForm.get('clientID').errors.maxlength">
                         This field cannot be longer than 13 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_localID">Local ID</label>
+                    <input type="number" class="form-control" name="localID" id="field_localID"
+                           formControlName="localID"/>
+                    <div *ngIf="editForm.get('localID').invalid && (editForm.get('localID').dirty || editForm.get('localID').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('localID').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('localID')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_remoteID">Remote ID</label>
+                    <input type="number" class="form-control" name="remoteID" id="field_remoteID"
+                           formControlName="remoteID"/>
+                    <div *ngIf="editForm.get('remoteID').invalid && (editForm.get('remoteID').dirty || editForm.get('remoteID').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('remoteID').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('remoteID')?.errors?.number">
+                            This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_nom">Nom</label>
                     <input type="text" class="form-control" name="nom" id="field_nom"
-                        [(ngModel)]="client.nom" required maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
+                           formControlName="nom"/>
+                    <div *ngIf="editForm.get('nom').invalid && (editForm.get('nom').dirty || editForm.get('nom').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nom?.errors?.required">
+                               *ngIf="editForm.get('nom').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nom?.errors?.maxlength">
+                               *ngIf="editForm.get('nom').errors.maxlength">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
@@ -42,14 +72,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_prenom">Prenom</label>
                     <input type="text" class="form-control" name="prenom" id="field_prenom"
-                        [(ngModel)]="client.prenom" required maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.prenom?.dirty && editForm.controls.prenom?.invalid)">
+                           formControlName="prenom"/>
+                    <div *ngIf="editForm.get('prenom').invalid && (editForm.get('prenom').dirty || editForm.get('prenom').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.prenom?.errors?.required">
+                               *ngIf="editForm.get('prenom').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.prenom?.errors?.maxlength">
+                               *ngIf="editForm.get('prenom').errors.maxlength">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
@@ -57,40 +87,28 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_naissance">Naissance</label>
                     <div class="d-flex">
-                        <input id="field_naissance" type="datetime-local" class="form-control" name="naissance" [(ngModel)]="naissance"
-                        required/>
+                        <input id="field_naissance" type="datetime-local" class="form-control" name="naissance" formControlName="naissance" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
-                    <div [hidden]="!(editForm.controls.naissance?.dirty && editForm.controls.naissance?.invalid)">
+                    <div *ngIf="editForm.get('naissance').invalid && (editForm.get('naissance').dirty || editForm.get('naissance').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.naissance?.errors?.required">
+                               *ngIf="editForm.get('naissance').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.naissance?.errors?.ZonedDateTimelocal">
+                            [hidden]="!editForm.get('naissance').errors?.ZonedDateTimelocal">
                             This field should be a date and time.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_genre">Genre</label>
-                    <select class="form-control" name="genre" [(ngModel)]="client.genre" id="field_genre"  required>
+                    <select class="form-control" name="genre" formControlName="genre" id="field_genre">
                         <option value="HOMME">HOMME</option>
                         <option value="FEMME">FEMME</option>
                     </select>
-                    <div [hidden]="!(editForm.controls.genre?.dirty && editForm.controls.genre?.invalid)">
+                    <div *ngIf="editForm.get('genre').invalid && (editForm.get('genre').dirty || editForm.get('genre').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.genre?.errors?.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_estMarie">Est Marie</label>
-                    <input type="checkbox" class="form-control" name="estMarie" id="field_estMarie"
-                        [(ngModel)]="client.estMarie" />
-                    <div [hidden]="!(editForm.controls.estMarie?.dirty && editForm.controls.estMarie?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.estMarie?.errors?.required">
+                               *ngIf="editForm.get('genre').errors.required">
                         This field is required.
                         </small>
                     </div>
@@ -98,14 +116,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_numCarteCli">Num Carte Cli</label>
                     <input type="text" class="form-control" name="numCarteCli" id="field_numCarteCli"
-                        [(ngModel)]="client.numCarteCli" required maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.numCarteCli?.dirty && editForm.controls.numCarteCli?.invalid)">
+                           formControlName="numCarteCli"/>
+                    <div *ngIf="editForm.get('numCarteCli').invalid && (editForm.get('numCarteCli').dirty || editForm.get('numCarteCli').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.numCarteCli?.errors?.required">
+                               *ngIf="editForm.get('numCarteCli').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.numCarteCli?.errors?.maxlength">
+                               *ngIf="editForm.get('numCarteCli').errors.maxlength">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
@@ -113,46 +131,30 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_dCarteUtil">D Carte Util</label>
                     <div class="d-flex">
-                        <input id="field_dCarteUtil" type="datetime-local" class="form-control" name="dCarteUtil" [(ngModel)]="dCarteUtil"
-                        required/>
+                        <input id="field_dCarteUtil" type="datetime-local" class="form-control" name="dCarteUtil" formControlName="dCarteUtil" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
-                    <div [hidden]="!(editForm.controls.dCarteUtil?.dirty && editForm.controls.dCarteUtil?.invalid)">
+                    <div *ngIf="editForm.get('dCarteUtil').invalid && (editForm.get('dCarteUtil').dirty || editForm.get('dCarteUtil').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.dCarteUtil?.errors?.required">
+                               *ngIf="editForm.get('dCarteUtil').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.dCarteUtil?.errors?.ZonedDateTimelocal">
+                            [hidden]="!editForm.get('dCarteUtil').errors?.ZonedDateTimelocal">
                             This field should be a date and time.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_village">Village</label>
-                    <input type="text" class="form-control" name="village" id="field_village"
-                        [(ngModel)]="client.village" required maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.village?.dirty && editForm.controls.village?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.village?.errors?.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.village?.errors?.maxlength">
-                        This field cannot be longer than 20 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_tel">Tel</label>
                     <input type="text" class="form-control" name="tel" id="field_tel"
-                        [(ngModel)]="client.tel" required maxlength="10"/>
-                    <div [hidden]="!(editForm.controls.tel?.dirty && editForm.controls.tel?.invalid)">
+                           formControlName="tel"/>
+                    <div *ngIf="editForm.get('tel').invalid && (editForm.get('tel').dirty || editForm.get('tel').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.tel?.errors?.required">
+                               *ngIf="editForm.get('tel').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.tel?.errors?.maxlength">
+                               *ngIf="editForm.get('tel').errors.maxlength">
                         This field cannot be longer than 10 characters.
                         </small>
                     </div>
@@ -160,21 +162,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_email">Email</label>
                     <input type="text" class="form-control" name="email" id="field_email"
-                        [(ngModel)]="client.email" maxlength="50"/>
-                    <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                           formControlName="email"/>
+                    <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.email?.errors?.maxlength">
-                        This field cannot be longer than 50 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_groupe">Groupe</label>
-                    <input type="text" class="form-control" name="groupe" id="field_groupe"
-                        [(ngModel)]="client.groupe" maxlength="50"/>
-                    <div [hidden]="!(editForm.controls.groupe?.dirty && editForm.controls.groupe?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.groupe?.errors?.maxlength">
+                               *ngIf="editForm.get('email').errors.maxlength">
                         This field cannot be longer than 50 characters.
                         </small>
                     </div>
@@ -182,135 +173,70 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_photoID">Photo ID</label>
                     <input type="text" class="form-control" name="photoID" id="field_photoID"
-                        [(ngModel)]="client.photoID" maxlength="200"/>
-                    <div [hidden]="!(editForm.controls.photoID?.dirty && editForm.controls.photoID?.invalid)">
+                           formControlName="photoID"/>
+                    <div *ngIf="editForm.get('photoID').invalid && (editForm.get('photoID').dirty || editForm.get('photoID').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.photoID?.errors?.maxlength">
+                               *ngIf="editForm.get('photoID').errors.maxlength">
                         This field cannot be longer than 200 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_tailleMenage">Taille Menage</label>
-                    <input type="number" class="form-control" name="tailleMenage" id="field_tailleMenage"
-                        [(ngModel)]="client.tailleMenage" required/>
-                    <div [hidden]="!(editForm.controls.tailleMenage?.dirty && editForm.controls.tailleMenage?.invalid)">
+                    <label class="form-control-label" for="field_infoSupplementaires">Info Supplementaires</label>
+                    <input type="text" class="form-control" name="infoSupplementaires" id="field_infoSupplementaires"
+                           formControlName="infoSupplementaires"/>
+                    <div *ngIf="editForm.get('infoSupplementaires').invalid && (editForm.get('infoSupplementaires').dirty || editForm.get('infoSupplementaires').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.tailleMenage?.errors?.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.tailleMenage?.errors?.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_superficiePos">Superficie Pos</label>
-                    <input type="number" class="form-control" name="superficiePos" id="field_superficiePos"
-                        [(ngModel)]="client.superficiePos" required/>
-                    <div [hidden]="!(editForm.controls.superficiePos?.dirty && editForm.controls.superficiePos?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.superficiePos?.errors?.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.superficiePos?.errors?.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_nomPAP">Nom PAP</label>
-                    <input type="text" class="form-control" name="nomPAP" id="field_nomPAP"
-                        [(ngModel)]="client.nomPAP" maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.nomPAP?.dirty && editForm.controls.nomPAP?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nomPAP?.errors?.maxlength">
-                        This field cannot be longer than 20 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_prenomPAP">Prenom PAP</label>
-                    <input type="text" class="form-control" name="prenomPAP" id="field_prenomPAP"
-                        [(ngModel)]="client.prenomPAP" maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.prenomPAP?.dirty && editForm.controls.prenomPAP?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.prenomPAP?.errors?.maxlength">
-                        This field cannot be longer than 20 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_telPAP">Tel PAP</label>
-                    <input type="text" class="form-control" name="telPAP" id="field_telPAP"
-                        [(ngModel)]="client.telPAP" maxlength="10"/>
-                    <div [hidden]="!(editForm.controls.telPAP?.dirty && editForm.controls.telPAP?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.telPAP?.errors?.maxlength">
-                        This field cannot be longer than 10 characters.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_lienPAP">Lien PAP</label>
-                    <input type="text" class="form-control" name="lienPAP" id="field_lienPAP"
-                        [(ngModel)]="client.lienPAP" maxlength="10"/>
-                    <div [hidden]="!(editForm.controls.lienPAP?.dirty && editForm.controls.lienPAP?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.lienPAP?.errors?.maxlength">
-                        This field cannot be longer than 10 characters.
+                               *ngIf="editForm.get('infoSupplementaires').errors.maxlength">
+                        This field cannot be longer than 500 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_estActif">Est Actif</label>
                     <input type="checkbox" class="form-control" name="estActif" id="field_estActif"
-                        [(ngModel)]="client.estActif" />
+                           formControlName="estActif"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creeLe">Cree Le</label>
                     <div class="d-flex">
-                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
-                        />
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" formControlName="creeLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creePar">Cree Par</label>
                     <input type="text" class="form-control" name="creePar" id="field_creePar"
-                        [(ngModel)]="client.creePar" />
+                           formControlName="creePar"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifLe">Modif Le</label>
                     <div class="d-flex">
-                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
-                        />
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" formControlName="modifLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifPar">Modif Par</label>
                     <input type="text" class="form-control" name="modifPar" id="field_modifPar"
-                        [(ngModel)]="client.modifPar" />
+                           formControlName="modifPar"/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_langue">Langue</label>
-                    <select class="form-control" id="field_langue" name="langue" [(ngModel)]="client.langueId" >
+                    <select class="form-control" id="field_langue" name="langue" formControlName="langueId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="langueOption.id" *ngFor="let langueOption of langues; trackBy: trackLangueById">{{langueOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_utilisateur">Utilisateur</label>
-                    <select class="form-control" id="field_utilisateur" name="utilisateur" [(ngModel)]="client.utilisateurId" >
+                    <label class="form-control-label" for="field_commercial">Commercial</label>
+                    <select class="form-control" id="field_commercial" name="commercial" formControlName="commercialId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="utilisateurOption.id" *ngFor="let utilisateurOption of utilisateurs; trackBy: trackUtilisateurById">{{utilisateurOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_commune">Commune</label>
-                    <select class="form-control" id="field_commune" name="commune" [(ngModel)]="client.communeId" >
+                    <select class="form-control" id="field_commune" name="commune" formControlName="communeId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="communeOption.id" *ngFor="let communeOption of communes; trackBy: trackCommuneById">{{communeOption.id}}</option>
                     </select>
@@ -320,7 +246,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

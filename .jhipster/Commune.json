@@ -18,6 +18,22 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
+            "fieldName": "nomProvince",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "nomRegion",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
             "fieldName": "estActif",
             "fieldType": "Boolean"
         },
@@ -41,27 +57,22 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "province",
-            "otherEntityName": "province",
+            "otherEntityName": "pays",
+            "otherEntityRelationshipName": "communes",
+            "relationshipName": "pays",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "utilisateurs",
             "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "commune"
+            "otherEntityRelationshipName": "commune",
+            "relationshipName": "utilisateurs"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "clients",
             "otherEntityName": "client",
-            "otherEntityRelationshipName": "commune"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "suiviChamps",
-            "otherEntityName": "suiviChamps",
-            "otherEntityRelationshipName": "commune"
+            "otherEntityRelationshipName": "commune",
+            "relationshipName": "clients"
         }
     ],
     "changelogDate": "20180712214304",

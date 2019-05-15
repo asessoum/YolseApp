@@ -2,17 +2,17 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <!--
         Added the constraints for entity Commune.
     -->
     <changeSet id="20180712214304-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="province_id"
+        <addForeignKeyConstraint baseColumnNames="pays_id"
                                  baseTableName="commune"
-                                 constraintName="fk_commune_province_id"
+                                 constraintName="fk_commune_pays_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="province"/>
+                                 referencedTableName="pays"/>
 
     </changeSet>
 </databaseChangeLog>

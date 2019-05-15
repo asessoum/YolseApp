@@ -1,13 +1,14 @@
 package fr.yolse.app.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import fr.yolse.app.service.ReferenceService;
 import fr.yolse.app.web.rest.errors.BadRequestAlertException;
-import fr.yolse.app.web.rest.util.HeaderUtil;
 import fr.yolse.app.service.dto.ReferenceDTO;
+
+import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing Reference.
+ * REST controller for managing {@link fr.yolse.app.domain.Reference}.
  */
 @RestController
 @RequestMapping("/api")
@@ -29,6 +30,9 @@ public class ReferenceResource {
 
     private static final String ENTITY_NAME = "reference";
 
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
+
     private final ReferenceService referenceService;
 
     public ReferenceResource(ReferenceService referenceService) {
@@ -36,14 +40,13 @@ public class ReferenceResource {
     }
 
     /**
-     * POST  /references : Create a new reference.
+     * {@code POST  /references} : Create a new reference.
      *
-     * @param referenceDTO the referenceDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new referenceDTO, or with status 400 (Bad Request) if the reference has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param referenceDTO the referenceDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new referenceDTO, or with status {@code 400 (Bad Request)} if the reference has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/references")
-    @Timed
     public ResponseEntity<ReferenceDTO> createReference(@Valid @RequestBody ReferenceDTO referenceDTO) throws URISyntaxException {
         log.debug("REST request to save Reference : {}", referenceDTO);
         if (referenceDTO.getId() != null) {
@@ -51,21 +54,20 @@ public class ReferenceResource {
         }
         ReferenceDTO result = referenceService.save(referenceDTO);
         return ResponseEntity.created(new URI("/api/references/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /references : Updates an existing reference.
+     * {@code PUT  /references} : Updates an existing reference.
      *
-     * @param referenceDTO the referenceDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated referenceDTO,
-     * or with status 400 (Bad Request) if the referenceDTO is not valid,
-     * or with status 500 (Internal Server Error) if the referenceDTO couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param referenceDTO the referenceDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated referenceDTO,
+     * or with status {@code 400 (Bad Request)} if the referenceDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the referenceDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/references")
-    @Timed
     public ResponseEntity<ReferenceDTO> updateReference(@Valid @RequestBody ReferenceDTO referenceDTO) throws URISyntaxException {
         log.debug("REST request to update Reference : {}", referenceDTO);
         if (referenceDTO.getId() == null) {
@@ -73,30 +75,28 @@ public class ReferenceResource {
         }
         ReferenceDTO result = referenceService.save(referenceDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, referenceDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, referenceDTO.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /references : get all the references.
+     * {@code GET  /references} : get all the references.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of references in body
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of references in body.
      */
     @GetMapping("/references")
-    @Timed
     public List<ReferenceDTO> getAllReferences() {
         log.debug("REST request to get all References");
         return referenceService.findAll();
     }
 
     /**
-     * GET  /references/:id : get the "id" reference.
+     * {@code GET  /references/:id} : get the "id" reference.
      *
-     * @param id the id of the referenceDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the referenceDTO, or with status 404 (Not Found)
+     * @param id the id of the referenceDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the referenceDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/references/{id}")
-    @Timed
     public ResponseEntity<ReferenceDTO> getReference(@PathVariable Long id) {
         log.debug("REST request to get Reference : {}", id);
         Optional<ReferenceDTO> referenceDTO = referenceService.findOne(id);
@@ -104,16 +104,15 @@ public class ReferenceResource {
     }
 
     /**
-     * DELETE  /references/:id : delete the "id" reference.
+     * {@code DELETE  /references/:id} : delete the "id" reference.
      *
-     * @param id the id of the referenceDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
+     * @param id the id of the referenceDTO to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/references/{id}")
-    @Timed
     public ResponseEntity<Void> deleteReference(@PathVariable Long id) {
         log.debug("REST request to delete Reference : {}", id);
         referenceService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 }

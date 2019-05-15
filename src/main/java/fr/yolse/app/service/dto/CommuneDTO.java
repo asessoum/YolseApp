@@ -1,12 +1,11 @@
 package fr.yolse.app.service.dto;
-
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the Commune entity.
+ * A DTO for the {@link fr.yolse.app.domain.Commune} entity.
  */
 public class CommuneDTO implements Serializable {
 
@@ -19,6 +18,12 @@ public class CommuneDTO implements Serializable {
     @Size(max = 20)
     private String nomCommune;
 
+    @Size(max = 20)
+    private String nomProvince;
+
+    @Size(max = 20)
+    private String nomRegion;
+
     private Boolean estActif;
 
     private Instant creeLe;
@@ -29,7 +34,8 @@ public class CommuneDTO implements Serializable {
 
     private String modifPar;
 
-    private Long provinceId;
+
+    private Long paysId;
 
     public Long getId() {
         return id;
@@ -53,6 +59,22 @@ public class CommuneDTO implements Serializable {
 
     public void setNomCommune(String nomCommune) {
         this.nomCommune = nomCommune;
+    }
+
+    public String getNomProvince() {
+        return nomProvince;
+    }
+
+    public void setNomProvince(String nomProvince) {
+        this.nomProvince = nomProvince;
+    }
+
+    public String getNomRegion() {
+        return nomRegion;
+    }
+
+    public void setNomRegion(String nomRegion) {
+        this.nomRegion = nomRegion;
     }
 
     public Boolean isEstActif() {
@@ -95,12 +117,12 @@ public class CommuneDTO implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Long getProvinceId() {
-        return provinceId;
+    public Long getPaysId() {
+        return paysId;
     }
 
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
+    public void setPaysId(Long paysId) {
+        this.paysId = paysId;
     }
 
     @Override
@@ -130,12 +152,14 @@ public class CommuneDTO implements Serializable {
             "id=" + getId() +
             ", communeID=" + getCommuneID() +
             ", nomCommune='" + getNomCommune() + "'" +
+            ", nomProvince='" + getNomProvince() + "'" +
+            ", nomRegion='" + getNomRegion() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
-            ", province=" + getProvinceId() +
+            ", pays=" + getPaysId() +
             "}";
     }
 }

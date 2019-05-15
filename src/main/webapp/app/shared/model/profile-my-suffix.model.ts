@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IUtiProfileMySuffix } from 'app/shared/model//uti-profile-my-suffix.model';
+import { IUtiProfileMySuffix } from 'app/shared/model/uti-profile-my-suffix.model';
 
 export interface IProfileMySuffix {
     id?: number;
@@ -25,6 +25,6 @@ export class ProfileMySuffix implements IProfileMySuffix {
         public modifPar?: string,
         public utilisateurs?: IUtiProfileMySuffix[]
     ) {
-        this.estActif = false;
+        this.estActif = this.estActif || false;
     }
 }

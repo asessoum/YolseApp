@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<IReferenceMySuffix[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ReferenceMySuffixService {
-    private resourceUrl = SERVER_API_URL + 'api/references';
+    public resourceUrl = SERVER_API_URL + 'api/references';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(reference: IReferenceMySuffix): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(reference);
@@ -49,7 +49,7 @@ export class ReferenceMySuffixService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(reference: IReferenceMySuffix): IReferenceMySuffix {
+    protected convertDateFromClient(reference: IReferenceMySuffix): IReferenceMySuffix {
         const copy: IReferenceMySuffix = Object.assign({}, reference, {
             creeLe: reference.creeLe != null && reference.creeLe.isValid() ? reference.creeLe.toJSON() : null,
             modifLe: reference.modifLe != null && reference.modifLe.isValid() ? reference.modifLe.toJSON() : null
@@ -57,17 +57,21 @@ export class ReferenceMySuffixService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
-        res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
+            res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((reference: IReferenceMySuffix) => {
-            reference.creeLe = reference.creeLe != null ? moment(reference.creeLe) : null;
-            reference.modifLe = reference.modifLe != null ? moment(reference.modifLe) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((reference: IReferenceMySuffix) => {
+                reference.creeLe = reference.creeLe != null ? moment(reference.creeLe) : null;
+                reference.modifLe = reference.modifLe != null ? moment(reference.modifLe) : null;
+            });
+        }
         return res;
     }
 }

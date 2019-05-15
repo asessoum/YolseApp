@@ -10,7 +10,7 @@ import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
 export class CommuneMySuffixDetailComponent implements OnInit {
     commune: ICommuneMySuffix;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ commune }) => {

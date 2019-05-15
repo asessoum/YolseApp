@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<IProfileMySuffix[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProfileMySuffixService {
-    private resourceUrl = SERVER_API_URL + 'api/profiles';
+    public resourceUrl = SERVER_API_URL + 'api/profiles';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(profile: IProfileMySuffix): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(profile);
@@ -49,7 +49,7 @@ export class ProfileMySuffixService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(profile: IProfileMySuffix): IProfileMySuffix {
+    protected convertDateFromClient(profile: IProfileMySuffix): IProfileMySuffix {
         const copy: IProfileMySuffix = Object.assign({}, profile, {
             creeLe: profile.creeLe != null && profile.creeLe.isValid() ? profile.creeLe.toJSON() : null,
             modifLe: profile.modifLe != null && profile.modifLe.isValid() ? profile.modifLe.toJSON() : null
@@ -57,17 +57,21 @@ export class ProfileMySuffixService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
-        res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
+            res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((profile: IProfileMySuffix) => {
-            profile.creeLe = profile.creeLe != null ? moment(profile.creeLe) : null;
-            profile.modifLe = profile.modifLe != null ? moment(profile.modifLe) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((profile: IProfileMySuffix) => {
+                profile.creeLe = profile.creeLe != null ? moment(profile.creeLe) : null;
+                profile.modifLe = profile.modifLe != null ? moment(profile.modifLe) : null;
+            });
+        }
         return res;
     }
 }

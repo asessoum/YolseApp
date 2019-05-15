@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { CommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
 import { CommuneMySuffixService } from './commune-my-suffix.service';
 import { CommuneMySuffixComponent } from './commune-my-suffix.component';
@@ -16,10 +16,13 @@ import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
 export class CommuneMySuffixResolve implements Resolve<ICommuneMySuffix> {
     constructor(private service: CommuneMySuffixService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICommuneMySuffix> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((commune: HttpResponse<CommuneMySuffix>) => commune.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<CommuneMySuffix>) => response.ok),
+                map((commune: HttpResponse<CommuneMySuffix>) => commune.body)
+            );
         }
         return of(new CommuneMySuffix());
     }
@@ -27,7 +30,7 @@ export class CommuneMySuffixResolve implements Resolve<ICommuneMySuffix> {
 
 export const communeRoute: Routes = [
     {
-        path: 'commune-my-suffix',
+        path: '',
         component: CommuneMySuffixComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -36,7 +39,7 @@ export const communeRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'commune-my-suffix/:id/view',
+        path: ':id/view',
         component: CommuneMySuffixDetailComponent,
         resolve: {
             commune: CommuneMySuffixResolve
@@ -48,7 +51,7 @@ export const communeRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'commune-my-suffix/new',
+        path: 'new',
         component: CommuneMySuffixUpdateComponent,
         resolve: {
             commune: CommuneMySuffixResolve
@@ -60,7 +63,7 @@ export const communeRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'commune-my-suffix/:id/edit',
+        path: ':id/edit',
         component: CommuneMySuffixUpdateComponent,
         resolve: {
             commune: CommuneMySuffixResolve
@@ -75,7 +78,7 @@ export const communeRoute: Routes = [
 
 export const communePopupRoute: Routes = [
     {
-        path: 'commune-my-suffix/:id/delete',
+        path: ':id/delete',
         component: CommuneMySuffixDeletePopupComponent,
         resolve: {
             commune: CommuneMySuffixResolve

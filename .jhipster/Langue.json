@@ -41,15 +41,15 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "utilisateurs",
             "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "langue"
+            "otherEntityRelationshipName": "langue",
+            "relationshipName": "utilisateurs"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "clients",
             "otherEntityName": "client",
-            "otherEntityRelationshipName": "langue"
+            "otherEntityRelationshipName": "langue",
+            "relationshipName": "clients"
         }
     ],
     "changelogDate": "20180712214308",

@@ -16,31 +16,25 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="clientID"><span>Client ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="localID"><span>Local ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="remoteID"><span>Remote ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nom"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="prenom"><span>Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="naissance"><span>Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="genre"><span>Genre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="estMarie"><span>Est Marie</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numCarteCli"><span>Num Carte Cli</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dCarteUtil"><span>D Carte Util</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="village"><span>Village</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tel"><span>Tel</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="groupe"><span>Groupe</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="photoID"><span>Photo ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tailleMenage"><span>Taille Menage</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="superficiePos"><span>Superficie Pos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nomPAP"><span>Nom PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="prenomPAP"><span>Prenom PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="telPAP"><span>Tel PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="lienPAP"><span>Lien PAP</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="infoSupplementaires"><span>Info Supplementaires</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estActif"><span>Est Actif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="langueId"><span>Langue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="utilisateurId"><span>Utilisateur</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="commercialId"><span>Commercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="communeId"><span>Commune</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -49,24 +43,18 @@
             <tr *ngFor="let client of clients ;trackBy: trackId">
                 <td><a [routerLink]="['/client-my-suffix', client.id, 'view' ]">{{client.id}}</a></td>
                 <td>{{client.clientID}}</td>
+                <td>{{client.localID}}</td>
+                <td>{{client.remoteID}}</td>
                 <td>{{client.nom}}</td>
                 <td>{{client.prenom}}</td>
                 <td>{{client.naissance | date:'medium'}}</td>
                 <td>{{client.genre}}</td>
-                <td>{{client.estMarie}}</td>
                 <td>{{client.numCarteCli}}</td>
                 <td>{{client.dCarteUtil | date:'medium'}}</td>
-                <td>{{client.village}}</td>
                 <td>{{client.tel}}</td>
                 <td>{{client.email}}</td>
-                <td>{{client.groupe}}</td>
                 <td>{{client.photoID}}</td>
-                <td>{{client.tailleMenage}}</td>
-                <td>{{client.superficiePos}}</td>
-                <td>{{client.nomPAP}}</td>
-                <td>{{client.prenomPAP}}</td>
-                <td>{{client.telPAP}}</td>
-                <td>{{client.lienPAP}}</td>
+                <td>{{client.infoSupplementaires}}</td>
                 <td>{{client.estActif}}</td>
                 <td>{{client.creeLe | date:'medium'}}</td>
                 <td>{{client.creePar}}</td>
@@ -78,8 +66,8 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="client.utilisateurId">
-                        <a [routerLink]="['../utilisateur-my-suffix', client.utilisateurId , 'view' ]" >{{client.utilisateurId}}</a>
+                    <div *ngIf="client.commercialId">
+                        <a [routerLink]="['../utilisateur-my-suffix', client.commercialId , 'view' ]" >{{client.commercialId}}</a>
                     </div>
                 </td>
                 <td>
@@ -88,7 +76,7 @@
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/client-my-suffix', client.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -102,7 +90,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'client-my-suffix/'+ client.id + '/delete'} }]"
+                                [routerLink]="['/', 'client-my-suffix', { outlets: { popup: client.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

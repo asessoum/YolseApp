@@ -86,20 +86,8 @@
             "fieldValidateRulesMaxlength": 20
         },
         {
-            "fieldName": "nomPAP",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "prenomPAP",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "telPAP",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "lienPAP",
-            "fieldType": "String"
+            "fieldName": "dateCarteUti",
+            "fieldType": "Instant"
         },
         {
             "fieldName": "estActif",
@@ -125,45 +113,48 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "langue",
             "otherEntityName": "langue",
+            "otherEntityRelationshipName": "utilisateurs",
+            "relationshipName": "langue",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "commune",
             "otherEntityName": "commune",
+            "otherEntityRelationshipName": "utilisateurs",
+            "relationshipName": "commune",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "responsable",
             "otherEntityName": "utilisateur",
+            "otherEntityRelationshipName": "employes",
+            "relationshipName": "responsable",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "agents",
             "otherEntityName": "utilisateur",
-            "otherEntityRelationshipName": "responsable"
+            "otherEntityRelationshipName": "responsable",
+            "relationshipName": "employes"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "profiles",
             "otherEntityName": "utiProfile",
-            "otherEntityRelationshipName": "utilisateur"
+            "otherEntityRelationshipName": "utilisateur",
+            "relationshipName": "profiles"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "clients",
             "otherEntityName": "client",
-            "otherEntityRelationshipName": "utilisateur"
+            "otherEntityRelationshipName": "commercial",
+            "relationshipName": "clients"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "suiviChamps",
-            "otherEntityName": "suiviChamps",
-            "otherEntityRelationshipName": "utilisateur"
+            "otherEntityName": "transaction",
+            "otherEntityRelationshipName": "vendeurID",
+            "relationshipName": "transactions"
         }
     ],
     "changelogDate": "20180712214309",

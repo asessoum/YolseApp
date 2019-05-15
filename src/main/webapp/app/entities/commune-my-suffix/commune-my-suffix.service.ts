@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<ICommuneMySuffix[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CommuneMySuffixService {
-    private resourceUrl = SERVER_API_URL + 'api/communes';
+    public resourceUrl = SERVER_API_URL + 'api/communes';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(commune: ICommuneMySuffix): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(commune);
@@ -49,7 +49,7 @@ export class CommuneMySuffixService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(commune: ICommuneMySuffix): ICommuneMySuffix {
+    protected convertDateFromClient(commune: ICommuneMySuffix): ICommuneMySuffix {
         const copy: ICommuneMySuffix = Object.assign({}, commune, {
             creeLe: commune.creeLe != null && commune.creeLe.isValid() ? commune.creeLe.toJSON() : null,
             modifLe: commune.modifLe != null && commune.modifLe.isValid() ? commune.modifLe.toJSON() : null
@@ -57,17 +57,21 @@ export class CommuneMySuffixService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
-        res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
+            res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((commune: ICommuneMySuffix) => {
-            commune.creeLe = commune.creeLe != null ? moment(commune.creeLe) : null;
-            commune.modifLe = commune.modifLe != null ? moment(commune.modifLe) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((commune: ICommuneMySuffix) => {
+                commune.creeLe = commune.creeLe != null ? moment(commune.creeLe) : null;
+                commune.modifLe = commune.modifLe != null ? moment(commune.modifLe) : null;
+            });
+        }
         return res;
     }
 }

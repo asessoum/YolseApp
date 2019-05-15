@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<IUtiProfileMySuffix[]>;
 
 @Injectable({ providedIn: 'root' })
 export class UtiProfileMySuffixService {
-    private resourceUrl = SERVER_API_URL + 'api/uti-profiles';
+    public resourceUrl = SERVER_API_URL + 'api/uti-profiles';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(utiProfile: IUtiProfileMySuffix): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(utiProfile);
@@ -49,7 +49,7 @@ export class UtiProfileMySuffixService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(utiProfile: IUtiProfileMySuffix): IUtiProfileMySuffix {
+    protected convertDateFromClient(utiProfile: IUtiProfileMySuffix): IUtiProfileMySuffix {
         const copy: IUtiProfileMySuffix = Object.assign({}, utiProfile, {
             creeLe: utiProfile.creeLe != null && utiProfile.creeLe.isValid() ? utiProfile.creeLe.toJSON() : null,
             modifLe: utiProfile.modifLe != null && utiProfile.modifLe.isValid() ? utiProfile.modifLe.toJSON() : null
@@ -57,17 +57,21 @@ export class UtiProfileMySuffixService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
-        res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
+            res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((utiProfile: IUtiProfileMySuffix) => {
-            utiProfile.creeLe = utiProfile.creeLe != null ? moment(utiProfile.creeLe) : null;
-            utiProfile.modifLe = utiProfile.modifLe != null ? moment(utiProfile.modifLe) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((utiProfile: IUtiProfileMySuffix) => {
+                utiProfile.creeLe = utiProfile.creeLe != null ? moment(utiProfile.creeLe) : null;
+                utiProfile.modifLe = utiProfile.modifLe != null ? moment(utiProfile.modifLe) : null;
+            });
+        }
         return res;
     }
 }

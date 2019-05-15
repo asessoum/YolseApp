@@ -15,9 +15,9 @@ export class ProfileMySuffixDeleteDialogComponent {
     profile: IProfileMySuffix;
 
     constructor(
-        private profileService: ProfileMySuffixService,
+        protected profileService: ProfileMySuffixService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        protected eventManager: JhiEventManager
     ) {}
 
     clear() {
@@ -40,9 +40,9 @@ export class ProfileMySuffixDeleteDialogComponent {
     template: ''
 })
 export class ProfileMySuffixDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+    protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ profile }) => {
@@ -54,11 +54,11 @@ export class ProfileMySuffixDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.profile = profile;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/profile-my-suffix', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/profile-my-suffix', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

@@ -1,12 +1,11 @@
 package fr.yolse.app.service.dto;
-
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the UtiProfile entity.
+ * A DTO for the {@link fr.yolse.app.domain.UtiProfile} entity.
  */
 public class UtiProfileDTO implements Serializable {
 
@@ -24,6 +23,7 @@ public class UtiProfileDTO implements Serializable {
     private Instant modifLe;
 
     private String modifPar;
+
 
     private Long utilisateurId;
 

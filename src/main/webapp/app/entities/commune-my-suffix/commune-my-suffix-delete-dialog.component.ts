@@ -15,9 +15,9 @@ export class CommuneMySuffixDeleteDialogComponent {
     commune: ICommuneMySuffix;
 
     constructor(
-        private communeService: CommuneMySuffixService,
+        protected communeService: CommuneMySuffixService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        protected eventManager: JhiEventManager
     ) {}
 
     clear() {
@@ -40,9 +40,9 @@ export class CommuneMySuffixDeleteDialogComponent {
     template: ''
 })
 export class CommuneMySuffixDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+    protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ commune }) => {
@@ -54,11 +54,11 @@ export class CommuneMySuffixDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.commune = commune;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/commune-my-suffix', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/commune-my-suffix', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

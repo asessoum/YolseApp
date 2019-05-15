@@ -24,6 +24,6 @@ export class UtiProfileMySuffix implements IUtiProfileMySuffix {
         public utilisateurId?: number,
         public profileId?: number
     ) {
-        this.estActif = false;
+        this.estActif = this.estActif || false;
     }
 }

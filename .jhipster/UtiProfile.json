@@ -32,14 +32,16 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "utilisateur",
             "otherEntityName": "utilisateur",
+            "otherEntityRelationshipName": "profiles",
+            "relationshipName": "utilisateur",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "profile",
             "otherEntityName": "profile",
+            "otherEntityRelationshipName": "utilisateurs",
+            "relationshipName": "profile",
             "otherEntityField": "id"
         }
     ],

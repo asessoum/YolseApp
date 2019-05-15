@@ -10,7 +10,7 @@ import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
 export class ClientMySuffixDetailComponent implements OnInit {
     client: IClientMySuffix;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ client }) => {

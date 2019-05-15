@@ -1,5 +1,4 @@
 package fr.yolse.app.service.dto;
-
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -7,7 +6,7 @@ import java.util.Objects;
 import fr.yolse.app.domain.enumeration.Genre;
 
 /**
- * A DTO for the Client entity.
+ * A DTO for the {@link fr.yolse.app.domain.Client} entity.
  */
 public class ClientDTO implements Serializable {
 
@@ -16,6 +15,12 @@ public class ClientDTO implements Serializable {
     @NotNull
     @Size(max = 13)
     private String clientID;
+
+    @NotNull
+    private Integer localID;
+
+    @NotNull
+    private Integer remoteID;
 
     @NotNull
     @Size(max = 20)
@@ -32,18 +37,11 @@ public class ClientDTO implements Serializable {
     private Genre genre;
 
     @NotNull
-    private Boolean estMarie;
-
-    @NotNull
     @Size(max = 20)
     private String numCarteCli;
 
     @NotNull
     private Instant dCarteUtil;
-
-    @NotNull
-    @Size(max = 20)
-    private String village;
 
     @NotNull
     @Size(max = 10)
@@ -52,29 +50,11 @@ public class ClientDTO implements Serializable {
     @Size(max = 50)
     private String email;
 
-    @Size(max = 50)
-    private String groupe;
-
     @Size(max = 200)
     private String photoID;
 
-    @NotNull
-    private Integer tailleMenage;
-
-    @NotNull
-    private Double superficiePos;
-
-    @Size(max = 20)
-    private String nomPAP;
-
-    @Size(max = 20)
-    private String prenomPAP;
-
-    @Size(max = 10)
-    private String telPAP;
-
-    @Size(max = 10)
-    private String lienPAP;
+    @Size(max = 500)
+    private String infoSupplementaires;
 
     private Boolean estActif;
 
@@ -86,9 +66,10 @@ public class ClientDTO implements Serializable {
 
     private String modifPar;
 
+
     private Long langueId;
 
-    private Long utilisateurId;
+    private Long commercialId;
 
     private Long communeId;
 
@@ -106,6 +87,22 @@ public class ClientDTO implements Serializable {
 
     public void setClientID(String clientID) {
         this.clientID = clientID;
+    }
+
+    public Integer getLocalID() {
+        return localID;
+    }
+
+    public void setLocalID(Integer localID) {
+        this.localID = localID;
+    }
+
+    public Integer getRemoteID() {
+        return remoteID;
+    }
+
+    public void setRemoteID(Integer remoteID) {
+        this.remoteID = remoteID;
     }
 
     public String getNom() {
@@ -140,14 +137,6 @@ public class ClientDTO implements Serializable {
         this.genre = genre;
     }
 
-    public Boolean isEstMarie() {
-        return estMarie;
-    }
-
-    public void setEstMarie(Boolean estMarie) {
-        this.estMarie = estMarie;
-    }
-
     public String getNumCarteCli() {
         return numCarteCli;
     }
@@ -162,14 +151,6 @@ public class ClientDTO implements Serializable {
 
     public void setdCarteUtil(Instant dCarteUtil) {
         this.dCarteUtil = dCarteUtil;
-    }
-
-    public String getVillage() {
-        return village;
-    }
-
-    public void setVillage(String village) {
-        this.village = village;
     }
 
     public String getTel() {
@@ -188,14 +169,6 @@ public class ClientDTO implements Serializable {
         this.email = email;
     }
 
-    public String getGroupe() {
-        return groupe;
-    }
-
-    public void setGroupe(String groupe) {
-        this.groupe = groupe;
-    }
-
     public String getPhotoID() {
         return photoID;
     }
@@ -204,52 +177,12 @@ public class ClientDTO implements Serializable {
         this.photoID = photoID;
     }
 
-    public Integer getTailleMenage() {
-        return tailleMenage;
+    public String getInfoSupplementaires() {
+        return infoSupplementaires;
     }
 
-    public void setTailleMenage(Integer tailleMenage) {
-        this.tailleMenage = tailleMenage;
-    }
-
-    public Double getSuperficiePos() {
-        return superficiePos;
-    }
-
-    public void setSuperficiePos(Double superficiePos) {
-        this.superficiePos = superficiePos;
-    }
-
-    public String getNomPAP() {
-        return nomPAP;
-    }
-
-    public void setNomPAP(String nomPAP) {
-        this.nomPAP = nomPAP;
-    }
-
-    public String getPrenomPAP() {
-        return prenomPAP;
-    }
-
-    public void setPrenomPAP(String prenomPAP) {
-        this.prenomPAP = prenomPAP;
-    }
-
-    public String getTelPAP() {
-        return telPAP;
-    }
-
-    public void setTelPAP(String telPAP) {
-        this.telPAP = telPAP;
-    }
-
-    public String getLienPAP() {
-        return lienPAP;
-    }
-
-    public void setLienPAP(String lienPAP) {
-        this.lienPAP = lienPAP;
+    public void setInfoSupplementaires(String infoSupplementaires) {
+        this.infoSupplementaires = infoSupplementaires;
     }
 
     public Boolean isEstActif() {
@@ -300,12 +233,12 @@ public class ClientDTO implements Serializable {
         this.langueId = langueId;
     }
 
-    public Long getUtilisateurId() {
-        return utilisateurId;
+    public Long getCommercialId() {
+        return commercialId;
     }
 
-    public void setUtilisateurId(Long utilisateurId) {
-        this.utilisateurId = utilisateurId;
+    public void setCommercialId(Long utilisateurId) {
+        this.commercialId = utilisateurId;
     }
 
     public Long getCommuneId() {
@@ -342,31 +275,25 @@ public class ClientDTO implements Serializable {
         return "ClientDTO{" +
             "id=" + getId() +
             ", clientID='" + getClientID() + "'" +
+            ", localID=" + getLocalID() +
+            ", remoteID=" + getRemoteID() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
             ", naissance='" + getNaissance() + "'" +
             ", genre='" + getGenre() + "'" +
-            ", estMarie='" + isEstMarie() + "'" +
             ", numCarteCli='" + getNumCarteCli() + "'" +
             ", dCarteUtil='" + getdCarteUtil() + "'" +
-            ", village='" + getVillage() + "'" +
             ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
-            ", groupe='" + getGroupe() + "'" +
             ", photoID='" + getPhotoID() + "'" +
-            ", tailleMenage=" + getTailleMenage() +
-            ", superficiePos=" + getSuperficiePos() +
-            ", nomPAP='" + getNomPAP() + "'" +
-            ", prenomPAP='" + getPrenomPAP() + "'" +
-            ", telPAP='" + getTelPAP() + "'" +
-            ", lienPAP='" + getLienPAP() + "'" +
+            ", infoSupplementaires='" + getInfoSupplementaires() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +
             ", modifLe='" + getModifLe() + "'" +
             ", modifPar='" + getModifPar() + "'" +
             ", langue=" + getLangueId() +
-            ", utilisateur=" + getUtilisateurId() +
+            ", commercial=" + getCommercialId() +
             ", commune=" + getCommuneId() +
             "}";
     }

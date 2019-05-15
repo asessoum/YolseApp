@@ -1,25 +1,25 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-reference-my-suffix-heading">Create or edit a Reference</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!reference.id">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="reference.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_idRef">Id Ref</label>
                     <input type="number" class="form-control" name="idRef" id="field_idRef"
-                        [(ngModel)]="reference.idRef" required/>
-                    <div [hidden]="!(editForm.controls.idRef?.dirty && editForm.controls.idRef?.invalid)">
+                           formControlName="idRef"/>
+                    <div *ngIf="editForm.get('idRef').invalid && (editForm.get('idRef').dirty || editForm.get('idRef').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.idRef?.errors?.required">
+                               *ngIf="editForm.get('idRef').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.idRef?.errors?.number">
+                            [hidden]="!editForm.get('idRef')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -27,14 +27,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_libelleRef">Libelle Ref</label>
                     <input type="text" class="form-control" name="libelleRef" id="field_libelleRef"
-                        [(ngModel)]="reference.libelleRef" required maxlength="10"/>
-                    <div [hidden]="!(editForm.controls.libelleRef?.dirty && editForm.controls.libelleRef?.invalid)">
+                           formControlName="libelleRef"/>
+                    <div *ngIf="editForm.get('libelleRef').invalid && (editForm.get('libelleRef').dirty || editForm.get('libelleRef').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.libelleRef?.errors?.required">
+                               *ngIf="editForm.get('libelleRef').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.libelleRef?.errors?.maxlength">
+                               *ngIf="editForm.get('libelleRef').errors.maxlength">
                         This field cannot be longer than 10 characters.
                         </small>
                     </div>
@@ -42,14 +42,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_valeurRef">Valeur Ref</label>
                     <input type="text" class="form-control" name="valeurRef" id="field_valeurRef"
-                        [(ngModel)]="reference.valeurRef" required maxlength="100"/>
-                    <div [hidden]="!(editForm.controls.valeurRef?.dirty && editForm.controls.valeurRef?.invalid)">
+                           formControlName="valeurRef"/>
+                    <div *ngIf="editForm.get('valeurRef').invalid && (editForm.get('valeurRef').dirty || editForm.get('valeurRef').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.valeurRef?.errors?.required">
+                               *ngIf="editForm.get('valeurRef').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.valeurRef?.errors?.maxlength">
+                               *ngIf="editForm.get('valeurRef').errors.maxlength">
                         This field cannot be longer than 100 characters.
                         </small>
                     </div>
@@ -57,31 +57,29 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_estActif">Est Actif</label>
                     <input type="checkbox" class="form-control" name="estActif" id="field_estActif"
-                        [(ngModel)]="reference.estActif" />
+                           formControlName="estActif"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creeLe">Cree Le</label>
                     <div class="d-flex">
-                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
-                        />
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" formControlName="creeLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creePar">Cree Par</label>
                     <input type="text" class="form-control" name="creePar" id="field_creePar"
-                        [(ngModel)]="reference.creePar" />
+                           formControlName="creePar"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifLe">Modif Le</label>
                     <div class="d-flex">
-                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
-                        />
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" formControlName="modifLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifPar">Modif Par</label>
                     <input type="text" class="form-control" name="modifPar" id="field_modifPar"
-                        [(ngModel)]="reference.modifPar" />
+                           formControlName="modifPar"/>
                 </div>
 
             </div>
@@ -89,7 +87,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

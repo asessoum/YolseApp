@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vente">
+            <h2><span>Vente</span> {{vente.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Vente ID</span></dt>
+                <dd>
+                    <span>{{vente.venteID}}</span>
+                </dd>
+                <dt><span>Local ID</span></dt>
+                <dd>
+                    <span>{{vente.localID}}</span>
+                </dd>
+                <dt><span>Remote ID</span></dt>
+                <dd>
+                    <span>{{vente.remoteID}}</span>
+                </dd>
+                <dt><span>Quantite</span></dt>
+                <dd>
+                    <span>{{vente.quantite}}</span>
+                </dd>
+                <dt><span>Prix Vente</span></dt>
+                <dd>
+                    <span>{{vente.prixVente}}</span>
+                </dd>
+                <dt><span>Marge Vente</span></dt>
+                <dd>
+                    <span>{{vente.margeVente}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{vente.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{vente.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{vente.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{vente.modifPar}}</span>
+                </dd>
+                <dt><span>Transaction</span></dt>
+                <dd>
+                    <div *ngIf="vente.transactionId">
+                        <a [routerLink]="['/transaction-my-suffix', vente.transactionId, 'view']">{{vente.transactionId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Article</span></dt>
+                <dd>
+                    <div *ngIf="vente.articleId">
+                        <a [routerLink]="['/article-my-suffix', vente.articleId, 'view']">{{vente.articleId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vente-my-suffix', vente.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

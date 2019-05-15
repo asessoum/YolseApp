@@ -14,7 +14,11 @@ import { LangueMySuffixService } from './langue-my-suffix.service';
 export class LangueMySuffixDeleteDialogComponent {
     langue: ILangueMySuffix;
 
-    constructor(private langueService: LangueMySuffixService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(
+        protected langueService: LangueMySuffixService,
+        public activeModal: NgbActiveModal,
+        protected eventManager: JhiEventManager
+    ) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
@@ -36,9 +40,9 @@ export class LangueMySuffixDeleteDialogComponent {
     template: ''
 })
 export class LangueMySuffixDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+    protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ langue }) => {
@@ -50,11 +54,11 @@ export class LangueMySuffixDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef.componentInstance.langue = langue;
                 this.ngbModalRef.result.then(
                     result => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/langue-my-suffix', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     },
                     reason => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
+                        this.router.navigate(['/langue-my-suffix', { outlets: { popup: null } }]);
                         this.ngbModalRef = null;
                     }
                 );

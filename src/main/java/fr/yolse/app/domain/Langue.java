@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -216,19 +217,15 @@ public class Langue implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Langue)) {
             return false;
         }
-        Langue langue = (Langue) o;
-        if (langue.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), langue.getId());
+        return id != null && id.equals(((Langue) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

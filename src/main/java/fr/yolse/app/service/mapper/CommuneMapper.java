@@ -6,18 +6,17 @@ import fr.yolse.app.service.dto.CommuneDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity Commune and its DTO CommuneDTO.
+ * Mapper for the entity {@link Commune} and its DTO {@link CommuneDTO}.
  */
-@Mapper(componentModel = "spring", uses = {ProvinceMapper.class})
+@Mapper(componentModel = "spring", uses = {PaysMapper.class})
 public interface CommuneMapper extends EntityMapper<CommuneDTO, Commune> {
 
-    @Mapping(source = "province.id", target = "provinceId")
+    @Mapping(source = "pays.id", target = "paysId")
     CommuneDTO toDto(Commune commune);
 
-    @Mapping(source = "provinceId", target = "province")
+    @Mapping(source = "paysId", target = "pays")
     @Mapping(target = "utilisateurs", ignore = true)
     @Mapping(target = "clients", ignore = true)
-    @Mapping(target = "suiviChamps", ignore = true)
     Commune toEntity(CommuneDTO communeDTO);
 
     default Commune fromId(Long id) {

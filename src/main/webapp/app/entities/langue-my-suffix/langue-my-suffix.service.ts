@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<ILangueMySuffix[]>;
 
 @Injectable({ providedIn: 'root' })
 export class LangueMySuffixService {
-    private resourceUrl = SERVER_API_URL + 'api/langues';
+    public resourceUrl = SERVER_API_URL + 'api/langues';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(langue: ILangueMySuffix): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(langue);
@@ -49,7 +49,7 @@ export class LangueMySuffixService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(langue: ILangueMySuffix): ILangueMySuffix {
+    protected convertDateFromClient(langue: ILangueMySuffix): ILangueMySuffix {
         const copy: ILangueMySuffix = Object.assign({}, langue, {
             creeLe: langue.creeLe != null && langue.creeLe.isValid() ? langue.creeLe.toJSON() : null,
             modifLe: langue.modifLe != null && langue.modifLe.isValid() ? langue.modifLe.toJSON() : null
@@ -57,17 +57,21 @@ export class LangueMySuffixService {
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
-        res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
+            res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((langue: ILangueMySuffix) => {
-            langue.creeLe = langue.creeLe != null ? moment(langue.creeLe) : null;
-            langue.modifLe = langue.modifLe != null ? moment(langue.modifLe) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((langue: ILangueMySuffix) => {
+                langue.creeLe = langue.creeLe != null ? moment(langue.creeLe) : null;
+                langue.modifLe = langue.modifLe != null ? moment(langue.modifLe) : null;
+            });
+        }
         return res;
     }
 }

@@ -13,10 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.Optional;
+
 /**
- * Service Implementation for managing Client.
+ * Service Implementation for managing {@link Client}.
  */
 @Service
 @Transactional
@@ -36,8 +36,8 @@ public class ClientServiceImpl implements ClientService {
     /**
      * Save a client.
      *
-     * @param clientDTO the entity to save
-     * @return the persisted entity
+     * @param clientDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public ClientDTO save(ClientDTO clientDTO) {
@@ -50,8 +50,8 @@ public class ClientServiceImpl implements ClientService {
     /**
      * Get all the clients.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -65,8 +65,8 @@ public class ClientServiceImpl implements ClientService {
     /**
      * Get one client by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,7 +79,7 @@ public class ClientServiceImpl implements ClientService {
     /**
      * Delete the client by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

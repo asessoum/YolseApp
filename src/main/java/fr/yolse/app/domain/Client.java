@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
@@ -37,6 +38,14 @@ public class Client implements Serializable {
     private String clientID;
 
     @NotNull
+    @Column(name = "local_id", nullable = false)
+    private Integer localID;
+
+    @NotNull
+    @Column(name = "remote_id", nullable = false)
+    private Integer remoteID;
+
+    @NotNull
     @Size(max = 20)
     @Column(name = "nom", length = 20, nullable = false)
     private String nom;
@@ -56,10 +65,6 @@ public class Client implements Serializable {
     private Genre genre;
 
     @NotNull
-    @Column(name = "est_marie", nullable = false)
-    private Boolean estMarie;
-
-    @NotNull
     @Size(max = 20)
     @Column(name = "num_carte_cli", length = 20, nullable = false)
     private String numCarteCli;
@@ -67,11 +72,6 @@ public class Client implements Serializable {
     @NotNull
     @Column(name = "d_carte_util", nullable = false)
     private Instant dCarteUtil;
-
-    @NotNull
-    @Size(max = 20)
-    @Column(name = "village", length = 20, nullable = false)
-    private String village;
 
     @NotNull
     @Size(max = 10)
@@ -82,37 +82,13 @@ public class Client implements Serializable {
     @Column(name = "email", length = 50)
     private String email;
 
-    @Size(max = 50)
-    @Column(name = "groupe", length = 50)
-    private String groupe;
-
     @Size(max = 200)
     @Column(name = "photo_id", length = 200)
     private String photoID;
 
-    @NotNull
-    @Column(name = "taille_menage", nullable = false)
-    private Integer tailleMenage;
-
-    @NotNull
-    @Column(name = "superficie_pos", nullable = false)
-    private Double superficiePos;
-
-    @Size(max = 20)
-    @Column(name = "nom_pap", length = 20)
-    private String nomPAP;
-
-    @Size(max = 20)
-    @Column(name = "prenom_pap", length = 20)
-    private String prenomPAP;
-
-    @Size(max = 10)
-    @Column(name = "tel_pap", length = 10)
-    private String telPAP;
-
-    @Size(max = 10)
-    @Column(name = "lien_pap", length = 10)
-    private String lienPAP;
+    @Size(max = 500)
+    @Column(name = "info_supplementaires", length = 500)
+    private String infoSupplementaires;
 
     @Column(name = "est_actif")
     private Boolean estActif;
@@ -135,7 +111,7 @@ public class Client implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("clients")
-    private Utilisateur utilisateur;
+    private Utilisateur commercial;
 
     @ManyToOne
     @JsonIgnoreProperties("clients")
@@ -143,11 +119,7 @@ public class Client implements Serializable {
 
     @OneToMany(mappedBy = "client")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<BesoinIntrant> besoinIntrants = new HashSet<>();
-
-    @OneToMany(mappedBy = "client")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<SuiviChamps> suiviChamps = new HashSet<>();
+    private Set<Transaction> transactions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -169,6 +141,32 @@ public class Client implements Serializable {
 
     public void setClientID(String clientID) {
         this.clientID = clientID;
+    }
+
+    public Integer getLocalID() {
+        return localID;
+    }
+
+    public Client localID(Integer localID) {
+        this.localID = localID;
+        return this;
+    }
+
+    public void setLocalID(Integer localID) {
+        this.localID = localID;
+    }
+
+    public Integer getRemoteID() {
+        return remoteID;
+    }
+
+    public Client remoteID(Integer remoteID) {
+        this.remoteID = remoteID;
+        return this;
+    }
+
+    public void setRemoteID(Integer remoteID) {
+        this.remoteID = remoteID;
     }
 
     public String getNom() {
@@ -223,19 +221,6 @@ public class Client implements Serializable {
         this.genre = genre;
     }
 
-    public Boolean isEstMarie() {
-        return estMarie;
-    }
-
-    public Client estMarie(Boolean estMarie) {
-        this.estMarie = estMarie;
-        return this;
-    }
-
-    public void setEstMarie(Boolean estMarie) {
-        this.estMarie = estMarie;
-    }
-
     public String getNumCarteCli() {
         return numCarteCli;
     }
@@ -260,19 +245,6 @@ public class Client implements Serializable {
 
     public void setdCarteUtil(Instant dCarteUtil) {
         this.dCarteUtil = dCarteUtil;
-    }
-
-    public String getVillage() {
-        return village;
-    }
-
-    public Client village(String village) {
-        this.village = village;
-        return this;
-    }
-
-    public void setVillage(String village) {
-        this.village = village;
     }
 
     public String getTel() {
@@ -301,19 +273,6 @@ public class Client implements Serializable {
         this.email = email;
     }
 
-    public String getGroupe() {
-        return groupe;
-    }
-
-    public Client groupe(String groupe) {
-        this.groupe = groupe;
-        return this;
-    }
-
-    public void setGroupe(String groupe) {
-        this.groupe = groupe;
-    }
-
     public String getPhotoID() {
         return photoID;
     }
@@ -327,82 +286,17 @@ public class Client implements Serializable {
         this.photoID = photoID;
     }
 
-    public Integer getTailleMenage() {
-        return tailleMenage;
+    public String getInfoSupplementaires() {
+        return infoSupplementaires;
     }
 
-    public Client tailleMenage(Integer tailleMenage) {
-        this.tailleMenage = tailleMenage;
+    public Client infoSupplementaires(String infoSupplementaires) {
+        this.infoSupplementaires = infoSupplementaires;
         return this;
     }
 
-    public void setTailleMenage(Integer tailleMenage) {
-        this.tailleMenage = tailleMenage;
-    }
-
-    public Double getSuperficiePos() {
-        return superficiePos;
-    }
-
-    public Client superficiePos(Double superficiePos) {
-        this.superficiePos = superficiePos;
-        return this;
-    }
-
-    public void setSuperficiePos(Double superficiePos) {
-        this.superficiePos = superficiePos;
-    }
-
-    public String getNomPAP() {
-        return nomPAP;
-    }
-
-    public Client nomPAP(String nomPAP) {
-        this.nomPAP = nomPAP;
-        return this;
-    }
-
-    public void setNomPAP(String nomPAP) {
-        this.nomPAP = nomPAP;
-    }
-
-    public String getPrenomPAP() {
-        return prenomPAP;
-    }
-
-    public Client prenomPAP(String prenomPAP) {
-        this.prenomPAP = prenomPAP;
-        return this;
-    }
-
-    public void setPrenomPAP(String prenomPAP) {
-        this.prenomPAP = prenomPAP;
-    }
-
-    public String getTelPAP() {
-        return telPAP;
-    }
-
-    public Client telPAP(String telPAP) {
-        this.telPAP = telPAP;
-        return this;
-    }
-
-    public void setTelPAP(String telPAP) {
-        this.telPAP = telPAP;
-    }
-
-    public String getLienPAP() {
-        return lienPAP;
-    }
-
-    public Client lienPAP(String lienPAP) {
-        this.lienPAP = lienPAP;
-        return this;
-    }
-
-    public void setLienPAP(String lienPAP) {
-        this.lienPAP = lienPAP;
+    public void setInfoSupplementaires(String infoSupplementaires) {
+        this.infoSupplementaires = infoSupplementaires;
     }
 
     public Boolean isEstActif() {
@@ -483,17 +377,17 @@ public class Client implements Serializable {
         this.langue = langue;
     }
 
-    public Utilisateur getUtilisateur() {
-        return utilisateur;
+    public Utilisateur getCommercial() {
+        return commercial;
     }
 
-    public Client utilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public Client commercial(Utilisateur utilisateur) {
+        this.commercial = utilisateur;
         return this;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setCommercial(Utilisateur utilisateur) {
+        this.commercial = utilisateur;
     }
 
     public Commune getCommune() {
@@ -509,54 +403,29 @@ public class Client implements Serializable {
         this.commune = commune;
     }
 
-    public Set<BesoinIntrant> getBesoinIntrants() {
-        return besoinIntrants;
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public Client besoinIntrants(Set<BesoinIntrant> besoinIntrants) {
-        this.besoinIntrants = besoinIntrants;
+    public Client transactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
         return this;
     }
 
-    public Client addBesoinIntrants(BesoinIntrant besoinIntrant) {
-        this.besoinIntrants.add(besoinIntrant);
-        besoinIntrant.setClient(this);
+    public Client addTransactions(Transaction transaction) {
+        this.transactions.add(transaction);
+        transaction.setClient(this);
         return this;
     }
 
-    public Client removeBesoinIntrants(BesoinIntrant besoinIntrant) {
-        this.besoinIntrants.remove(besoinIntrant);
-        besoinIntrant.setClient(null);
+    public Client removeTransactions(Transaction transaction) {
+        this.transactions.remove(transaction);
+        transaction.setClient(null);
         return this;
     }
 
-    public void setBesoinIntrants(Set<BesoinIntrant> besoinIntrants) {
-        this.besoinIntrants = besoinIntrants;
-    }
-
-    public Set<SuiviChamps> getSuiviChamps() {
-        return suiviChamps;
-    }
-
-    public Client suiviChamps(Set<SuiviChamps> suiviChamps) {
-        this.suiviChamps = suiviChamps;
-        return this;
-    }
-
-    public Client addSuiviChamps(SuiviChamps suiviChamps) {
-        this.suiviChamps.add(suiviChamps);
-        suiviChamps.setClient(this);
-        return this;
-    }
-
-    public Client removeSuiviChamps(SuiviChamps suiviChamps) {
-        this.suiviChamps.remove(suiviChamps);
-        suiviChamps.setClient(null);
-        return this;
-    }
-
-    public void setSuiviChamps(Set<SuiviChamps> suiviChamps) {
-        this.suiviChamps = suiviChamps;
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -565,19 +434,15 @@ public class Client implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Client)) {
             return false;
         }
-        Client client = (Client) o;
-        if (client.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), client.getId());
+        return id != null && id.equals(((Client) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override
@@ -585,24 +450,18 @@ public class Client implements Serializable {
         return "Client{" +
             "id=" + getId() +
             ", clientID='" + getClientID() + "'" +
+            ", localID=" + getLocalID() +
+            ", remoteID=" + getRemoteID() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
             ", naissance='" + getNaissance() + "'" +
             ", genre='" + getGenre() + "'" +
-            ", estMarie='" + isEstMarie() + "'" +
             ", numCarteCli='" + getNumCarteCli() + "'" +
             ", dCarteUtil='" + getdCarteUtil() + "'" +
-            ", village='" + getVillage() + "'" +
             ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
-            ", groupe='" + getGroupe() + "'" +
             ", photoID='" + getPhotoID() + "'" +
-            ", tailleMenage=" + getTailleMenage() +
-            ", superficiePos=" + getSuperficiePos() +
-            ", nomPAP='" + getNomPAP() + "'" +
-            ", prenomPAP='" + getPrenomPAP() + "'" +
-            ", telPAP='" + getTelPAP() + "'" +
-            ", lienPAP='" + getLienPAP() + "'" +
+            ", infoSupplementaires='" + getInfoSupplementaires() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +

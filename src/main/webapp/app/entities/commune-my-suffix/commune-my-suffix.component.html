@@ -17,12 +17,14 @@
             <th><span>ID</span></th>
             <th><span>Commune ID</span></th>
             <th><span>Nom Commune</span></th>
+            <th><span>Nom Province</span></th>
+            <th><span>Nom Region</span></th>
             <th><span>Est Actif</span></th>
             <th><span>Cree Le</span></th>
             <th><span>Cree Par</span></th>
             <th><span>Modif Le</span></th>
             <th><span>Modif Par</span></th>
-            <th><span>Province</span></th>
+            <th><span>Pays</span></th>
             <th></th>
             </tr>
             </thead>
@@ -31,18 +33,20 @@
                 <td><a [routerLink]="['/commune-my-suffix', commune.id, 'view' ]">{{commune.id}}</a></td>
                 <td>{{commune.communeID}}</td>
                 <td>{{commune.nomCommune}}</td>
+                <td>{{commune.nomProvince}}</td>
+                <td>{{commune.nomRegion}}</td>
                 <td>{{commune.estActif}}</td>
                 <td>{{commune.creeLe | date:'medium'}}</td>
                 <td>{{commune.creePar}}</td>
                 <td>{{commune.modifLe | date:'medium'}}</td>
                 <td>{{commune.modifPar}}</td>
                 <td>
-                    <div *ngIf="commune.provinceId">
-                        <a [routerLink]="['../province-my-suffix', commune.provinceId , 'view' ]" >{{commune.provinceId}}</a>
+                    <div *ngIf="commune.paysId">
+                        <a [routerLink]="['../pays-my-suffix', commune.paysId , 'view' ]" >{{commune.paysId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/commune-my-suffix', commune.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -56,7 +60,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'commune-my-suffix/'+ commune.id + '/delete'} }]"
+                                [routerLink]="['/', 'commune-my-suffix', { outlets: { popup: commune.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

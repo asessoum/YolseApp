@@ -15,8 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
- * Service Implementation for managing Reference.
+ * Service Implementation for managing {@link Reference}.
  */
 @Service
 @Transactional
@@ -36,8 +37,8 @@ public class ReferenceServiceImpl implements ReferenceService {
     /**
      * Save a reference.
      *
-     * @param referenceDTO the entity to save
-     * @return the persisted entity
+     * @param referenceDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public ReferenceDTO save(ReferenceDTO referenceDTO) {
@@ -50,7 +51,7 @@ public class ReferenceServiceImpl implements ReferenceService {
     /**
      * Get all the references.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -65,8 +66,8 @@ public class ReferenceServiceImpl implements ReferenceService {
     /**
      * Get one reference by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,7 +80,7 @@ public class ReferenceServiceImpl implements ReferenceService {
     /**
      * Delete the reference by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ILangueMySuffix } from 'app/shared/model/langue-my-suffix.model';
-import { Principal } from 'app/core';
+import { AccountService } from 'app/core';
 import { LangueMySuffixService } from './langue-my-suffix.service';
 
 @Component({
@@ -17,24 +18,30 @@ export class LangueMySuffixComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private langueService: LangueMySuffixService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        protected langueService: LangueMySuffixService,
+        protected jhiAlertService: JhiAlertService,
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
-        this.langueService.query().subscribe(
-            (res: HttpResponse<ILangueMySuffix[]>) => {
-                this.langues = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.langueService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ILangueMySuffix[]>) => res.ok),
+                map((res: HttpResponse<ILangueMySuffix[]>) => res.body)
+            )
+            .subscribe(
+                (res: ILangueMySuffix[]) => {
+                    this.langues = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInLangues();
@@ -52,7 +59,7 @@ export class LangueMySuffixComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('langueListModification', response => this.loadAll());
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }

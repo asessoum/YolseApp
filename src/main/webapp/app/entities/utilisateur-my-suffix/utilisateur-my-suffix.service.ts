@@ -14,9 +14,9 @@ type EntityArrayResponseType = HttpResponse<IUtilisateurMySuffix[]>;
 
 @Injectable({ providedIn: 'root' })
 export class UtilisateurMySuffixService {
-    private resourceUrl = SERVER_API_URL + 'api/utilisateurs';
+    public resourceUrl = SERVER_API_URL + 'api/utilisateurs';
 
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
 
     create(utilisateur: IUtilisateurMySuffix): Observable<EntityResponseType> {
         const copy = this.convertDateFromClient(utilisateur);
@@ -49,28 +49,35 @@ export class UtilisateurMySuffixService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    private convertDateFromClient(utilisateur: IUtilisateurMySuffix): IUtilisateurMySuffix {
+    protected convertDateFromClient(utilisateur: IUtilisateurMySuffix): IUtilisateurMySuffix {
         const copy: IUtilisateurMySuffix = Object.assign({}, utilisateur, {
             dateNaiss: utilisateur.dateNaiss != null && utilisateur.dateNaiss.isValid() ? utilisateur.dateNaiss.toJSON() : null,
+            dateCarteUti: utilisateur.dateCarteUti != null && utilisateur.dateCarteUti.isValid() ? utilisateur.dateCarteUti.toJSON() : null,
             creeLe: utilisateur.creeLe != null && utilisateur.creeLe.isValid() ? utilisateur.creeLe.toJSON() : null,
             modifLe: utilisateur.modifLe != null && utilisateur.modifLe.isValid() ? utilisateur.modifLe.toJSON() : null
         });
         return copy;
     }
 
-    private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.dateNaiss = res.body.dateNaiss != null ? moment(res.body.dateNaiss) : null;
-        res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
-        res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+    protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+            res.body.dateNaiss = res.body.dateNaiss != null ? moment(res.body.dateNaiss) : null;
+            res.body.dateCarteUti = res.body.dateCarteUti != null ? moment(res.body.dateCarteUti) : null;
+            res.body.creeLe = res.body.creeLe != null ? moment(res.body.creeLe) : null;
+            res.body.modifLe = res.body.modifLe != null ? moment(res.body.modifLe) : null;
+        }
         return res;
     }
 
-    private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-        res.body.forEach((utilisateur: IUtilisateurMySuffix) => {
-            utilisateur.dateNaiss = utilisateur.dateNaiss != null ? moment(utilisateur.dateNaiss) : null;
-            utilisateur.creeLe = utilisateur.creeLe != null ? moment(utilisateur.creeLe) : null;
-            utilisateur.modifLe = utilisateur.modifLe != null ? moment(utilisateur.modifLe) : null;
-        });
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((utilisateur: IUtilisateurMySuffix) => {
+                utilisateur.dateNaiss = utilisateur.dateNaiss != null ? moment(utilisateur.dateNaiss) : null;
+                utilisateur.dateCarteUti = utilisateur.dateCarteUti != null ? moment(utilisateur.dateCarteUti) : null;
+                utilisateur.creeLe = utilisateur.creeLe != null ? moment(utilisateur.creeLe) : null;
+                utilisateur.modifLe = utilisateur.modifLe != null ? moment(utilisateur.modifLe) : null;
+            });
+        }
         return res;
     }
 }

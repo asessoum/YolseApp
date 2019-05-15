@@ -91,6 +91,32 @@ public class CacheConfiguration {
             cm.createCache(fr.yolse.app.domain.Client.class.getName() + ".besoinIntrants", jcacheConfiguration);
             cm.createCache(fr.yolse.app.domain.Client.class.getName() + ".suiviChamps", jcacheConfiguration);
             cm.createCache(fr.yolse.app.domain.BesoinIntrant.class.getName() + ".besoinEngrais", jcacheConfiguration);
+            createCache(cm, fr.yolse.app.domain.Pays.class.getName());
+            createCache(cm, fr.yolse.app.domain.Pays.class.getName() + ".communes");
+            createCache(cm, fr.yolse.app.domain.Commune.class.getName());
+            createCache(cm, fr.yolse.app.domain.Commune.class.getName() + ".utilisateurs");
+            createCache(cm, fr.yolse.app.domain.Commune.class.getName() + ".clients");
+            createCache(cm, fr.yolse.app.domain.Categorie.class.getName());
+            createCache(cm, fr.yolse.app.domain.Categorie.class.getName() + ".articles");
+            createCache(cm, fr.yolse.app.domain.Article.class.getName());
+            createCache(cm, fr.yolse.app.domain.Article.class.getName() + ".ventes");
+            createCache(cm, fr.yolse.app.domain.Langue.class.getName());
+            createCache(cm, fr.yolse.app.domain.Langue.class.getName() + ".utilisateurs");
+            createCache(cm, fr.yolse.app.domain.Langue.class.getName() + ".clients");
+            createCache(cm, fr.yolse.app.domain.Reference.class.getName());
+            createCache(cm, fr.yolse.app.domain.Profile.class.getName());
+            createCache(cm, fr.yolse.app.domain.Profile.class.getName() + ".utilisateurs");
+            createCache(cm, fr.yolse.app.domain.Utilisateur.class.getName());
+            createCache(cm, fr.yolse.app.domain.Utilisateur.class.getName() + ".employes");
+            createCache(cm, fr.yolse.app.domain.Utilisateur.class.getName() + ".profiles");
+            createCache(cm, fr.yolse.app.domain.Utilisateur.class.getName() + ".clients");
+            createCache(cm, fr.yolse.app.domain.Utilisateur.class.getName() + ".transactions");
+            createCache(cm, fr.yolse.app.domain.UtiProfile.class.getName());
+            createCache(cm, fr.yolse.app.domain.Client.class.getName());
+            createCache(cm, fr.yolse.app.domain.Client.class.getName() + ".transactions");
+            createCache(cm, fr.yolse.app.domain.Transaction.class.getName());
+            createCache(cm, fr.yolse.app.domain.Transaction.class.getName() + ".ventes");
+            createCache(cm, fr.yolse.app.domain.Vente.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

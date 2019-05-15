@@ -1,46 +1,78 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
-
-import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
+import { ICommuneMySuffix, CommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
 import { CommuneMySuffixService } from './commune-my-suffix.service';
-import { IProvinceMySuffix } from 'app/shared/model/province-my-suffix.model';
-import { ProvinceMySuffixService } from 'app/entities/province-my-suffix';
+import { IPaysMySuffix } from 'app/shared/model/pays-my-suffix.model';
+import { PaysMySuffixService } from 'app/entities/pays-my-suffix';
 
 @Component({
     selector: 'jhi-commune-my-suffix-update',
     templateUrl: './commune-my-suffix-update.component.html'
 })
 export class CommuneMySuffixUpdateComponent implements OnInit {
-    private _commune: ICommuneMySuffix;
+    commune: ICommuneMySuffix;
     isSaving: boolean;
 
-    provinces: IProvinceMySuffix[];
-    creeLe: string;
-    modifLe: string;
+    pays: IPaysMySuffix[];
+
+    editForm = this.fb.group({
+        id: [],
+        communeID: [null, [Validators.required]],
+        nomCommune: [null, [Validators.required, Validators.maxLength(20)]],
+        nomProvince: [null, [Validators.maxLength(20)]],
+        nomRegion: [null, [Validators.maxLength(20)]],
+        estActif: [],
+        creeLe: [],
+        creePar: [],
+        modifLe: [],
+        modifPar: [],
+        paysId: []
+    });
 
     constructor(
-        private jhiAlertService: JhiAlertService,
-        private communeService: CommuneMySuffixService,
-        private provinceService: ProvinceMySuffixService,
-        private activatedRoute: ActivatedRoute
+        protected jhiAlertService: JhiAlertService,
+        protected communeService: CommuneMySuffixService,
+        protected paysService: PaysMySuffixService,
+        protected activatedRoute: ActivatedRoute,
+        private fb: FormBuilder
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ commune }) => {
+            this.updateForm(commune);
             this.commune = commune;
         });
-        this.provinceService.query().subscribe(
-            (res: HttpResponse<IProvinceMySuffix[]>) => {
-                this.provinces = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.paysService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IPaysMySuffix[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IPaysMySuffix[]>) => response.body)
+            )
+            .subscribe((res: IPaysMySuffix[]) => (this.pays = res), (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    updateForm(commune: ICommuneMySuffix) {
+        this.editForm.patchValue({
+            id: commune.id,
+            communeID: commune.communeID,
+            nomCommune: commune.nomCommune,
+            nomProvince: commune.nomProvince,
+            nomRegion: commune.nomRegion,
+            estActif: commune.estActif,
+            creeLe: commune.creeLe != null ? commune.creeLe.format(DATE_TIME_FORMAT) : null,
+            creePar: commune.creePar,
+            modifLe: commune.modifLe != null ? commune.modifLe.format(DATE_TIME_FORMAT) : null,
+            modifPar: commune.modifPar,
+            paysId: commune.paysId
+        });
     }
 
     previousState() {
@@ -49,42 +81,50 @@ export class CommuneMySuffixUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.commune.creeLe = moment(this.creeLe, DATE_TIME_FORMAT);
-        this.commune.modifLe = moment(this.modifLe, DATE_TIME_FORMAT);
-        if (this.commune.id !== undefined) {
-            this.subscribeToSaveResponse(this.communeService.update(this.commune));
+        const commune = this.createFromForm();
+        if (commune.id !== undefined) {
+            this.subscribeToSaveResponse(this.communeService.update(commune));
         } else {
-            this.subscribeToSaveResponse(this.communeService.create(this.commune));
+            this.subscribeToSaveResponse(this.communeService.create(commune));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ICommuneMySuffix>>) {
+    private createFromForm(): ICommuneMySuffix {
+        const entity = {
+            ...new CommuneMySuffix(),
+            id: this.editForm.get(['id']).value,
+            communeID: this.editForm.get(['communeID']).value,
+            nomCommune: this.editForm.get(['nomCommune']).value,
+            nomProvince: this.editForm.get(['nomProvince']).value,
+            nomRegion: this.editForm.get(['nomRegion']).value,
+            estActif: this.editForm.get(['estActif']).value,
+            creeLe: this.editForm.get(['creeLe']).value != null ? moment(this.editForm.get(['creeLe']).value, DATE_TIME_FORMAT) : undefined,
+            creePar: this.editForm.get(['creePar']).value,
+            modifLe:
+                this.editForm.get(['modifLe']).value != null ? moment(this.editForm.get(['modifLe']).value, DATE_TIME_FORMAT) : undefined,
+            modifPar: this.editForm.get(['modifPar']).value,
+            paysId: this.editForm.get(['paysId']).value
+        };
+        return entity;
+    }
+
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<ICommuneMySuffix>>) {
         result.subscribe((res: HttpResponse<ICommuneMySuffix>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
+    protected onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
     }
 
-    private onSaveError() {
+    protected onSaveError() {
         this.isSaving = false;
     }
-
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackProvinceById(index: number, item: IProvinceMySuffix) {
+    trackPaysById(index: number, item: IPaysMySuffix) {
         return item.id;
-    }
-    get commune() {
-        return this._commune;
-    }
-
-    set commune(commune: ICommuneMySuffix) {
-        this._commune = commune;
-        this.creeLe = moment(commune.creeLe).format(DATE_TIME_FORMAT);
-        this.modifLe = moment(commune.modifLe).format(DATE_TIME_FORMAT);
     }
 }

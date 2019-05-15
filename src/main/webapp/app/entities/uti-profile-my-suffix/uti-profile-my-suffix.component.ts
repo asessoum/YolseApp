@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IUtiProfileMySuffix } from 'app/shared/model/uti-profile-my-suffix.model';
-import { Principal } from 'app/core';
+import { AccountService } from 'app/core';
 import { UtiProfileMySuffixService } from './uti-profile-my-suffix.service';
 
 @Component({
@@ -17,24 +18,30 @@ export class UtiProfileMySuffixComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private utiProfileService: UtiProfileMySuffixService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        protected utiProfileService: UtiProfileMySuffixService,
+        protected jhiAlertService: JhiAlertService,
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
-        this.utiProfileService.query().subscribe(
-            (res: HttpResponse<IUtiProfileMySuffix[]>) => {
-                this.utiProfiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.utiProfileService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IUtiProfileMySuffix[]>) => res.ok),
+                map((res: HttpResponse<IUtiProfileMySuffix[]>) => res.body)
+            )
+            .subscribe(
+                (res: IUtiProfileMySuffix[]) => {
+                    this.utiProfiles = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInUtiProfiles();
@@ -52,7 +59,7 @@ export class UtiProfileMySuffixComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('utiProfileListModification', response => this.loadAll());
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }

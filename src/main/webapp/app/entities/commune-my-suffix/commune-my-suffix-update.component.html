@@ -1,25 +1,25 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-commune-my-suffix-heading">Create or edit a Commune</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!commune.id">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="commune.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_communeID">Commune ID</label>
                     <input type="number" class="form-control" name="communeID" id="field_communeID"
-                        [(ngModel)]="commune.communeID" required/>
-                    <div [hidden]="!(editForm.controls.communeID?.dirty && editForm.controls.communeID?.invalid)">
+                           formControlName="communeID"/>
+                    <div *ngIf="editForm.get('communeID').invalid && (editForm.get('communeID').dirty || editForm.get('communeID').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.communeID?.errors?.required">
+                               *ngIf="editForm.get('communeID').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.communeID?.errors?.number">
+                            [hidden]="!editForm.get('communeID')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -27,14 +27,36 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_nomCommune">Nom Commune</label>
                     <input type="text" class="form-control" name="nomCommune" id="field_nomCommune"
-                        [(ngModel)]="commune.nomCommune" required maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.nomCommune?.dirty && editForm.controls.nomCommune?.invalid)">
+                           formControlName="nomCommune"/>
+                    <div *ngIf="editForm.get('nomCommune').invalid && (editForm.get('nomCommune').dirty || editForm.get('nomCommune').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nomCommune?.errors?.required">
+                               *ngIf="editForm.get('nomCommune').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nomCommune?.errors?.maxlength">
+                               *ngIf="editForm.get('nomCommune').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nomProvince">Nom Province</label>
+                    <input type="text" class="form-control" name="nomProvince" id="field_nomProvince"
+                           formControlName="nomProvince"/>
+                    <div *ngIf="editForm.get('nomProvince').invalid && (editForm.get('nomProvince').dirty || editForm.get('nomProvince').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nomProvince').errors.maxlength">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nomRegion">Nom Region</label>
+                    <input type="text" class="form-control" name="nomRegion" id="field_nomRegion"
+                           formControlName="nomRegion"/>
+                    <div *ngIf="editForm.get('nomRegion').invalid && (editForm.get('nomRegion').dirty || editForm.get('nomRegion').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nomRegion').errors.maxlength">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
@@ -42,38 +64,36 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_estActif">Est Actif</label>
                     <input type="checkbox" class="form-control" name="estActif" id="field_estActif"
-                        [(ngModel)]="commune.estActif" />
+                           formControlName="estActif"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creeLe">Cree Le</label>
                     <div class="d-flex">
-                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
-                        />
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" formControlName="creeLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creePar">Cree Par</label>
                     <input type="text" class="form-control" name="creePar" id="field_creePar"
-                        [(ngModel)]="commune.creePar" />
+                           formControlName="creePar"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifLe">Modif Le</label>
                     <div class="d-flex">
-                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
-                        />
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" formControlName="modifLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifPar">Modif Par</label>
                     <input type="text" class="form-control" name="modifPar" id="field_modifPar"
-                        [(ngModel)]="commune.modifPar" />
+                           formControlName="modifPar"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_province">Province</label>
-                    <select class="form-control" id="field_province" name="province" [(ngModel)]="commune.provinceId" >
+                    <label class="form-control-label" for="field_pays">Pays</label>
+                    <select class="form-control" id="field_pays" name="pays" formControlName="paysId">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="provinceOption.id" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.id}}</option>
+                        <option [ngValue]="paysOption.id" *ngFor="let paysOption of pays; trackBy: trackPaysById">{{paysOption.id}}</option>
                     </select>
                 </div>
             </div>
@@ -81,7 +101,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

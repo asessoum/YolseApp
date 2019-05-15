@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { ProfileMySuffix } from 'app/shared/model/profile-my-suffix.model';
 import { ProfileMySuffixService } from './profile-my-suffix.service';
 import { ProfileMySuffixComponent } from './profile-my-suffix.component';
@@ -16,10 +16,13 @@ import { IProfileMySuffix } from 'app/shared/model/profile-my-suffix.model';
 export class ProfileMySuffixResolve implements Resolve<IProfileMySuffix> {
     constructor(private service: ProfileMySuffixService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IProfileMySuffix> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((profile: HttpResponse<ProfileMySuffix>) => profile.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<ProfileMySuffix>) => response.ok),
+                map((profile: HttpResponse<ProfileMySuffix>) => profile.body)
+            );
         }
         return of(new ProfileMySuffix());
     }
@@ -27,7 +30,7 @@ export class ProfileMySuffixResolve implements Resolve<IProfileMySuffix> {
 
 export const profileRoute: Routes = [
     {
-        path: 'profile-my-suffix',
+        path: '',
         component: ProfileMySuffixComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -36,7 +39,7 @@ export const profileRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'profile-my-suffix/:id/view',
+        path: ':id/view',
         component: ProfileMySuffixDetailComponent,
         resolve: {
             profile: ProfileMySuffixResolve
@@ -48,7 +51,7 @@ export const profileRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'profile-my-suffix/new',
+        path: 'new',
         component: ProfileMySuffixUpdateComponent,
         resolve: {
             profile: ProfileMySuffixResolve
@@ -60,7 +63,7 @@ export const profileRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'profile-my-suffix/:id/edit',
+        path: ':id/edit',
         component: ProfileMySuffixUpdateComponent,
         resolve: {
             profile: ProfileMySuffixResolve
@@ -75,7 +78,7 @@ export const profileRoute: Routes = [
 
 export const profilePopupRoute: Routes = [
     {
-        path: 'profile-my-suffix/:id/delete',
+        path: ':id/delete',
         component: ProfileMySuffixDeletePopupComponent,
         resolve: {
             profile: ProfileMySuffixResolve

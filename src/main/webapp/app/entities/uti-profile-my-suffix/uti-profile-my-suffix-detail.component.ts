@@ -10,7 +10,7 @@ import { IUtiProfileMySuffix } from 'app/shared/model/uti-profile-my-suffix.mode
 export class UtiProfileMySuffixDetailComponent implements OnInit {
     utiProfile: IUtiProfileMySuffix;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ utiProfile }) => {

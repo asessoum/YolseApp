@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { ClientMySuffix } from 'app/shared/model/client-my-suffix.model';
 import { ClientMySuffixService } from './client-my-suffix.service';
 import { ClientMySuffixComponent } from './client-my-suffix.component';
@@ -16,10 +16,13 @@ import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
 export class ClientMySuffixResolve implements Resolve<IClientMySuffix> {
     constructor(private service: ClientMySuffixService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IClientMySuffix> {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).pipe(map((client: HttpResponse<ClientMySuffix>) => client.body));
+            return this.service.find(id).pipe(
+                filter((response: HttpResponse<ClientMySuffix>) => response.ok),
+                map((client: HttpResponse<ClientMySuffix>) => client.body)
+            );
         }
         return of(new ClientMySuffix());
     }
@@ -27,7 +30,7 @@ export class ClientMySuffixResolve implements Resolve<IClientMySuffix> {
 
 export const clientRoute: Routes = [
     {
-        path: 'client-my-suffix',
+        path: '',
         component: ClientMySuffixComponent,
         data: {
             authorities: ['ROLE_USER'],
@@ -36,7 +39,7 @@ export const clientRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'client-my-suffix/:id/view',
+        path: ':id/view',
         component: ClientMySuffixDetailComponent,
         resolve: {
             client: ClientMySuffixResolve
@@ -48,7 +51,7 @@ export const clientRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'client-my-suffix/new',
+        path: 'new',
         component: ClientMySuffixUpdateComponent,
         resolve: {
             client: ClientMySuffixResolve
@@ -60,7 +63,7 @@ export const clientRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'client-my-suffix/:id/edit',
+        path: ':id/edit',
         component: ClientMySuffixUpdateComponent,
         resolve: {
             client: ClientMySuffixResolve
@@ -75,7 +78,7 @@ export const clientRoute: Routes = [
 
 export const clientPopupRoute: Routes = [
     {
-        path: 'client-my-suffix/:id/delete',
+        path: ':id/delete',
         component: ClientMySuffixDeletePopupComponent,
         resolve: {
             client: ClientMySuffixResolve

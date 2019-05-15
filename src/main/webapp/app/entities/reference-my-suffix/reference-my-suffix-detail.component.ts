@@ -10,7 +10,7 @@ import { IReferenceMySuffix } from 'app/shared/model/reference-my-suffix.model';
 export class ReferenceMySuffixDetailComponent implements OnInit {
     reference: IReferenceMySuffix;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ reference }) => {

@@ -11,6 +11,20 @@
             "fieldValidateRulesMaxlength": 13
         },
         {
+            "fieldName": "localID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "remoteID",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "nom",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -44,13 +58,6 @@
             ]
         },
         {
-            "fieldName": "estMarie",
-            "fieldType": "Boolean",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "numCarteCli",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -65,15 +72,6 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "village",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 20
         },
         {
             "fieldName": "tel",
@@ -93,14 +91,6 @@
             "fieldValidateRulesMaxlength": 50
         },
         {
-            "fieldName": "groupe",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 50
-        },
-        {
             "fieldName": "photoID",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -109,50 +99,12 @@
             "fieldValidateRulesMaxlength": 200
         },
         {
-            "fieldName": "tailleMenage",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "superficiePos",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "nomPAP",
+            "fieldName": "infoSupplementaires",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 20
-        },
-        {
-            "fieldName": "prenomPAP",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 20
-        },
-        {
-            "fieldName": "telPAP",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 10
-        },
-        {
-            "fieldName": "lienPAP",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 10
+            "fieldValidateRulesMaxlength": 500
         },
         {
             "fieldName": "estActif",
@@ -178,33 +130,30 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "langue",
             "otherEntityName": "langue",
+            "otherEntityRelationshipName": "clients",
+            "relationshipName": "langue",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "utilisateur",
             "otherEntityName": "utilisateur",
+            "otherEntityRelationshipName": "clients",
+            "relationshipName": "commercial",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "commune",
             "otherEntityName": "commune",
+            "otherEntityRelationshipName": "clients",
+            "relationshipName": "commune",
             "otherEntityField": "id"
         },
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "besoinIntrants",
-            "otherEntityName": "besoinIntrant",
-            "otherEntityRelationshipName": "client"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "suiviChamps",
-            "otherEntityName": "suiviChamps",
-            "otherEntityRelationshipName": "client"
+            "otherEntityName": "transaction",
+            "otherEntityRelationshipName": "client",
+            "relationshipName": "transactions"
         }
     ],
     "changelogDate": "20180712214311",

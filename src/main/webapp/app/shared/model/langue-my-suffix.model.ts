@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
-import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
-import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
+import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
+import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
 
 export interface ILangueMySuffix {
     id?: number;
@@ -28,6 +28,6 @@ export class LangueMySuffix implements ILangueMySuffix {
         public utilisateurs?: IUtilisateurMySuffix[],
         public clients?: IClientMySuffix[]
     ) {
-        this.estActif = false;
+        this.estActif = this.estActif || false;
     }
 }
