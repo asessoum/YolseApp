@@ -1,8 +1,8 @@
 import { Moment } from 'moment';
-import { IUtilisateurMySuffix } from 'app/shared/model//utilisateur-my-suffix.model';
-import { IUtiProfileMySuffix } from 'app/shared/model//uti-profile-my-suffix.model';
-import { IClientMySuffix } from 'app/shared/model//client-my-suffix.model';
-import { ISuiviChampsMySuffix } from 'app/shared/model//suivi-champs-my-suffix.model';
+import { IUtilisateurMySuffix } from 'app/shared/model/utilisateur-my-suffix.model';
+import { IUtiProfileMySuffix } from 'app/shared/model/uti-profile-my-suffix.model';
+import { IClientMySuffix } from 'app/shared/model/client-my-suffix.model';
+import { ITransactionMySuffix } from 'app/shared/model/transaction-my-suffix.model';
 
 export const enum Genre {
     HOMME = 'HOMME',
@@ -21,10 +21,7 @@ export interface IUtilisateurMySuffix {
     tel?: string;
     email?: string;
     numCarteUti?: string;
-    nomPAP?: string;
-    prenomPAP?: string;
-    telPAP?: string;
-    lienPAP?: string;
+    dateCarteUti?: Moment;
     estActif?: boolean;
     creeLe?: Moment;
     creePar?: string;
@@ -33,10 +30,10 @@ export interface IUtilisateurMySuffix {
     langueId?: number;
     communeId?: number;
     responsableId?: number;
-    agents?: IUtilisateurMySuffix[];
+    employes?: IUtilisateurMySuffix[];
     profiles?: IUtiProfileMySuffix[];
     clients?: IClientMySuffix[];
-    suiviChamps?: ISuiviChampsMySuffix[];
+    transactions?: ITransactionMySuffix[];
 }
 
 export class UtilisateurMySuffix implements IUtilisateurMySuffix {
@@ -52,10 +49,7 @@ export class UtilisateurMySuffix implements IUtilisateurMySuffix {
         public tel?: string,
         public email?: string,
         public numCarteUti?: string,
-        public nomPAP?: string,
-        public prenomPAP?: string,
-        public telPAP?: string,
-        public lienPAP?: string,
+        public dateCarteUti?: Moment,
         public estActif?: boolean,
         public creeLe?: Moment,
         public creePar?: string,
@@ -64,11 +58,11 @@ export class UtilisateurMySuffix implements IUtilisateurMySuffix {
         public langueId?: number,
         public communeId?: number,
         public responsableId?: number,
-        public agents?: IUtilisateurMySuffix[],
+        public employes?: IUtilisateurMySuffix[],
         public profiles?: IUtiProfileMySuffix[],
         public clients?: IClientMySuffix[],
-        public suiviChamps?: ISuiviChampsMySuffix[]
+        public transactions?: ITransactionMySuffix[]
     ) {
-        this.estActif = false;
+        this.estActif = this.estActif || false;
     }
 }

@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span>Ventes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-vente-my-suffix" [routerLink]="['/vente-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Vente
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="ventes">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="venteID"><span>Vente ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="localID"><span>Local ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="remoteID"><span>Remote ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="quantite"><span>Quantite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="prixVente"><span>Prix Vente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="margeVente"><span>Marge Vente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="transactionId"><span>Transaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="articleId"><span>Article</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let vente of ventes ;trackBy: trackId">
+                <td><a [routerLink]="['/vente-my-suffix', vente.id, 'view' ]">{{vente.id}}</a></td>
+                <td>{{vente.venteID}}</td>
+                <td>{{vente.localID}}</td>
+                <td>{{vente.remoteID}}</td>
+                <td>{{vente.quantite}}</td>
+                <td>{{vente.prixVente}}</td>
+                <td>{{vente.margeVente}}</td>
+                <td>{{vente.creeLe | date:'medium'}}</td>
+                <td>{{vente.creePar}}</td>
+                <td>{{vente.modifLe | date:'medium'}}</td>
+                <td>{{vente.modifPar}}</td>
+                <td>
+                    <div *ngIf="vente.transactionId">
+                        <a [routerLink]="['../transaction-my-suffix', vente.transactionId , 'view' ]" >{{vente.transactionId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="vente.articleId">
+                        <a [routerLink]="['../article-my-suffix', vente.articleId , 'view' ]" >{{vente.articleId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/vente-my-suffix', vente.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/vente-my-suffix', vente.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'vente-my-suffix', { outlets: { popup: vente.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

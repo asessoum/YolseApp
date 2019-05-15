@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span>Pays</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-pays-my-suffix" [routerLink]="['/pays-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Pays
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="pays">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Pays ID</span></th>
+            <th><span>Nom Pays</span></th>
+            <th><span>Est Actif</span></th>
+            <th><span>Cree Le</span></th>
+            <th><span>Cree Par</span></th>
+            <th><span>Modif Le</span></th>
+            <th><span>Modif Par</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pays of pays ;trackBy: trackId">
+                <td><a [routerLink]="['/pays-my-suffix', pays.id, 'view' ]">{{pays.id}}</a></td>
+                <td>{{pays.paysID}}</td>
+                <td>{{pays.nomPays}}</td>
+                <td>{{pays.estActif}}</td>
+                <td>{{pays.creeLe | date:'medium'}}</td>
+                <td>{{pays.creePar}}</td>
+                <td>{{pays.modifLe | date:'medium'}}</td>
+                <td>{{pays.modifPar}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/pays-my-suffix', pays.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/pays-my-suffix', pays.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'pays-my-suffix', { outlets: { popup: pays.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

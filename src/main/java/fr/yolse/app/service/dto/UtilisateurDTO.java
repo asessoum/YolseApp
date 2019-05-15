@@ -1,5 +1,4 @@
 package fr.yolse.app.service.dto;
-
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -7,7 +6,7 @@ import java.util.Objects;
 import fr.yolse.app.domain.enumeration.Genre;
 
 /**
- * A DTO for the Utilisateur entity.
+ * A DTO for the {@link fr.yolse.app.domain.Utilisateur} entity.
  */
 public class UtilisateurDTO implements Serializable {
 
@@ -49,13 +48,7 @@ public class UtilisateurDTO implements Serializable {
     @Size(max = 20)
     private String numCarteUti;
 
-    private String nomPAP;
-
-    private String prenomPAP;
-
-    private String telPAP;
-
-    private String lienPAP;
+    private Instant dateCarteUti;
 
     private Boolean estActif;
 
@@ -66,6 +59,7 @@ public class UtilisateurDTO implements Serializable {
     private Instant modifLe;
 
     private String modifPar;
+
 
     private Long langueId;
 
@@ -161,36 +155,12 @@ public class UtilisateurDTO implements Serializable {
         this.numCarteUti = numCarteUti;
     }
 
-    public String getNomPAP() {
-        return nomPAP;
+    public Instant getDateCarteUti() {
+        return dateCarteUti;
     }
 
-    public void setNomPAP(String nomPAP) {
-        this.nomPAP = nomPAP;
-    }
-
-    public String getPrenomPAP() {
-        return prenomPAP;
-    }
-
-    public void setPrenomPAP(String prenomPAP) {
-        this.prenomPAP = prenomPAP;
-    }
-
-    public String getTelPAP() {
-        return telPAP;
-    }
-
-    public void setTelPAP(String telPAP) {
-        this.telPAP = telPAP;
-    }
-
-    public String getLienPAP() {
-        return lienPAP;
-    }
-
-    public void setLienPAP(String lienPAP) {
-        this.lienPAP = lienPAP;
+    public void setDateCarteUti(Instant dateCarteUti) {
+        this.dateCarteUti = dateCarteUti;
     }
 
     public Boolean isEstActif() {
@@ -292,10 +262,7 @@ public class UtilisateurDTO implements Serializable {
             ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
             ", numCarteUti='" + getNumCarteUti() + "'" +
-            ", nomPAP='" + getNomPAP() + "'" +
-            ", prenomPAP='" + getPrenomPAP() + "'" +
-            ", telPAP='" + getTelPAP() + "'" +
-            ", lienPAP='" + getLienPAP() + "'" +
+            ", dateCarteUti='" + getDateCarteUti() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +

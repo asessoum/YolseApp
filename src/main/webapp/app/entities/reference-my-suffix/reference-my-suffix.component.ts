@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { IReferenceMySuffix } from 'app/shared/model/reference-my-suffix.model';
-import { Principal } from 'app/core';
+import { AccountService } from 'app/core';
 import { ReferenceMySuffixService } from './reference-my-suffix.service';
 
 @Component({
@@ -17,24 +18,30 @@ export class ReferenceMySuffixComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private referenceService: ReferenceMySuffixService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        protected referenceService: ReferenceMySuffixService,
+        protected jhiAlertService: JhiAlertService,
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
-        this.referenceService.query().subscribe(
-            (res: HttpResponse<IReferenceMySuffix[]>) => {
-                this.references = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.referenceService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IReferenceMySuffix[]>) => res.ok),
+                map((res: HttpResponse<IReferenceMySuffix[]>) => res.body)
+            )
+            .subscribe(
+                (res: IReferenceMySuffix[]) => {
+                    this.references = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInReferences();
@@ -52,7 +59,7 @@ export class ReferenceMySuffixComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('referenceListModification', response => this.loadAll());
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }

@@ -1,12 +1,11 @@
 package fr.yolse.app.service.dto;
-
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the Reference entity.
+ * A DTO for the {@link fr.yolse.app.domain.Reference} entity.
  */
 public class ReferenceDTO implements Serializable {
 
@@ -32,6 +31,7 @@ public class ReferenceDTO implements Serializable {
     private Instant modifLe;
 
     private String modifPar;
+
 
     public Long getId() {
         return id;

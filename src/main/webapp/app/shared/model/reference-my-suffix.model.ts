@@ -24,6 +24,6 @@ export class ReferenceMySuffix implements IReferenceMySuffix {
         public modifLe?: Moment,
         public modifPar?: string
     ) {
-        this.estActif = false;
+        this.estActif = this.estActif || false;
     }
 }

@@ -1,0 +1,92 @@
+<div>
+    <h2 id="page-heading">
+        <span>Transactions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-transaction-my-suffix" [routerLink]="['/transaction-my-suffix/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Transaction
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="transactions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="transactionID"><span>Transaction ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="localID"><span>Local ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="remoteID"><span>Remote ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="venteID"><span>Vente ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="vendeurID"><span>Vendeur ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="quantiteTotal"><span>Quantite Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="prixTotalTransaction"><span>Prix Total Transaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="validSup"><span>Valid Sup</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="validRes"><span>Valid Res</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estActif"><span>Est Actif</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creeLe"><span>Cree Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creePar"><span>Cree Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifLe"><span>Modif Le</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modifPar"><span>Modif Par</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clientId"><span>Client</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="vendeurIDId"><span>Vendeur ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let transaction of transactions ;trackBy: trackId">
+                <td><a [routerLink]="['/transaction-my-suffix', transaction.id, 'view' ]">{{transaction.id}}</a></td>
+                <td>{{transaction.transactionID}}</td>
+                <td>{{transaction.localID}}</td>
+                <td>{{transaction.remoteID}}</td>
+                <td>{{transaction.venteID}}</td>
+                <td>{{transaction.vendeurID}}</td>
+                <td>{{transaction.quantiteTotal}}</td>
+                <td>{{transaction.prixTotalTransaction}}</td>
+                <td>{{transaction.validSup}}</td>
+                <td>{{transaction.validRes}}</td>
+                <td>{{transaction.estActif}}</td>
+                <td>{{transaction.creeLe | date:'medium'}}</td>
+                <td>{{transaction.creePar}}</td>
+                <td>{{transaction.modifLe | date:'medium'}}</td>
+                <td>{{transaction.modifPar}}</td>
+                <td>
+                    <div *ngIf="transaction.clientId">
+                        <a [routerLink]="['../client-my-suffix', transaction.clientId , 'view' ]" >{{transaction.clientId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="transaction.vendeurIDId">
+                        <a [routerLink]="['../utilisateur-my-suffix', transaction.vendeurIDId , 'view' ]" >{{transaction.vendeurIDId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/transaction-my-suffix', transaction.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/transaction-my-suffix', transaction.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'transaction-my-suffix', { outlets: { popup: transaction.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

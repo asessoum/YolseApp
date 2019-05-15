@@ -15,8 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
- * Service Implementation for managing Commune.
+ * Service Implementation for managing {@link Commune}.
  */
 @Service
 @Transactional
@@ -36,8 +37,8 @@ public class CommuneServiceImpl implements CommuneService {
     /**
      * Save a commune.
      *
-     * @param communeDTO the entity to save
-     * @return the persisted entity
+     * @param communeDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public CommuneDTO save(CommuneDTO communeDTO) {
@@ -50,7 +51,7 @@ public class CommuneServiceImpl implements CommuneService {
     /**
      * Get all the communes.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -65,8 +66,8 @@ public class CommuneServiceImpl implements CommuneService {
     /**
      * Get one commune by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,7 +80,7 @@ public class CommuneServiceImpl implements CommuneService {
     /**
      * Delete the commune by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

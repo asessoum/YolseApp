@@ -36,7 +36,7 @@
                 <td>{{langue.modifLe | date:'medium'}}</td>
                 <td>{{langue.modifPar}}</td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/langue-my-suffix', langue.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -50,7 +50,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'langue-my-suffix/'+ langue.id + '/delete'} }]"
+                                [routerLink]="['/', 'langue-my-suffix', { outlets: { popup: langue.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

@@ -9,6 +9,14 @@
                 <dd>
                     <span>{{client.clientID}}</span>
                 </dd>
+                <dt><span>Local ID</span></dt>
+                <dd>
+                    <span>{{client.localID}}</span>
+                </dd>
+                <dt><span>Remote ID</span></dt>
+                <dd>
+                    <span>{{client.remoteID}}</span>
+                </dd>
                 <dt><span>Nom</span></dt>
                 <dd>
                     <span>{{client.nom}}</span>
@@ -25,10 +33,6 @@
                 <dd>
                     <span>{{client.genre}}</span>
                 </dd>
-                <dt><span>Est Marie</span></dt>
-                <dd>
-                    <span>{{client.estMarie}}</span>
-                </dd>
                 <dt><span>Num Carte Cli</span></dt>
                 <dd>
                     <span>{{client.numCarteCli}}</span>
@@ -36,10 +40,6 @@
                 <dt><span>D Carte Util</span></dt>
                 <dd>
                     <span>{{client.dCarteUtil}}</span>
-                </dd>
-                <dt><span>Village</span></dt>
-                <dd>
-                    <span>{{client.village}}</span>
                 </dd>
                 <dt><span>Tel</span></dt>
                 <dd>
@@ -49,37 +49,13 @@
                 <dd>
                     <span>{{client.email}}</span>
                 </dd>
-                <dt><span>Groupe</span></dt>
-                <dd>
-                    <span>{{client.groupe}}</span>
-                </dd>
                 <dt><span>Photo ID</span></dt>
                 <dd>
                     <span>{{client.photoID}}</span>
                 </dd>
-                <dt><span>Taille Menage</span></dt>
+                <dt><span>Info Supplementaires</span></dt>
                 <dd>
-                    <span>{{client.tailleMenage}}</span>
-                </dd>
-                <dt><span>Superficie Pos</span></dt>
-                <dd>
-                    <span>{{client.superficiePos}}</span>
-                </dd>
-                <dt><span>Nom PAP</span></dt>
-                <dd>
-                    <span>{{client.nomPAP}}</span>
-                </dd>
-                <dt><span>Prenom PAP</span></dt>
-                <dd>
-                    <span>{{client.prenomPAP}}</span>
-                </dd>
-                <dt><span>Tel PAP</span></dt>
-                <dd>
-                    <span>{{client.telPAP}}</span>
-                </dd>
-                <dt><span>Lien PAP</span></dt>
-                <dd>
-                    <span>{{client.lienPAP}}</span>
+                    <span>{{client.infoSupplementaires}}</span>
                 </dd>
                 <dt><span>Est Actif</span></dt>
                 <dd>
@@ -107,10 +83,10 @@
                         <a [routerLink]="['/langue-my-suffix', client.langueId, 'view']">{{client.langueId}}</a>
                     </div>
                 </dd>
-                <dt><span>Utilisateur</span></dt>
+                <dt><span>Commercial</span></dt>
                 <dd>
-                    <div *ngIf="client.utilisateurId">
-                        <a [routerLink]="['/utilisateur-my-suffix', client.utilisateurId, 'view']">{{client.utilisateurId}}</a>
+                    <div *ngIf="client.commercialId">
+                        <a [routerLink]="['/utilisateur-my-suffix', client.commercialId, 'view']">{{client.commercialId}}</a>
                     </div>
                 </dd>
                 <dt><span>Commune</span></dt>

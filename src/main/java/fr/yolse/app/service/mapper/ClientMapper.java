@@ -6,21 +6,20 @@ import fr.yolse.app.service.dto.ClientDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity Client and its DTO ClientDTO.
+ * Mapper for the entity {@link Client} and its DTO {@link ClientDTO}.
  */
 @Mapper(componentModel = "spring", uses = {LangueMapper.class, UtilisateurMapper.class, CommuneMapper.class})
 public interface ClientMapper extends EntityMapper<ClientDTO, Client> {
 
     @Mapping(source = "langue.id", target = "langueId")
-    @Mapping(source = "utilisateur.id", target = "utilisateurId")
+    @Mapping(source = "commercial.id", target = "commercialId")
     @Mapping(source = "commune.id", target = "communeId")
     ClientDTO toDto(Client client);
 
     @Mapping(source = "langueId", target = "langue")
-    @Mapping(source = "utilisateurId", target = "utilisateur")
+    @Mapping(source = "commercialId", target = "commercial")
     @Mapping(source = "communeId", target = "commune")
-    @Mapping(target = "besoinIntrants", ignore = true)
-    @Mapping(target = "suiviChamps", ignore = true)
+    @Mapping(target = "transactions", ignore = true)
     Client toEntity(ClientDTO clientDTO);
 
     default Client fromId(Long id) {

@@ -1,25 +1,25 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-langue-my-suffix-heading">Create or edit a Langue</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!langue.id">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="langue.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_langueID">Langue ID</label>
                     <input type="number" class="form-control" name="langueID" id="field_langueID"
-                        [(ngModel)]="langue.langueID" required/>
-                    <div [hidden]="!(editForm.controls.langueID?.dirty && editForm.controls.langueID?.invalid)">
+                           formControlName="langueID"/>
+                    <div *ngIf="editForm.get('langueID').invalid && (editForm.get('langueID').dirty || editForm.get('langueID').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.langueID?.errors?.required">
+                               *ngIf="editForm.get('langueID').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.langueID?.errors?.number">
+                            [hidden]="!editForm.get('langueID')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -27,14 +27,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_libelle">Libelle</label>
                     <input type="text" class="form-control" name="libelle" id="field_libelle"
-                        [(ngModel)]="langue.libelle" required maxlength="20"/>
-                    <div [hidden]="!(editForm.controls.libelle?.dirty && editForm.controls.libelle?.invalid)">
+                           formControlName="libelle"/>
+                    <div *ngIf="editForm.get('libelle').invalid && (editForm.get('libelle').dirty || editForm.get('libelle').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.libelle?.errors?.required">
+                               *ngIf="editForm.get('libelle').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.libelle?.errors?.maxlength">
+                               *ngIf="editForm.get('libelle').errors.maxlength">
                         This field cannot be longer than 20 characters.
                         </small>
                     </div>
@@ -42,31 +42,29 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_estActif">Est Actif</label>
                     <input type="checkbox" class="form-control" name="estActif" id="field_estActif"
-                        [(ngModel)]="langue.estActif" />
+                           formControlName="estActif"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creeLe">Cree Le</label>
                     <div class="d-flex">
-                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" [(ngModel)]="creeLe"
-                        />
+                        <input id="field_creeLe" type="datetime-local" class="form-control" name="creeLe" formControlName="creeLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creePar">Cree Par</label>
                     <input type="text" class="form-control" name="creePar" id="field_creePar"
-                        [(ngModel)]="langue.creePar" />
+                           formControlName="creePar"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifLe">Modif Le</label>
                     <div class="d-flex">
-                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" [(ngModel)]="modifLe"
-                        />
+                        <input id="field_modifLe" type="datetime-local" class="form-control" name="modifLe" formControlName="modifLe" placeholder="YYYY-MM-DD HH:mm"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_modifPar">Modif Par</label>
                     <input type="text" class="form-control" name="modifPar" id="field_modifPar"
-                        [(ngModel)]="langue.modifPar" />
+                           formControlName="modifPar"/>
                 </div>
 
             </div>
@@ -74,7 +72,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

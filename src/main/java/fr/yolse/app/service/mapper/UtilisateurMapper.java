@@ -6,7 +6,7 @@ import fr.yolse.app.service.dto.UtilisateurDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity Utilisateur and its DTO UtilisateurDTO.
+ * Mapper for the entity {@link Utilisateur} and its DTO {@link UtilisateurDTO}.
  */
 @Mapper(componentModel = "spring", uses = {LangueMapper.class, CommuneMapper.class})
 public interface UtilisateurMapper extends EntityMapper<UtilisateurDTO, Utilisateur> {
@@ -19,10 +19,10 @@ public interface UtilisateurMapper extends EntityMapper<UtilisateurDTO, Utilisat
     @Mapping(source = "langueId", target = "langue")
     @Mapping(source = "communeId", target = "commune")
     @Mapping(source = "responsableId", target = "responsable")
-    @Mapping(target = "agents", ignore = true)
+    @Mapping(target = "employes", ignore = true)
     @Mapping(target = "profiles", ignore = true)
     @Mapping(target = "clients", ignore = true)
-    @Mapping(target = "suiviChamps", ignore = true)
+    @Mapping(target = "transactions", ignore = true)
     Utilisateur toEntity(UtilisateurDTO utilisateurDTO);
 
     default Utilisateur fromId(Long id) {

@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -172,19 +173,15 @@ public class UtiProfile implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof UtiProfile)) {
             return false;
         }
-        UtiProfile utiProfile = (UtiProfile) o;
-        if (utiProfile.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), utiProfile.getId());
+        return id != null && id.equals(((UtiProfile) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

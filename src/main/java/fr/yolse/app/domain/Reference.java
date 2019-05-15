@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -173,19 +174,15 @@ public class Reference implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Reference)) {
             return false;
         }
-        Reference reference = (Reference) o;
-        if (reference.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), reference.getId());
+        return id != null && id.equals(((Reference) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

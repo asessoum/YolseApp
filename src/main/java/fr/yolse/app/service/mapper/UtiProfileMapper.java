@@ -6,7 +6,7 @@ import fr.yolse.app.service.dto.UtiProfileDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity UtiProfile and its DTO UtiProfileDTO.
+ * Mapper for the entity {@link UtiProfile} and its DTO {@link UtiProfileDTO}.
  */
 @Mapper(componentModel = "spring", uses = {UtilisateurMapper.class, ProfileMapper.class})
 public interface UtiProfileMapper extends EntityMapper<UtiProfileDTO, UtiProfile> {

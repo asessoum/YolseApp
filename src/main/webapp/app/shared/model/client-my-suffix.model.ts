@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
-import { IBesoinIntrantMySuffix } from 'app/shared/model//besoin-intrant-my-suffix.model';
-import { ISuiviChampsMySuffix } from 'app/shared/model//suivi-champs-my-suffix.model';
+import { ITransactionMySuffix } from 'app/shared/model/transaction-my-suffix.model';
 
 export const enum Genre {
     HOMME = 'HOMME',
@@ -10,70 +9,55 @@ export const enum Genre {
 export interface IClientMySuffix {
     id?: number;
     clientID?: string;
+    localID?: number;
+    remoteID?: number;
     nom?: string;
     prenom?: string;
     naissance?: Moment;
     genre?: Genre;
-    estMarie?: boolean;
     numCarteCli?: string;
     dCarteUtil?: Moment;
-    village?: string;
     tel?: string;
     email?: string;
-    groupe?: string;
     photoID?: string;
-    tailleMenage?: number;
-    superficiePos?: number;
-    nomPAP?: string;
-    prenomPAP?: string;
-    telPAP?: string;
-    lienPAP?: string;
+    infoSupplementaires?: string;
     estActif?: boolean;
     creeLe?: Moment;
     creePar?: string;
     modifLe?: Moment;
     modifPar?: string;
     langueId?: number;
-    utilisateurId?: number;
+    commercialId?: number;
     communeId?: number;
-    besoinIntrants?: IBesoinIntrantMySuffix[];
-    suiviChamps?: ISuiviChampsMySuffix[];
+    transactions?: ITransactionMySuffix[];
 }
 
 export class ClientMySuffix implements IClientMySuffix {
     constructor(
         public id?: number,
         public clientID?: string,
+        public localID?: number,
+        public remoteID?: number,
         public nom?: string,
         public prenom?: string,
         public naissance?: Moment,
         public genre?: Genre,
-        public estMarie?: boolean,
         public numCarteCli?: string,
         public dCarteUtil?: Moment,
-        public village?: string,
         public tel?: string,
         public email?: string,
-        public groupe?: string,
         public photoID?: string,
-        public tailleMenage?: number,
-        public superficiePos?: number,
-        public nomPAP?: string,
-        public prenomPAP?: string,
-        public telPAP?: string,
-        public lienPAP?: string,
+        public infoSupplementaires?: string,
         public estActif?: boolean,
         public creeLe?: Moment,
         public creePar?: string,
         public modifLe?: Moment,
         public modifPar?: string,
         public langueId?: number,
-        public utilisateurId?: number,
+        public commercialId?: number,
         public communeId?: number,
-        public besoinIntrants?: IBesoinIntrantMySuffix[],
-        public suiviChamps?: ISuiviChampsMySuffix[]
+        public transactions?: ITransactionMySuffix[]
     ) {
-        this.estMarie = false;
-        this.estActif = false;
+        this.estActif = this.estActif || false;
     }
 }

@@ -1,12 +1,11 @@
 package fr.yolse.app.service.dto;
-
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the Langue entity.
+ * A DTO for the {@link fr.yolse.app.domain.Langue} entity.
  */
 public class LangueDTO implements Serializable {
 
@@ -28,6 +27,7 @@ public class LangueDTO implements Serializable {
     private Instant modifLe;
 
     private String modifPar;
+
 
     public Long getId() {
         return id;

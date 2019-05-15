@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="transaction">
+            <h2><span>Transaction</span> {{transaction.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Transaction ID</span></dt>
+                <dd>
+                    <span>{{transaction.transactionID}}</span>
+                </dd>
+                <dt><span>Local ID</span></dt>
+                <dd>
+                    <span>{{transaction.localID}}</span>
+                </dd>
+                <dt><span>Remote ID</span></dt>
+                <dd>
+                    <span>{{transaction.remoteID}}</span>
+                </dd>
+                <dt><span>Vente ID</span></dt>
+                <dd>
+                    <span>{{transaction.venteID}}</span>
+                </dd>
+                <dt><span>Vendeur ID</span></dt>
+                <dd>
+                    <span>{{transaction.vendeurID}}</span>
+                </dd>
+                <dt><span>Quantite Total</span></dt>
+                <dd>
+                    <span>{{transaction.quantiteTotal}}</span>
+                </dd>
+                <dt><span>Prix Total Transaction</span></dt>
+                <dd>
+                    <span>{{transaction.prixTotalTransaction}}</span>
+                </dd>
+                <dt><span>Valid Sup</span></dt>
+                <dd>
+                    <span>{{transaction.validSup}}</span>
+                </dd>
+                <dt><span>Valid Res</span></dt>
+                <dd>
+                    <span>{{transaction.validRes}}</span>
+                </dd>
+                <dt><span>Est Actif</span></dt>
+                <dd>
+                    <span>{{transaction.estActif}}</span>
+                </dd>
+                <dt><span>Cree Le</span></dt>
+                <dd>
+                    <span>{{transaction.creeLe}}</span>
+                </dd>
+                <dt><span>Cree Par</span></dt>
+                <dd>
+                    <span>{{transaction.creePar}}</span>
+                </dd>
+                <dt><span>Modif Le</span></dt>
+                <dd>
+                    <span>{{transaction.modifLe}}</span>
+                </dd>
+                <dt><span>Modif Par</span></dt>
+                <dd>
+                    <span>{{transaction.modifPar}}</span>
+                </dd>
+                <dt><span>Client</span></dt>
+                <dd>
+                    <div *ngIf="transaction.clientId">
+                        <a [routerLink]="['/client-my-suffix', transaction.clientId, 'view']">{{transaction.clientId}}</a>
+                    </div>
+                </dd>
+                <dt><span>Vendeur ID</span></dt>
+                <dd>
+                    <div *ngIf="transaction.vendeurIDId">
+                        <a [routerLink]="['/utilisateur-my-suffix', transaction.vendeurIDId, 'view']">{{transaction.vendeurIDId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/transaction-my-suffix', transaction.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

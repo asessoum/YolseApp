@@ -41,9 +41,9 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "utilisateurs",
             "otherEntityName": "utiProfile",
-            "otherEntityRelationshipName": "profile"
+            "otherEntityRelationshipName": "profile",
+            "relationshipName": "utilisateurs"
         }
     ],
     "changelogDate": "20180727151347",

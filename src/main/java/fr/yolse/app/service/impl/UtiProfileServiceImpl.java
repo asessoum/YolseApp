@@ -15,8 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
- * Service Implementation for managing UtiProfile.
+ * Service Implementation for managing {@link UtiProfile}.
  */
 @Service
 @Transactional
@@ -36,8 +37,8 @@ public class UtiProfileServiceImpl implements UtiProfileService {
     /**
      * Save a utiProfile.
      *
-     * @param utiProfileDTO the entity to save
-     * @return the persisted entity
+     * @param utiProfileDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public UtiProfileDTO save(UtiProfileDTO utiProfileDTO) {
@@ -50,7 +51,7 @@ public class UtiProfileServiceImpl implements UtiProfileService {
     /**
      * Get all the utiProfiles.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -65,8 +66,8 @@ public class UtiProfileServiceImpl implements UtiProfileService {
     /**
      * Get one utiProfile by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,7 +80,7 @@ public class UtiProfileServiceImpl implements UtiProfileService {
     /**
      * Delete the utiProfile by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

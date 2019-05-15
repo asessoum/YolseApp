@@ -10,7 +10,7 @@ import { ILangueMySuffix } from 'app/shared/model/langue-my-suffix.model';
 export class LangueMySuffixDetailComponent implements OnInit {
     langue: ILangueMySuffix;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ langue }) => {

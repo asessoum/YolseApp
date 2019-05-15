@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
@@ -38,6 +39,14 @@ public class Commune implements Serializable {
     @Column(name = "nom_commune", length = 20, nullable = false)
     private String nomCommune;
 
+    @Size(max = 20)
+    @Column(name = "nom_province", length = 20)
+    private String nomProvince;
+
+    @Size(max = 20)
+    @Column(name = "nom_region", length = 20)
+    private String nomRegion;
+
     @Column(name = "est_actif")
     private Boolean estActif;
 
@@ -55,7 +64,7 @@ public class Commune implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("communes")
-    private Province province;
+    private Pays pays;
 
     @OneToMany(mappedBy = "commune")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -64,10 +73,6 @@ public class Commune implements Serializable {
     @OneToMany(mappedBy = "commune")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Client> clients = new HashSet<>();
-
-    @OneToMany(mappedBy = "commune")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<SuiviChamps> suiviChamps = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -102,6 +107,32 @@ public class Commune implements Serializable {
 
     public void setNomCommune(String nomCommune) {
         this.nomCommune = nomCommune;
+    }
+
+    public String getNomProvince() {
+        return nomProvince;
+    }
+
+    public Commune nomProvince(String nomProvince) {
+        this.nomProvince = nomProvince;
+        return this;
+    }
+
+    public void setNomProvince(String nomProvince) {
+        this.nomProvince = nomProvince;
+    }
+
+    public String getNomRegion() {
+        return nomRegion;
+    }
+
+    public Commune nomRegion(String nomRegion) {
+        this.nomRegion = nomRegion;
+        return this;
+    }
+
+    public void setNomRegion(String nomRegion) {
+        this.nomRegion = nomRegion;
     }
 
     public Boolean isEstActif() {
@@ -169,17 +200,17 @@ public class Commune implements Serializable {
         this.modifPar = modifPar;
     }
 
-    public Province getProvince() {
-        return province;
+    public Pays getPays() {
+        return pays;
     }
 
-    public Commune province(Province province) {
-        this.province = province;
+    public Commune pays(Pays pays) {
+        this.pays = pays;
         return this;
     }
 
-    public void setProvince(Province province) {
-        this.province = province;
+    public void setPays(Pays pays) {
+        this.pays = pays;
     }
 
     public Set<Utilisateur> getUtilisateurs() {
@@ -231,31 +262,6 @@ public class Commune implements Serializable {
     public void setClients(Set<Client> clients) {
         this.clients = clients;
     }
-
-    public Set<SuiviChamps> getSuiviChamps() {
-        return suiviChamps;
-    }
-
-    public Commune suiviChamps(Set<SuiviChamps> suiviChamps) {
-        this.suiviChamps = suiviChamps;
-        return this;
-    }
-
-    public Commune addSuiviChamps(SuiviChamps suiviChamps) {
-        this.suiviChamps.add(suiviChamps);
-        suiviChamps.setCommune(this);
-        return this;
-    }
-
-    public Commune removeSuiviChamps(SuiviChamps suiviChamps) {
-        this.suiviChamps.remove(suiviChamps);
-        suiviChamps.setCommune(null);
-        return this;
-    }
-
-    public void setSuiviChamps(Set<SuiviChamps> suiviChamps) {
-        this.suiviChamps = suiviChamps;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -263,19 +269,15 @@ public class Commune implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Commune)) {
             return false;
         }
-        Commune commune = (Commune) o;
-        if (commune.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), commune.getId());
+        return id != null && id.equals(((Commune) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override
@@ -284,6 +286,8 @@ public class Commune implements Serializable {
             "id=" + getId() +
             ", communeID=" + getCommuneID() +
             ", nomCommune='" + getNomCommune() + "'" +
+            ", nomProvince='" + getNomProvince() + "'" +
+            ", nomRegion='" + getNomRegion() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +

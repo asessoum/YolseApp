@@ -15,8 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
- * Service Implementation for managing Profile.
+ * Service Implementation for managing {@link Profile}.
  */
 @Service
 @Transactional
@@ -36,8 +37,8 @@ public class ProfileServiceImpl implements ProfileService {
     /**
      * Save a profile.
      *
-     * @param profileDTO the entity to save
-     * @return the persisted entity
+     * @param profileDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public ProfileDTO save(ProfileDTO profileDTO) {
@@ -50,7 +51,7 @@ public class ProfileServiceImpl implements ProfileService {
     /**
      * Get all the profiles.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -65,8 +66,8 @@ public class ProfileServiceImpl implements ProfileService {
     /**
      * Get one profile by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -79,7 +80,7 @@ public class ProfileServiceImpl implements ProfileService {
     /**
      * Delete the profile by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

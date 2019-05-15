@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ICommuneMySuffix } from 'app/shared/model/commune-my-suffix.model';
-import { Principal } from 'app/core';
+import { AccountService } from 'app/core';
 import { CommuneMySuffixService } from './commune-my-suffix.service';
 
 @Component({
@@ -17,24 +18,30 @@ export class CommuneMySuffixComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
 
     constructor(
-        private communeService: CommuneMySuffixService,
-        private jhiAlertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private principal: Principal
+        protected communeService: CommuneMySuffixService,
+        protected jhiAlertService: JhiAlertService,
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
 
     loadAll() {
-        this.communeService.query().subscribe(
-            (res: HttpResponse<ICommuneMySuffix[]>) => {
-                this.communes = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.communeService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ICommuneMySuffix[]>) => res.ok),
+                map((res: HttpResponse<ICommuneMySuffix[]>) => res.body)
+            )
+            .subscribe(
+                (res: ICommuneMySuffix[]) => {
+                    this.communes = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnInit() {
         this.loadAll();
-        this.principal.identity().then(account => {
+        this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInCommunes();
@@ -52,7 +59,7 @@ export class CommuneMySuffixComponent implements OnInit, OnDestroy {
         this.eventSubscriber = this.eventManager.subscribe('communeListModification', response => this.loadAll());
     }
 
-    private onError(errorMessage: string) {
+    protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 }

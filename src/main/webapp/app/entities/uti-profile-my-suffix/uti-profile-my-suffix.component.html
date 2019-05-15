@@ -46,7 +46,7 @@
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/uti-profile-my-suffix', utiProfile.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -60,7 +60,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'uti-profile-my-suffix/'+ utiProfile.id + '/delete'} }]"
+                                [routerLink]="['/', 'uti-profile-my-suffix', { outlets: { popup: utiProfile.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

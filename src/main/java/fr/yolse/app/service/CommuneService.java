@@ -6,22 +6,22 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing Commune.
+ * Service Interface for managing {@link fr.yolse.app.domain.Commune}.
  */
 public interface CommuneService {
 
     /**
      * Save a commune.
      *
-     * @param communeDTO the entity to save
-     * @return the persisted entity
+     * @param communeDTO the entity to save.
+     * @return the persisted entity.
      */
     CommuneDTO save(CommuneDTO communeDTO);
 
     /**
      * Get all the communes.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     List<CommuneDTO> findAll();
 
@@ -29,15 +29,15 @@ public interface CommuneService {
     /**
      * Get the "id" commune.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     Optional<CommuneDTO> findOne(Long id);
 
     /**
      * Delete the "id" commune.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     void delete(Long id);
 }

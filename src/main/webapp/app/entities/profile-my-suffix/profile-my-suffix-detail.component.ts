@@ -10,7 +10,7 @@ import { IProfileMySuffix } from 'app/shared/model/profile-my-suffix.model';
 export class ProfileMySuffixDetailComponent implements OnInit {
     profile: IProfileMySuffix;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ profile }) => {

@@ -6,7 +6,7 @@ import fr.yolse.app.service.dto.LangueDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity Langue and its DTO LangueDTO.
+ * Mapper for the entity {@link Langue} and its DTO {@link LangueDTO}.
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface LangueMapper extends EntityMapper<LangueDTO, Langue> {

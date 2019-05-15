@@ -36,7 +36,7 @@
                 <td>{{profile.modifLe | date:'medium'}}</td>
                 <td>{{profile.modifPar}}</td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/profile-my-suffix', profile.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -50,7 +50,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'profile-my-suffix/'+ profile.id + '/delete'} }]"
+                                [routerLink]="['/', 'profile-my-suffix', { outlets: { popup: profile.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

@@ -1,30 +1,18 @@
-entity Region {
-	regionID Integer required
-	nomRegion String required maxlength(20)
-    estActif Boolean 
-    creeLe Instant
-    creePar String
-    modifLe Instant
-    modifPpar String
-}
-
-entity Province {
-	provinceID Integer required
-	nomProvince String required maxlength(20)
+entity Pays {
+	paysID Integer required
+    nomPays String required maxlength(20)
     estActif Boolean 
     creeLe Instant
     creePar String
     modifLe Instant
     modifPar String
-}
-
-relationship ManyToOne {
-    Province{region} to Region{provinces}
 }
 
 entity Commune {
 	communeID Integer required
 	nomCommune String required maxlength(20)
+    nomProvince String maxlength(20)
+    nomRegion String maxlength(20)
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -33,13 +21,14 @@ entity Commune {
 }
 
 relationship ManyToOne {
-    Commune{province} to Province{communes}
+    Commune{pays} to Pays{communes}
 }
 
-entity Engrais {
-	engraisID Integer required
+entity Categorie {
+	categorieID Integer required
+    localID Integer required
+    remoteID Integer required
 	libelle String required maxlength(20)
-    prixUnitaire Double
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -47,15 +36,24 @@ entity Engrais {
     modifPar String
 }
 
-entity Culture {
-	engraisID Integer required
+entity Article {
+	articleID String required maxlength(10)
+	localID Integer required
+    remoteID Integer required
 	libelle String required maxlength(20)
-    prixCession Double 
+    description String maxlength(200)
+    prixDeVente Double
+    prixDeRevient Double
+    margeBrute Double
     estActif Boolean 
     creeLe Instant
     creePar String
     modifLe Instant
     modifPar String
+}
+
+relationship ManyToOne {
+    Article{categorie} to Categorie{articles}
 }
 
 entity Langue {
@@ -100,10 +98,7 @@ entity Utilisateur {
     tel String required maxlength(10)
     email String maxlength(50)
     numCarteUti String required maxlength(20)
-    nomPAP String
-    prenomPAP String
-    telPAP String
-    lienPAP String 
+    dateCarteUti Instant
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -114,7 +109,7 @@ entity Utilisateur {
 relationship ManyToOne {
     Utilisateur{langue} to Langue{utilisateurs}
     Utilisateur{commune} to Commune{utilisateurs}
-    Utilisateur{responsable} to Utilisateur{agents}
+    Utilisateur{responsable} to Utilisateur{employes}
 }
 
 entity UtiProfile {
@@ -133,24 +128,18 @@ relationship ManyToOne {
 
 entity Client {
 	clientID String required maxlength(13)
+    localID Integer required
+    remoteID Integer required
     nom String required maxlength(20)
     prenom String required maxlength(20)
     naissance Instant required
     genre Genre required
-    estMarie Boolean required
     numCarteCli String required maxlength(20)
     dCarteUtil Instant required
-    village String required maxlength(20)
     tel String required maxlength(10)
     email String maxlength(50)
-    groupe String maxlength(50)
     photoID String maxlength(200)
-    tailleMenage Integer required
-    superficiePos Double required
-    nomPAP String maxlength(20)
-    prenomPAP String maxlength(20)
-    telPAP String maxlength(10)
-    lienPAP String maxlength(10)
+    infoSupplementaires String maxlength (500)
     estActif Boolean 
     creeLe Instant
     creePar String
@@ -160,25 +149,18 @@ entity Client {
 
 relationship ManyToOne {
     Client{langue} to Langue{clients}
-    Client{utilisateur} to Utilisateur{clients}
+    Client{commercial} to Utilisateur{clients}
     Client{commune} to Commune{clients}
 }
 
-entity BesoinIntrant {
-	besIntID Integer required
-    superficieEsc Double required
-    qSemence Double required
-    prixTotSemence Double required
-    valeurTot Double required
-    mAdhesion Double required
-    mAssur Double required
-    mGaran Double required
-    qStockGar Double required
-    magasinStock String required maxlength(50)
-    sfd String required maxlength(50)
-    mUniGes Double required
-    mAdmin Double required
-    mExploi Double required
+entity Transaction {
+	transactionID Integer required
+    localID Integer required
+    remoteID Integer required
+	venteID Integer required
+    vendeurID Integer required
+    quantiteTotal Double required
+    prixTotalTransaction Double required
     validSup Boolean
     validRes Boolean
     estActif Boolean 
@@ -189,14 +171,17 @@ entity BesoinIntrant {
 }
 
 relationship ManyToOne {
-    BesoinIntrant{client} to Client{besoinIntrants}
-    BesoinIntrant{cultureEsc} to Culture{besoinsIntrantsEsc}
-    BesoinIntrant{cultureGar} to Culture{besoinsIntrantsGar}
+    Transaction{client} to Client{transactions}
+    Transaction{vendeurID} to Utilisateur{transactions}
 }
 
-entity BesoinEngrais {
-    qEngrais Double required
-    pTotEngr Double required
+entity Vente {
+	venteID Integer required
+    localID Integer required
+    remoteID Integer required
+    quantite Double required
+    prixVente Double required
+    margeVente Double required
     creeLe Instant
     creePar String
     modifLe Instant
@@ -204,28 +189,8 @@ entity BesoinEngrais {
 }
 
 relationship ManyToOne {
-    BesoinEngrais{besoinIntrant} to BesoinIntrant{besoinEngrais}
-    BesoinEngrais{engrais} to Engrais{besoinEngrais}
-}
-
-entity SuiviChamps {
-	suiviID Integer required
-   	dVisit Instant required
-    emplac String required maxlength(50)
-    obsAgent String maxlength(1000)
-    obsRes String maxlength(2000)
-    dosImg String maxlength(200)
-    estActif Boolean 
-    creeLe Instant
-    creePar String
-    modifLe Instant
-    modifPar String
-}
-
-relationship ManyToOne {
-	SuiviChamps{client} to Client{suiviChamps}
-    SuiviChamps{utilisateur} to Utilisateur{suiviChamps}
-    SuiviChamps{commune} to Commune{suiviChamps}
+    Vente{transaction} to Transaction{ventes}
+    Vente{article} to Article{ventes}
 }
 
 enum Genre {
@@ -233,7 +198,7 @@ enum Genre {
 }
 
 // Set pagination options
-paginate Client, BesoinIntrant, SuiviChamps, BesoinEngrais, Utilisateur with infinite-scroll
+paginate Client, Transaction, Vente, Utilisateur with infinite-scroll
 
 dto * with mapstruct
 

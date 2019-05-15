@@ -1,5 +1,6 @@
 package fr.yolse.app.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
@@ -78,17 +79,8 @@ public class Utilisateur implements Serializable {
     @Column(name = "num_carte_uti", length = 20, nullable = false)
     private String numCarteUti;
 
-    @Column(name = "nom_pap")
-    private String nomPAP;
-
-    @Column(name = "prenom_pap")
-    private String prenomPAP;
-
-    @Column(name = "tel_pap")
-    private String telPAP;
-
-    @Column(name = "lien_pap")
-    private String lienPAP;
+    @Column(name = "date_carte_uti")
+    private Instant dateCarteUti;
 
     @Column(name = "est_actif")
     private Boolean estActif;
@@ -114,24 +106,24 @@ public class Utilisateur implements Serializable {
     private Commune commune;
 
     @ManyToOne
-    @JsonIgnoreProperties("agents")
+    @JsonIgnoreProperties("employes")
     private Utilisateur responsable;
 
     @OneToMany(mappedBy = "responsable")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Utilisateur> agents = new HashSet<>();
+    private Set<Utilisateur> employes = new HashSet<>();
 
     @OneToMany(mappedBy = "utilisateur")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<UtiProfile> profiles = new HashSet<>();
 
-    @OneToMany(mappedBy = "utilisateur")
+    @OneToMany(mappedBy = "commercial")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Client> clients = new HashSet<>();
 
-    @OneToMany(mappedBy = "utilisateur")
+    @OneToMany(mappedBy = "vendeurID")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<SuiviChamps> suiviChamps = new HashSet<>();
+    private Set<Transaction> transactions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -272,56 +264,17 @@ public class Utilisateur implements Serializable {
         this.numCarteUti = numCarteUti;
     }
 
-    public String getNomPAP() {
-        return nomPAP;
+    public Instant getDateCarteUti() {
+        return dateCarteUti;
     }
 
-    public Utilisateur nomPAP(String nomPAP) {
-        this.nomPAP = nomPAP;
+    public Utilisateur dateCarteUti(Instant dateCarteUti) {
+        this.dateCarteUti = dateCarteUti;
         return this;
     }
 
-    public void setNomPAP(String nomPAP) {
-        this.nomPAP = nomPAP;
-    }
-
-    public String getPrenomPAP() {
-        return prenomPAP;
-    }
-
-    public Utilisateur prenomPAP(String prenomPAP) {
-        this.prenomPAP = prenomPAP;
-        return this;
-    }
-
-    public void setPrenomPAP(String prenomPAP) {
-        this.prenomPAP = prenomPAP;
-    }
-
-    public String getTelPAP() {
-        return telPAP;
-    }
-
-    public Utilisateur telPAP(String telPAP) {
-        this.telPAP = telPAP;
-        return this;
-    }
-
-    public void setTelPAP(String telPAP) {
-        this.telPAP = telPAP;
-    }
-
-    public String getLienPAP() {
-        return lienPAP;
-    }
-
-    public Utilisateur lienPAP(String lienPAP) {
-        this.lienPAP = lienPAP;
-        return this;
-    }
-
-    public void setLienPAP(String lienPAP) {
-        this.lienPAP = lienPAP;
+    public void setDateCarteUti(Instant dateCarteUti) {
+        this.dateCarteUti = dateCarteUti;
     }
 
     public Boolean isEstActif() {
@@ -428,29 +381,29 @@ public class Utilisateur implements Serializable {
         this.responsable = utilisateur;
     }
 
-    public Set<Utilisateur> getAgents() {
-        return agents;
+    public Set<Utilisateur> getEmployes() {
+        return employes;
     }
 
-    public Utilisateur agents(Set<Utilisateur> utilisateurs) {
-        this.agents = utilisateurs;
+    public Utilisateur employes(Set<Utilisateur> utilisateurs) {
+        this.employes = utilisateurs;
         return this;
     }
 
-    public Utilisateur addAgents(Utilisateur utilisateur) {
-        this.agents.add(utilisateur);
+    public Utilisateur addEmployes(Utilisateur utilisateur) {
+        this.employes.add(utilisateur);
         utilisateur.setResponsable(this);
         return this;
     }
 
-    public Utilisateur removeAgents(Utilisateur utilisateur) {
-        this.agents.remove(utilisateur);
+    public Utilisateur removeEmployes(Utilisateur utilisateur) {
+        this.employes.remove(utilisateur);
         utilisateur.setResponsable(null);
         return this;
     }
 
-    public void setAgents(Set<Utilisateur> utilisateurs) {
-        this.agents = utilisateurs;
+    public void setEmployes(Set<Utilisateur> utilisateurs) {
+        this.employes = utilisateurs;
     }
 
     public Set<UtiProfile> getProfiles() {
@@ -489,13 +442,13 @@ public class Utilisateur implements Serializable {
 
     public Utilisateur addClients(Client client) {
         this.clients.add(client);
-        client.setUtilisateur(this);
+        client.setCommercial(this);
         return this;
     }
 
     public Utilisateur removeClients(Client client) {
         this.clients.remove(client);
-        client.setUtilisateur(null);
+        client.setCommercial(null);
         return this;
     }
 
@@ -503,29 +456,29 @@ public class Utilisateur implements Serializable {
         this.clients = clients;
     }
 
-    public Set<SuiviChamps> getSuiviChamps() {
-        return suiviChamps;
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public Utilisateur suiviChamps(Set<SuiviChamps> suiviChamps) {
-        this.suiviChamps = suiviChamps;
+    public Utilisateur transactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
         return this;
     }
 
-    public Utilisateur addSuiviChamps(SuiviChamps suiviChamps) {
-        this.suiviChamps.add(suiviChamps);
-        suiviChamps.setUtilisateur(this);
+    public Utilisateur addTransactions(Transaction transaction) {
+        this.transactions.add(transaction);
+        transaction.setVendeurID(this);
         return this;
     }
 
-    public Utilisateur removeSuiviChamps(SuiviChamps suiviChamps) {
-        this.suiviChamps.remove(suiviChamps);
-        suiviChamps.setUtilisateur(null);
+    public Utilisateur removeTransactions(Transaction transaction) {
+        this.transactions.remove(transaction);
+        transaction.setVendeurID(null);
         return this;
     }
 
-    public void setSuiviChamps(Set<SuiviChamps> suiviChamps) {
-        this.suiviChamps = suiviChamps;
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -534,19 +487,15 @@ public class Utilisateur implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Utilisateur)) {
             return false;
         }
-        Utilisateur utilisateur = (Utilisateur) o;
-        if (utilisateur.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), utilisateur.getId());
+        return id != null && id.equals(((Utilisateur) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override
@@ -563,10 +512,7 @@ public class Utilisateur implements Serializable {
             ", tel='" + getTel() + "'" +
             ", email='" + getEmail() + "'" +
             ", numCarteUti='" + getNumCarteUti() + "'" +
-            ", nomPAP='" + getNomPAP() + "'" +
-            ", prenomPAP='" + getPrenomPAP() + "'" +
-            ", telPAP='" + getTelPAP() + "'" +
-            ", lienPAP='" + getLienPAP() + "'" +
+            ", dateCarteUti='" + getDateCarteUti() + "'" +
             ", estActif='" + isEstActif() + "'" +
             ", creeLe='" + getCreeLe() + "'" +
             ", creePar='" + getCreePar() + "'" +

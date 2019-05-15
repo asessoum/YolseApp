@@ -1,90 +1,150 @@
 /* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { take, map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { ReferenceMySuffixService } from 'app/entities/reference-my-suffix/reference-my-suffix.service';
-import { ReferenceMySuffix } from 'app/shared/model/reference-my-suffix.model';
-import { SERVER_API_URL } from 'app/app.constants';
+import { IReferenceMySuffix, ReferenceMySuffix } from 'app/shared/model/reference-my-suffix.model';
 
 describe('Service Tests', () => {
     describe('ReferenceMySuffix Service', () => {
         let injector: TestBed;
         let service: ReferenceMySuffixService;
         let httpMock: HttpTestingController;
-
+        let elemDefault: IReferenceMySuffix;
+        let expectedResult;
+        let currentDate: moment.Moment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
             });
+            expectedResult = {};
             injector = getTestBed();
             service = injector.get(ReferenceMySuffixService);
             httpMock = injector.get(HttpTestingController);
+            currentDate = moment();
+
+            elemDefault = new ReferenceMySuffix(0, 0, 'AAAAAAA', 'AAAAAAA', false, currentDate, 'AAAAAAA', currentDate, 'AAAAAAA');
         });
 
         describe('Service methods', () => {
-            it('should call correct URL', () => {
-                service.find(123).subscribe(() => {});
+            it('should find an element', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        creeLe: currentDate.format(DATE_TIME_FORMAT),
+                        modifLe: currentDate.format(DATE_TIME_FORMAT)
+                    },
+                    elemDefault
+                );
+                service
+                    .find(123)
+                    .pipe(take(1))
+                    .subscribe(resp => (expectedResult = resp));
 
                 const req = httpMock.expectOne({ method: 'GET' });
-
-                const resourceUrl = SERVER_API_URL + 'api/references';
-                expect(req.request.url).toEqual(resourceUrl + '/' + 123);
+                req.flush(returnedFromService);
+                expect(expectedResult).toMatchObject({ body: elemDefault });
             });
 
-            it('should create a ReferenceMySuffix', () => {
-                service.create(new ReferenceMySuffix(null)).subscribe(received => {
-                    expect(received.body.id).toEqual(null);
-                });
-
+            it('should create a ReferenceMySuffix', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        id: 0,
+                        creeLe: currentDate.format(DATE_TIME_FORMAT),
+                        modifLe: currentDate.format(DATE_TIME_FORMAT)
+                    },
+                    elemDefault
+                );
+                const expected = Object.assign(
+                    {
+                        creeLe: currentDate,
+                        modifLe: currentDate
+                    },
+                    returnedFromService
+                );
+                service
+                    .create(new ReferenceMySuffix(null))
+                    .pipe(take(1))
+                    .subscribe(resp => (expectedResult = resp));
                 const req = httpMock.expectOne({ method: 'POST' });
-                req.flush({ id: null });
+                req.flush(returnedFromService);
+                expect(expectedResult).toMatchObject({ body: expected });
             });
 
-            it('should update a ReferenceMySuffix', () => {
-                service.update(new ReferenceMySuffix(123)).subscribe(received => {
-                    expect(received.body.id).toEqual(123);
-                });
+            it('should update a ReferenceMySuffix', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        idRef: 1,
+                        libelleRef: 'BBBBBB',
+                        valeurRef: 'BBBBBB',
+                        estActif: true,
+                        creeLe: currentDate.format(DATE_TIME_FORMAT),
+                        creePar: 'BBBBBB',
+                        modifLe: currentDate.format(DATE_TIME_FORMAT),
+                        modifPar: 'BBBBBB'
+                    },
+                    elemDefault
+                );
 
+                const expected = Object.assign(
+                    {
+                        creeLe: currentDate,
+                        modifLe: currentDate
+                    },
+                    returnedFromService
+                );
+                service
+                    .update(expected)
+                    .pipe(take(1))
+                    .subscribe(resp => (expectedResult = resp));
                 const req = httpMock.expectOne({ method: 'PUT' });
-                req.flush({ id: 123 });
+                req.flush(returnedFromService);
+                expect(expectedResult).toMatchObject({ body: expected });
             });
 
-            it('should return a ReferenceMySuffix', () => {
-                service.find(123).subscribe(received => {
-                    expect(received.body.id).toEqual(123);
-                });
-
+            it('should return a list of ReferenceMySuffix', async () => {
+                const returnedFromService = Object.assign(
+                    {
+                        idRef: 1,
+                        libelleRef: 'BBBBBB',
+                        valeurRef: 'BBBBBB',
+                        estActif: true,
+                        creeLe: currentDate.format(DATE_TIME_FORMAT),
+                        creePar: 'BBBBBB',
+                        modifLe: currentDate.format(DATE_TIME_FORMAT),
+                        modifPar: 'BBBBBB'
+                    },
+                    elemDefault
+                );
+                const expected = Object.assign(
+                    {
+                        creeLe: currentDate,
+                        modifLe: currentDate
+                    },
+                    returnedFromService
+                );
+                service
+                    .query(expected)
+                    .pipe(
+                        take(1),
+                        map(resp => resp.body)
+                    )
+                    .subscribe(body => (expectedResult = body));
                 const req = httpMock.expectOne({ method: 'GET' });
-                req.flush({ id: 123 });
+                req.flush([returnedFromService]);
+                httpMock.verify();
+                expect(expectedResult).toContainEqual(expected);
             });
 
-            it('should return a list of ReferenceMySuffix', () => {
-                service.query(null).subscribe(received => {
-                    expect(received.body[0].id).toEqual(123);
-                });
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush([new ReferenceMySuffix(123)]);
-            });
-
-            it('should delete a ReferenceMySuffix', () => {
-                service.delete(123).subscribe(received => {
-                    expect(received.url).toContain('/' + 123);
-                });
+            it('should delete a ReferenceMySuffix', async () => {
+                const rxPromise = service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
                 const req = httpMock.expectOne({ method: 'DELETE' });
-                req.flush(null);
-            });
-
-            it('should propagate not found response', () => {
-                service.find(123).subscribe(null, (_error: any) => {
-                    expect(_error.status).toEqual(404);
-                });
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush('Invalid request parameters', {
-                    status: 404,
-                    statusText: 'Bad Request'
-                });
+                req.flush({ status: 200 });
+                expect(expectedResult);
             });
         });
 
